@@ -13,9 +13,10 @@ const LandingPage: React.FC = () => {
             {/* Hero Section */}
             <section className="relative text-center py-20 md:py-32">
                 <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-10" 
-                    style={{backgroundImage: `url('https://picsum.photos/1920/1080?grayscale&blur=2&random=1')`}}>
+                    className="absolute inset-0 bg-cover bg-center" 
+                    style={{backgroundImage: `url('https://storage.googleapis.com/aai-web-samples/poker-game.jpg')`}}>
                 </div>
+                <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm"></div>
                 <div className="container mx-auto px-6 relative">
                     <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 animate-fade-in-down">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-fuchsia-500">AZ Poker</span>
@@ -44,6 +45,31 @@ const LandingPage: React.FC = () => {
                 </div>
             </section>
             
+            {/* Comunidad Section */}
+            <section id="comunidad" className="container mx-auto px-6">
+                <div className="bg-slate-800/50 p-8 md:p-12 rounded-xl border border-slate-700 text-center shadow-lg">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">Únete a Nuestra Comunidad de Estudio</h2>
+                    <p className="max-w-3xl mx-auto text-slate-300 text-lg leading-relaxed">
+                        En <strong>AZ Poker</strong>, somos más que un grupo de póker: somos una comunidad apasionada por el juego, donde jugadores como tú intercambian ideas, estrategias y experiencias para subir de nivel juntos. Rodéate de personas que comparten tus hábitos y te inspiran a alcanzar los stakes que sueñas. ¡Estudia con nosotros y lleva tu juego al siguiente nivel!
+                    </p>
+                </div>
+            </section>
+
+            {/* Revision Gratuita Section */}
+            <section id="revision" className="container mx-auto px-6 text-center">
+                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">Revisión Gratuita de tu Base de Datos</h2>
+                 <p className="max-w-3xl mx-auto text-slate-300 mb-8 text-lg leading-relaxed">
+                    ¿Quieres mejorar tu juego? Envíanos tu historial de manos o cuéntanos sobre tu situación actual, y te mandaremos un video de 10 minutos con consejos personalizados para optimizar tu estrategia, ¡completamente gratis!
+                </p>
+                <Button 
+                    href="https://wa.me/+5491144342188?text=Hola!%20Quisiera%20solicitar%20mi%20revisi%C3%B3n%20gratuita%20de%20base%20de%20datos." 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="primary">
+                    Solicita tu Revisión Gratuita
+                </Button>
+            </section>
+
             {/* Como Funciona Section */}
             <section id="como-funciona" className="container mx-auto px-6 text-center">
                  <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Cómo Empezar</h2>
@@ -61,7 +87,7 @@ const LandingPage: React.FC = () => {
             <section id="videos" className="container mx-auto px-6">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Nuestra Biblioteca de Videos</h2>
                 <p className="text-center text-slate-300 mb-12 max-w-2xl mx-auto">Descubre estrategias, análisis de manos y tips para mejorar tu juego en nuestro canal de Vimeo.</p>
-                <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-2xl shadow-violet-900/30 max-w-4xl mx-auto">
+                <div className="aspect-video rounded-lg overflow-hidden shadow-2xl shadow-violet-900/30 max-w-4xl mx-auto">
                     <iframe src="https://player.vimeo.com/video/1109112913?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" className="w-full h-full" title="Seleccion de Mesas y GG Deep"></iframe>
                 </div>
                 <div className="text-center mt-8">
@@ -85,7 +111,7 @@ const LandingPage: React.FC = () => {
 
 
 const BenefitCard: React.FC<{ icon: string; title: string; description: string }> = ({ icon, title, description }) => (
-    <div className="bg-slate-800/50 p-8 rounded-xl border border-slate-700 shadow-lg hover:shadow-violet-500/20 hover:border-violet-500 transition-all duration-300 transform hover:-translate-y-2">
+    <div className="text-center bg-slate-800/50 p-8 rounded-xl border border-slate-700 shadow-lg hover:shadow-violet-500/20 hover:border-violet-500 transition-all duration-300 transform hover:-translate-y-2">
         <div className="text-4xl mb-4">{icon}</div>
         <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
         <p className="text-slate-300">{description}</p>

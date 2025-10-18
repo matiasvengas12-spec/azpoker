@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 const Navbar: React.FC = () => {
     const activeLinkStyle = {
         color: '#a78bfa', // violet-400
-        textDecoration: 'underline',
     };
 
     return (
@@ -20,16 +19,26 @@ const Navbar: React.FC = () => {
                     <NavLink 
                         to="/" 
                         className="text-slate-300 hover:text-violet-400 transition-colors duration-300"
-                        style={({ isActive }) => isActive ? activeLinkStyle : undefined}
+                        style={({ isActive }) => isActive ? { ...activeLinkStyle, textDecoration: 'underline' } : undefined}
                     >
                         Inicio
                     </NavLink>
                     <NavLink 
                         to="/dashboard" 
                         className="text-slate-300 hover:text-violet-400 transition-colors duration-300"
-                        style={({ isActive }) => isActive ? activeLinkStyle : undefined}
+                        style={({ isActive }) => isActive ? { ...activeLinkStyle, textDecoration: 'underline' } : undefined}
                     >
                         Dashboard
+                    </NavLink>
+                    <NavLink 
+                        to="/profile" 
+                        className="text-slate-300 hover:text-violet-400 transition-colors duration-300"
+                        style={({ isActive }) => isActive ? activeLinkStyle : undefined}
+                        aria-label="Perfil"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                        </svg>
                     </NavLink>
                 </div>
             </nav>
