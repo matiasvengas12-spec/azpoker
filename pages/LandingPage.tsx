@@ -11,19 +11,19 @@ const LandingPage: React.FC = () => {
     return (
         <div className="space-y-24 md:space-y-32 overflow-x-hidden">
             {/* Hero Section */}
-            <section className="relative text-center py-20 md:py-32">
+            <section className="relative flex items-center justify-center text-center py-24 md:py-40">
                 <div 
                     className="absolute inset-0 bg-cover bg-center" 
-                    style={{backgroundImage: `url('https://storage.googleapis.com/aai-web-samples/poker-game.jpg')`}}>
+                    style={{backgroundImage: `url('/header.jpg')`}}>
                 </div>
                 <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm"></div>
-                <div className="container mx-auto px-6 relative">
+                <div className="container mx-auto px-6 relative max-w-3xl">
                     <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 animate-fade-in-down">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-fuchsia-500">AZ Poker</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-300 mb-8 animate-fade-in-up">Tu lugar en el mundo del Poker.</p>
                     <div className="flex justify-center space-x-4">
-                        <Button href="#como-funciona" variant="primary">Únete a la Comunidad</Button>
+                        <Button href="#contacto" variant="primary">Únete a la Comunidad</Button>
                     </div>
                 </div>
             </section>
