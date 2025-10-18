@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { courseContent } from '../constants';
-import type { ClassData, KeyLine, PokerHand } from '../constants';
+import type { ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
 
 // Helper function to format spot keys into readable names
 const getSpotName = (key: string): string => {
@@ -13,28 +13,25 @@ const getSpotName = (key: string): string => {
 const DashboardPage: React.FC = () => {
     const spotKeys = useMemo(() => Object.keys(courseContent), []);
     
-    // State for sidebar menu expansion
     const [expandedSpots, setExpandedSpots] = useState<Record<string, boolean>>({
         [spotKeys[0]]: true,
     });
 
-    // State for the currently selected class
+    const [selectedSpotKey, setSelectedSpotKey] = useState<string>(spotKeys[0]);
     const [selectedClass, setSelectedClass] = useState<ClassData | null>(
         courseContent[spotKeys[0]][0] || null
     );
 
-    // State for mobile menu visibility
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Toggle for sidebar sections
     const toggleSpot = (spotKey: string) => {
         setExpandedSpots(prev => ({ ...prev, [spotKey]: !prev[spotKey] }));
     };
     
-    // Handler to set the selected class and close mobile menu
-    const handleSelectClass = (classData: ClassData) => {
+    const handleSelectClass = (classData: ClassData, spotKey: string) => {
         setSelectedClass(classData);
-        if (window.innerWidth < 768) { // Only auto-close on mobile
+        setSelectedSpotKey(spotKey);
+        if (window.innerWidth < 768) {
             setIsMobileMenuOpen(false);
         }
     };
@@ -66,7 +63,7 @@ const DashboardPage: React.FC = () => {
                                     href="#"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        handleSelectClass(classItem);
+                                        handleSelectClass(classItem, spotKey);
                                     }}
                                     className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
                                         selectedClass?.id === classItem.id
@@ -91,7 +88,6 @@ const DashboardPage: React.FC = () => {
                 <p className="text-lg text-slate-300 mt-2">Tu centro de control para crecer en el poker.</p>
             </header>
 
-            {/* Mobile Menu Button */}
             <div className="md:hidden mb-4 sticky top-[88px] z-40">
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -113,13 +109,11 @@ const DashboardPage: React.FC = () => {
             </div>
             
             <div className="flex flex-col md:flex-row gap-8">
-                {/* Sidebar Navigation */}
                 <aside className={`hidden md:block w-full md:w-1/4 lg:w-1/5 bg-slate-800/50 p-4 rounded-lg border border-slate-700 self-start md:sticky md:top-24`}>
                     <h2 className="text-xl font-bold text-white mb-4 pl-2">Temario</h2>
                     {syllabusNavigation}
                 </aside>
 
-                {/* Main Content Area */}
                 <main className="w-full md:w-3/4 lg:w-4/5">
                     {selectedClass ? (
                         <div className="space-y-12">
@@ -160,6 +154,72 @@ const DashboardPage: React.FC = () => {
                                     </div>
                                 </section>
                             )}
+
+                            {(selectedClass.filters && selectedClass.filters.length > 0) || (selectedClass.tables && selectedClass.tables.length > 0) ? (
+                                <section>
+                                    <h3 className="text-2xl font-bold text-white mb-6 border-b-2 border-violet-500 pb-2">Material Extra</h3>
+                                    <div className="space-y-10">
+                                        {selectedClass.filters && selectedClass.filters.length > 0 && (
+                                            <div>
+                                                <h4 className="text-xl font-semibold text-slate-200 mb-4">Filtros</h4>
+                                                <p className="text-slate-300 mb-6">
+                                                    Filtros de "{getSpotName(selectedSpotKey)}". Acá podes encontrar filtros útiles para mejorar tu juego en el spot.
+                                                </p>
+                                                <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+                                                    <div className="overflow-x-auto">
+                                                        <table className="min-w-full">
+                                                            <thead className="bg-slate-900/50">
+                                                                <tr>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Nombre del Filtro</th>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Tracker</th>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Fecha</th>
+                                                                    <th scope="col" className="relative px-6 py-3">
+                                                                        <span className="sr-only">Descargar</span>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody className="divide-y divide-slate-700">
+                                                                {selectedClass.filters.map((filter, index) => (
+                                                                    <FilterRow key={index} filter={filter} />
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                        
+                                        {selectedClass.tables && selectedClass.tables.length > 0 && (
+                                            <div>
+                                                <h4 className="text-xl font-semibold text-slate-200 mb-4">Tablas Preflop</h4>
+                                                <p className="text-slate-300 mb-6">
+                                                    Tablas preflop de referencia para estudiar y aplicar en las mesas.
+                                                </p>
+                                                <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+                                                    <div className="overflow-x-auto">
+                                                        <table className="min-w-full">
+                                                            <thead className="bg-slate-900/50">
+                                                                <tr>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Nombre de la Tabla</th>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Fecha</th>
+                                                                    <th scope="col" className="relative px-6 py-3">
+                                                                        <span className="sr-only">Abrir</span>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody className="divide-y divide-slate-700">
+                                                                {selectedClass.tables.map((table, index) => (
+                                                                    <TableRow key={index} table={table} />
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </section>
+                            ) : null}
                         </div>
                     ) : (
                         <div className="text-center py-20 bg-slate-800/50 rounded-lg">
@@ -192,5 +252,59 @@ const HandCard: React.FC<{ hand: PokerHand }> = ({ hand }) => (
     </div>
 );
 
+const FilterRow: React.FC<{ filter: Filter }> = ({ filter }) => (
+    <tr className="hover:bg-slate-800 transition-colors">
+        <td className="px-6 py-4 whitespace-nowrap">
+            <div className="text-sm font-medium text-white">{filter.name}</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                filter.tracker === 'Poker Tracker' ? 'bg-red-900/50 text-red-300 border border-red-700/50' :
+                filter.tracker === 'Holdem Manager' ? 'bg-blue-900/50 text-blue-300 border border-blue-700/50' :
+                'bg-green-900/50 text-green-300 border border-green-700/50'
+            }`}>
+                {filter.tracker}
+            </span>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{filter.uploadDate}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <a 
+                href={filter.downloadLink} 
+                download 
+                className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors"
+                aria-label={`Descargar filtro ${filter.name}`}
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                <span>Descargar</span>
+            </a>
+        </td>
+    </tr>
+);
+
+const TableRow: React.FC<{ table: PreflopTable }> = ({ table }) => (
+    <tr className="hover:bg-slate-800 transition-colors">
+        <td className="px-6 py-4 whitespace-nowrap">
+            <div className="text-sm font-medium text-white">{table.name}</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{table.uploadDate}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <a 
+                href={table.link} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors"
+                aria-label={`Abrir tabla ${table.name}`}
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                </svg>
+                <span>Abrir</span>
+            </a>
+        </td>
+    </tr>
+);
 
 export default DashboardPage;
