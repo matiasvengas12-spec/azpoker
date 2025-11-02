@@ -22,8 +22,10 @@ export interface PreflopTable {
 }
 
 export interface ClassData {
+    id: string; // Asegúrate de que cada ClassData tenga un id único
     videoUrl: string; // Changed from 'id' to 'videoUrl' for Firebase Storage link    
     title: string;
+    uploadDate?: string; // Nuevo campo para ordenar por fecha
     keyLines: KeyLine[];
     hands: PokerHand[];
     filters?: Filter[];
@@ -32,20 +34,20 @@ export interface ClassData {
 
 export const getFeaturedVideos = (): { spotKey: string; classData: ClassData }[] => [
     {
-        spotKey: "juego-recreacionales",
-        classData: courseContent["juego-recreacionales"][0],
+        spotKey: "Juego vs Recres",
+        classData: courseContent["Juego vs Recres"][0],
     },
     {
-        spotKey: "bb-vs-btn",
-        classData: courseContent["bb-vs-btn"][0],
+        spotKey: "Live Sessions Micros",
+        classData: courseContent["Live Sessions Micros"][0],
     },
     {
         spotKey: "mindset",
         classData: courseContent["mindset"][0],
     },
     {
-        spotKey: "btn-vs-bb",
-        classData: courseContent["btn-vs-bb"][0],
+        spotKey: "Revision HUD",
+        classData: courseContent["Revision HUD"][0],
     },
 ];
 
@@ -54,10 +56,12 @@ export interface CourseContent {
 }
 
 export const courseContent: CourseContent = {
-    "juego-recreacionales": [
+    "Juego vs Recres": [
         {
+            id: "juego-recreacionales-1",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F9825%20revision%20recres.mkv?alt=media&token=3ed29495-96a6-4851-bbe3-a0e9760be7b9",
             title: "Max Value vs Recres",
+            uploadDate: "2025-09-21",
             keyLines: [
                 { title: "Identificar al 'Fish'", content: "Busca jugadores con VPIP alto (>40%) y PFR bajo (<10%). Son tu principal fuente de ingresos." },
                 { title: "Aislar, no multijugador", content: "Intenta jugar botes heads-up contra recreacionales. Sube preflop para aislar." },
@@ -75,8 +79,10 @@ export const courseContent: CourseContent = {
             ]
         },
         { 
+            id: "juego-donks",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Como jugar vs donks de recres", 
+            uploadDate: "2025-09-21",
             keyLines: [], 
             hands: [],
             filters: [
@@ -87,10 +93,12 @@ export const courseContent: CourseContent = {
             ]
         }
     ],
-    "btn-vs-bb": [
+    "Live Sessions Micros": [
         { 
+            id: "LiveACR2108",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Estrategia de Open Raise desde BTN", 
+            title: "Sesion NL10 ACR", 
+            uploadDate: "2025-08-21",
             keyLines: [], 
             hands: [],
             filters: [
@@ -101,8 +109,10 @@ export const courseContent: CourseContent = {
             ]
         },
         { 
+            id: "LiveStake2908",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Juego Postflop como Agresor", 
+            title: "Stake NL10 Live", 
+            uploadDate: "2025-08-25",
             keyLines: [], 
             hands: [],
             filters: [
@@ -113,10 +123,12 @@ export const courseContent: CourseContent = {
             ]
         },
     ],
-    "bb-vs-btn": [
+    "Revision HUD": [
         {
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961",
-            title: "Defensa de BB vs BTN Open",
+            id: "hudpiero",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
+            title: "Revision Piero",
+            uploadDate: "2025-09-21",
             keyLines: [
                 { title: "Rango de Defensa Amplio", content: "Desde la BB, defiende un rango muy amplio de manos contra un open de BTN, tanto con call como con 3-bet." },
                 { title: "Agresividad Postflop", content: "No seas pasivo postflop. Aprovecha para hacer check-raise en flops favorables a tu rango." }
@@ -135,103 +147,18 @@ export const courseContent: CourseContent = {
                 { name: "Tabla de Defensa de BB vs BTN (3-Bet)", uploadDate: "2024-07-13", link: "/tables/bb-def-3bet.pdf" }
             ]
         },
-        { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Estrategia de 3-Bet desde la Ciega Grande", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de 3-Bet de Farol", uploadDate: "2024-07-21", tracker: "Holdem Manager", downloadLink: "/filters/3bet-bluff.hm3filt" }
-            ],
-            tables: [
-                { name: "Tabla de 3-Bet por Valor y Farol", uploadDate: "2024-07-20", link: "/tables/3bet-ranges.pdf" }
-            ]
-        },
-        { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Juego Postflop en Guerra de Ciegas", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de Donk Bet", uploadDate: "2024-07-19", tracker: "Poker Tracker", downloadLink: "/filters/donk-bet.pt4filt" }
-            ],
-            tables: [
-                { name: "Estrategia de Check-Raise en Flops Húmedos", uploadDate: "2024-07-18", link: "/tables/check-raise-wet.pdf" }
-            ]
-        }
-    ],
-    "bb-vs-sb": [
-        { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Defensa de BB vs SB Open/Limp", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de Defensa vs Open de SB", uploadDate: "2024-07-21", tracker: "H2N", downloadLink: "/filters/bb-vs-sb-open.h2nfilt" }
-            ],
-            tables: [
-                { name: "Tabla de Defensa BB vs SB", uploadDate: "2024-07-20", link: "/tables/bb-vs-sb-def.pdf" }
-            ]
-        },
-    ],
-    "sb-vs-bb": [
-        { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Estrategia de Open Raise/Limp desde SB", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de ROL desde SB", uploadDate: "2024-07-21", tracker: "Holdem Manager", downloadLink: "/filters/sb-rol.hm3filt" }
-            ],
-            tables: [
-                { name: "Tabla de ROL/Limp desde SB", uploadDate: "2024-07-20", link: "/tables/sb-rol-limp.pdf" }
-            ]
-        },
-    ],
-    "ep-vs-bb": [
-        { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Defensa de BB vs Open de EP", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de Defensa vs EP", uploadDate: "2024-07-21", tracker: "Poker Tracker", downloadLink: "/filters/bb-vs-ep.pt4filt" }
-            ],
-            tables: [
-                { name: "Tabla de Defensa de BB vs EP/MP", uploadDate: "2024-07-20", link: "/tables/bb-vs-ep-mp-def.pdf" }
-            ]
-        },
-    ],
-    "3b-pot": [
-         { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Juego como Agresor en Botes 3-Beteados", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de C-Bet en 3BP", uploadDate: "2024-07-21", tracker: "H2N", downloadLink: "/filters/cbet-3bp.h2nfilt" }
-            ],
-            tables: [
-                { name: "Guía de C-Bet en Botes 3-Beteados", uploadDate: "2024-07-20", link: "/tables/cbet-3bp-guide.pdf" }
-            ]
-        },
-    ],
-    "call-3bp": [
-         { 
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            title: "Juego como Caller en Botes 3-Beteados", 
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de Fold a C-Bet en 3BP", uploadDate: "2024-07-21", tracker: "Holdem Manager", downloadLink: "/filters/fold-vs-cbet-3bp.hm3filt" }
-            ],
-            tables: [
-                { name: "Estrategia de Flotación en Botes 3BP", uploadDate: "2024-07-20", link: "/tables/float-3bp.pdf" }
-            ]
-        },
     ],
     "mindset": [
-        { videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", title: "Control del Tilt y Gestión Emocional", keyLines: [], hands: [] },
-        { videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", title: "Gestión de Bankroll", keyLines: [], hands: [] },
-    ]
+        { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", title: "Mira esto para salir de micros", uploadDate: "2025-10-21", keyLines: [], hands: [] },
+};
+
+// Últimos videos (ordenados por uploadDate, más recientes primero)
+export const getLatestVideos = (): { spotKey: string; classData: ClassData }[] => {
+    const allVideos = Object.entries(courseContent).flatMap(([spotKey, classes]) =>
+        classes.map(classData => ({ spotKey, classData }))
+    );
+    return allVideos
+        .filter(video => video.classData.uploadDate) // Asegurarse de que tengan uploadDate
+        .sort((a, b) => new Date(b.classData.uploadDate!).getTime() - new Date(a.classData.uploadDate!).getTime())
+        .slice(0, 4); // Tomar los 4 más recientes
 };
