@@ -87,8 +87,7 @@ const DashboardPage: React.FC = () => {
     return (
         <div className="container mx-auto px-6 pt-12">
             <header className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold text-white">Dashboard de Estudio</h1>
-                <p className="text-lg text-slate-300 mt-2">Tu centro de control para crecer en el poker.</p>
+                <h1 className="text-4xl md:text-5xl font-bold text-white">Clases y videos</h1>
             </header>
 
             {/* Carrusel de Últimos Videos */}
