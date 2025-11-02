@@ -128,7 +128,7 @@ export const courseContent: CourseContent = {
             ]
         },
     ],
-    "Revision HUD": [
+    "Revisiones alumnos": [
         {
             id: "hudpiero",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
