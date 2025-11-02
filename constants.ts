@@ -48,7 +48,7 @@ export const getFeaturedVideos = (): { spotKey: string; classData: ClassData }[]
     },
     {
         spotKey: "Revisiones Alumnos",
-        classData: courseContent["Revision Alumnos"][0],
+        classData: courseContent["Revisiones Alumnos"][0],
     },
 ];
 
