@@ -103,6 +103,10 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR", 
             uploadDate: "2025-08-21",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
         },
         { 
             id: "LiveStake2908",
@@ -110,6 +114,10 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Stake NL10 Live", 
             uploadDate: "2025-08-25",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
         },
        { 
             id: "LiveACR708",
@@ -117,6 +125,10 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR 7/8", 
             uploadDate: "2025-08-07",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
         },
         { 
             id: "LiveACR908",
@@ -124,6 +136,10 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR MAX Multitabling", 
             uploadDate: "2025-08-09",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
         },
     ],
     "Revisiones Alumnos": [
@@ -133,6 +149,10 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision HUD Piero",
             uploadDate: "2025-09-21",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
         },
         {
             id: "lucas20",
@@ -140,6 +160,10 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Lucas NL20",
             uploadDate: "2025-08-25",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
         },
     ],
     "mindset": [
