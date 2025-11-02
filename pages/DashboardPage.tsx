@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
+import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable, getLatestVideos } from '../constants';
 import Carousel from '../components/Carousel';
 
 // URL de la imagen de portada para todos los videos (reemplaza con tu URL de Firebase Storage)
-const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
+const VIDEO_POSTER_URL = 'https://firebasestorage.googleapis.com/v0/b/your-project-id.appspot.com/o/images/poster.jpg?alt=media&token=your-token';
 
 // Helper function to format spot keys into readable names
 const getSpotName = (key: string): string => {
@@ -91,7 +91,11 @@ const DashboardPage: React.FC = () => {
                 <p className="text-lg text-slate-300 mt-2">Tu centro de control para crecer en el poker.</p>
             </header>
 
-            <Carousel onSelectClass={handleSelectClass} />
+            {/* Carrusel de Últimos Videos */}
+            <Carousel onSelectClass={handleSelectClass} title="Últimos Videos" videos={getLatestVideos()} />
+
+            {/* Carrusel de Videos Destacados */}
+            <Carousel onSelectClass={handleSelectClass} title="Videos Destacados" />
 
             <div className="md:hidden mb-4 sticky top-[88px] z-40">
                 <button
@@ -180,9 +184,7 @@ const DashboardPage: React.FC = () => {
                                                             <thead className="bg-slate-900/50">
                                                                 <tr>
                                                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Nombre del Filtro</th>
-                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300
-
- uppercase tracking-wider">Tracker</th>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Tracker</th>
                                                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Fecha</th>
                                                                     <th scope="col" className="relative px-6 py-3">
                                                                         <span className="sr-only">Descargar</span>
