@@ -124,12 +124,18 @@ const DashboardPage: React.FC = () => {
                                 <h2 className="text-3xl font-bold text-white mb-6">{selectedClass.title}</h2>
                                 <div className="max-w-4xl mx-auto">
                                     <div className="aspect-video rounded-lg overflow-hidden shadow-2xl shadow-violet-900/30 border border-slate-700">
-                                        <video
-                                            src={selectedClass.videoUrl}
-                                            controls
-                                            className="w-full h-full"
-                                            title={selectedClass.title}
-                                        ></video>
+                                        {selectedClass.videoUrl ? (
+                                            <video
+                                                src={selectedClass.videoUrl}
+                                                poster={https://azpoker.netlify.app/logo.png} // Agregado el atributo poster
+                                                controls
+                                                className="w-full h-full"
+                                                title={selectedClass.title}
+                                                onError={() => console.error("Error loading video:", selectedClass.videoUrl)}
+                                            />
+                                        ) : (
+                                            <p className="text-red-400 text-center py-10">Error: No se encontró la URL del video.</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
