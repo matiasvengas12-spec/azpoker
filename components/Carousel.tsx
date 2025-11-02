@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { featuredVideos, ClassData } from '../constants';
+import { getFeaturedVideos, ClassData } from '../constants';
 
 interface CarouselProps {
     onSelectClass: (classData: ClassData, spotKey: string) => void;
@@ -7,7 +7,8 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsPerView = 3; // Adjust based on screen size in practice
+    const itemsPerView = 3;
+    const featuredVideos = getFeaturedVideos(); // Call the function
     const totalItems = featuredVideos.length;
 
     const handlePrev = () => {
@@ -17,6 +18,10 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
     const handleNext = () => {
         setCurrentIndex((prev) => (prev + itemsPerView >= totalItems ? 0 : prev + 1));
     };
+
+    if (!featuredVideos.length) {
+        return <p className="text-center text-red-400">No hay videos destacados disponibles.</p>;
+    }
 
     return (
         <div className="relative w-full mx-auto mb-12">
@@ -38,14 +43,23 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                                 aria-label={`Ver video: ${classData.title}`}
                             >
                                 <div className="aspect-video bg-slate-900">
-                                    {/* Replace with actual thumbnail if available */}
-                                    <video
-                                        src={classData.videoUrl}
-                                        className="w-full h-full object-cover"
-                                        muted
-                                        onMouseOver={(e) => e.currentTarget.play()}
-                                        onMouseOut={(e) => e.currentTarget.pause()}
-                                    />
+                                    {classData.thumbnailUrl ? (
+                                        <img
+                                            src={classData.thumbnailUrl}
+                                            alt={classData.title}
+                                            className="w-full h-full object-cover"
+                                            onError={() => console.error("Error loading thumbnail:", classData.thumbnailUrl)}
+                                        />
+                                    ) : (
+                                        <video
+                                            src={classData.videoUrl}
+                                            className="w-full h-full object-cover"
+                                            muted
+                                            onMouseOver={(e) => e.currentTarget.play()}
+                                            onMouseOut={(e) => e.currentTarget.pause()}
+                                            onError={() => console.error("Error loading video:", classData.videoUrl)}
+                                        />
+                                    )}
                                 </div>
                                 <div className="p-4">
                                     <h3 className="text-lg font-semibold text-white truncate">{classData.title}</h3>
@@ -56,7 +70,6 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                     ))}
                 </div>
             </div>
-            {/* Navigation Arrows */}
             {totalItems > itemsPerView && (
                 <>
                     <button
@@ -65,7 +78,7 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                         aria-label="Video anterior"
                     >
                         <svg
-                            xmlns="http://www.w3.org/2000/svg" // Fixed: Added equals sign
+                            xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6 text-white"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -80,7 +93,7 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                         aria-label="Video siguiente"
                     >
                         <svg
-                            xmlns="http://www.w3.org/2000/svg" // Fixed: Added equals sign
+                            xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6 text-white"
                             fill="none"
                             viewBox="0 0 24 24"
