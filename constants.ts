@@ -30,22 +30,22 @@ export interface ClassData {
     tables?: PreflopTable[];
 }
 
-export const featuredVideos: { spotKey: string; classData: ClassData }[] = [
+export const getFeaturedVideos = (): { spotKey: string; classData: ClassData }[] => [
     {
         spotKey: "juego-recreacionales",
-        classData: courseContent["juego-recreacionales"][0], // Max Value vs Recres
+        classData: courseContent["juego-recreacionales"][0],
     },
     {
         spotKey: "bb-vs-btn",
-        classData: courseContent["bb-vs-btn"][0], // Defensa de BB vs BTN Open
+        classData: courseContent["bb-vs-btn"][0],
     },
     {
         spotKey: "mindset",
-        classData: courseContent["mindset"][0], // Control del Tilt y Gestión Emocional
+        classData: courseContent["mindset"][0],
     },
     {
         spotKey: "btn-vs-bb",
-        classData: courseContent["btn-vs-bb"][0], // Estrategia de Open Raise desde BTN
+        classData: courseContent["btn-vs-bb"][0],
     },
 ];
 
