@@ -150,6 +150,7 @@ export const courseContent: CourseContent = {
     ],
     "mindset": [
         { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", title: "Mira esto para salir de micros", uploadDate: "2025-10-21", keyLines: [], hands: [] },
+    ]
 };
 
 // Últimos videos (ordenados por uploadDate, más recientes primero)
