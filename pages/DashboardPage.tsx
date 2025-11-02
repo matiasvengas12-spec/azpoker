@@ -108,7 +108,7 @@ const DashboardPage: React.FC = () => {
                 )}
             </div>
             
-            <div className="flex flex-col md:flex-row gap-8">
+  <div className="flex flex-col md:flex-row gap-8">
                 <aside className={`hidden md:block w-full md:w-1/4 lg:w-1/5 bg-slate-800/50 p-4 rounded-lg border border-slate-700 self-start md:sticky md:top-24`}>
                     <h2 className="text-xl font-bold text-white mb-4 pl-2">Temario</h2>
                     {syllabusNavigation}
@@ -121,14 +121,12 @@ const DashboardPage: React.FC = () => {
                                 <h2 className="text-3xl font-bold text-white mb-6">{selectedClass.title}</h2>
                                 <div className="max-w-4xl mx-auto">
                                     <div className="aspect-video rounded-lg overflow-hidden shadow-2xl shadow-violet-900/30 border border-slate-700">
-                                        <iframe
-                                            src={`https://player.vimeo.com/video/${selectedClass.id}?badge=0&autopause=0&player_id=0&app_id=58479`}
-                                            frameBorder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowFullScreen
+                                        <video
+                                            src={selectedClass.videoUrl}
+                                            controls
                                             className="w-full h-full"
                                             title={selectedClass.title}
-                                        ></iframe>
+                                        ></video>
                                     </div>
                                 </div>
                             </div>
