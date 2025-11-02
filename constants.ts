@@ -39,8 +39,8 @@ export const getFeaturedVideos = (): { spotKey: string; classData: ClassData }[]
         classData: courseContent["Juego vs Recres"][0],
     },
     {
-        spotKey: "Live Sessions Micros",
-        classData: courseContent["Live Sessions Micros"][0],
+        spotKey: "Stake BR Challenge",
+        classData: courseContent["Stake BR Challenge"][0],
     },
     {
         spotKey: "mindset",
