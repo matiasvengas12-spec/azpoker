@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
                         className="text-slate-300 hover:text-violet-400 transition-colors duration-300"
                         style={({ isActive }) => isActive ? { ...activeLinkStyle, textDecoration: 'underline' } : undefined}
                     >
-                        Dashboard
+                        Videos
                     </NavLink>
                     <NavLink 
                         to="/profile" 
