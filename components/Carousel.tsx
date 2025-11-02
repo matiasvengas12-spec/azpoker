@@ -65,7 +65,7 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                         aria-label="Video anterior"
                     >
                         <svg
-                            xmlns "http://www.w3.org/2000/svg"
+                            xmlns="http://www.w3.org/2000/svg" // Fixed: Added equals sign
                             className="h-6 w-6 text-white"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                         aria-label="Video siguiente"
                     >
                         <svg
-                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns="http://www.w3.org/2000/svg" // Fixed: Added equals sign
                             className="h-6 w-6 text-white"
                             fill="none"
                             viewBox="0 0 24 24"
