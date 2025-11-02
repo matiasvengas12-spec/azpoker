@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { courseContent } from '../constants';
-import type { ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
+import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
+import Carousel from '../components/Carousel';
 
 // Helper function to format spot keys into readable names
 const getSpotName = (key: string): string => {
@@ -36,50 +36,50 @@ const DashboardPage: React.FC = () => {
         }
     };
 
-const syllabusNavigation = (
-    <nav className="space-y-2">
-        {spotKeys.map(spotKey => (
-            <div key={spotKey}>
-                <button 
-                    onClick={() => toggleSpot(spotKey)}
-                    className="w-full text-left flex justify-between items-center px-2 py-2 text-lg font-semibold text-slate-200 hover:bg-slate-700 rounded-md transition-colors"
-                    aria-expanded={!!expandedSpots[spotKey]}
-                >
-                    <span>{getSpotName(spotKey)}</span>
-                    <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        className={`h-5 w-5 transition-transform duration-300 ${expandedSpots[spotKey] ? 'rotate-180' : 'rotate-0'}`} 
-                        viewBox="0 0 20 20" 
-                        fill="currentColor"
+    const syllabusNavigation = (
+        <nav className="space-y-2">
+            {spotKeys.map(spotKey => (
+                <div key={spotKey}>
+                    <button 
+                        onClick={() => toggleSpot(spotKey)}
+                        className="w-full text-left flex justify-between items-center px-2 py-2 text-lg font-semibold text-slate-200 hover:bg-slate-700 rounded-md transition-colors"
+                        aria-expanded={!!expandedSpots[spotKey]}
                     >
-                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                </button>
-                {expandedSpots[spotKey] && (
-                    <div className="pl-4 mt-2 space-y-1 border-l-2 border-slate-600">
-                        {courseContent[spotKey].map(classItem => (
-                            <a
-                                key={classItem.id}
-                                href="#"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleSelectClass(classItem, spotKey);
-                                }}
-                                className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
-                                    selectedClass?.id === classItem.id
-                                        ? 'text-violet-400 font-semibold' // Changed bg-violet-600 to text-violet-400
-                                        : 'text-slate-300 hover:text-violet-400' // Removed hover:bg-slate-700
-                                }`}
-                            >
-                                {classItem.title}
-                            </a>
-                        ))}
-                    </div>
-                )}
-            </div>
-        ))}
-    </nav>
-);
+                        <span>{getSpotName(spotKey)}</span>
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className={`h-5 w-5 transition-transform duration-300 ${expandedSpots[spotKey] ? 'rotate-180' : 'rotate-0'}`} 
+                            viewBox="0 0 20 20" 
+                            fill="currentColor"
+                        >
+                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                    </button>
+                    {expandedSpots[spotKey] && (
+                        <div className="pl-4 mt-2 space-y-1 border-l-2 border-slate-600">
+                            {courseContent[spotKey].map(classItem => (
+                                <a
+                                    key={classItem.id}
+                                    href="#"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleSelectClass(classItem, spotKey);
+                                    }}
+                                    className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
+                                        selectedClass?.id === classItem.id
+                                            ? 'text-violet-400 font-semibold'
+                                            : 'text-slate-300 hover:text-violet-400'
+                                    }`}
+                                >
+                                    {classItem.title}
+                                </a>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            ))}
+        </nav>
+    );
 
     return (
         <div className="container mx-auto px-6 pt-12">
@@ -87,6 +87,9 @@ const syllabusNavigation = (
                 <h1 className="text-4xl md:text-5xl font-bold text-white">Dashboard de Estudio</h1>
                 <p className="text-lg text-slate-300 mt-2">Tu centro de control para crecer en el poker.</p>
             </header>
+
+            {/* Add Carousel Here */}
+            <Carousel onSelectClass={handleSelectClass} />
 
             <div className="md:hidden mb-4 sticky top-[88px] z-40">
                 <button
@@ -102,14 +105,14 @@ const syllabusNavigation = (
                     </svg>
                 </button>
                 {isMobileMenuOpen && (
-                     <div className="absolute top-full left-0 w-full mt-2 bg-slate-800 p-4 rounded-lg border border-slate-700 shadow-xl">
+                    <div className="absolute top-full left-0 w-full mt-2 p-4 rounded-lg border border-slate-700 shadow-xl">
                         {syllabusNavigation}
                     </div>
                 )}
             </div>
             
-  <div className="flex flex-col md:flex-row gap-8">
-                <aside className={`hidden md:block w-full md:w-1/4 lg:w-1/5 bg-slate-800/50 p-4 rounded-lg border border-slate-700 self-start md:sticky md:top-24`}>
+            <div className="flex flex-col md:flex-row gap-8">
+                <aside className={`hidden md:block w-full md:w-1/4 lg:w-1/5 p-4 rounded-lg border border-slate-700 self-start md:sticky md:top-24`}>
                     <h2 className="text-xl font-bold text-white mb-4 pl-2">Temario</h2>
                     {syllabusNavigation}
                 </aside>
