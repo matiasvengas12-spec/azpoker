@@ -3,7 +3,7 @@ import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable, get
 import Carousel from '../components/Carousel';
 
 // URL de la imagen de portada para todos los videos (reemplaza con tu URL de Firebase Storage)
-const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
+const VIDEO_POSTER_URL = 'https://firebasestorage.googleapis.com/v0/b/your-project-id.appspot.com/o/images/poster.jpg?alt=media&token=your-token';
 
 // Helper function to format spot keys into readable names
 const getSpotName = (key: string): string => {
@@ -111,7 +111,7 @@ const DashboardPage: React.FC = () => {
                     </svg>
                 </button>
                 {isMobileMenuOpen && (
-                    <div className="absolute top-full left-0 w-full mt-2 p-4 rounded-lg border border-slate-700 shadow-xl">
+                    <div className="absolute top-full left-0 w-full mt-2 p-4 rounded-lg border border-slate-700 bg-slate-900">
                         {syllabusNavigation}
                     </div>
                 )}
