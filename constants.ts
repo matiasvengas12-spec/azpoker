@@ -348,6 +348,28 @@ export const courseContent: CourseContent = {
             tables: []
         },
         {
+            id: "tomnl102oc",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%20210.mkv?alt=media&token=c98aa154-a6ef-41a3-9b28-a5b0119fb7d7",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Analisis sesion Tom NL10 2/10",
+            uploadDate: "2025-10-02",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
+            id: "tomnl102oc",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%202102.mkv?alt=media&token=892d4322-b869-4fa5-9516-ca23195c0139",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Analisis sesion Tom NL10 3/10",
+            uploadDate: "2025-10-03",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
             id: "tomnl1nov",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%20nov.mkv?alt=media&token=054ea848-1e2d-49b9-8118-b7229f7113a6",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
