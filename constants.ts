@@ -100,7 +100,7 @@ export const courseContent: CourseContent = {
         { 
             id: "LiveACR2108",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR", 
             uploadDate: "2025-08-21",
             keyLines: [], 
@@ -115,7 +115,7 @@ export const courseContent: CourseContent = {
         { 
             id: "LiveStake2908",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Stake NL10 Live", 
             uploadDate: "2025-08-25",
             keyLines: [], 
