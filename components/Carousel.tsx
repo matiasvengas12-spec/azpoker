@@ -3,13 +3,13 @@ import { getFeaturedVideos, getLatestVideos, ClassData } from '../constants';
 
 interface CarouselProps {
     onSelectClass: (classData: ClassData, spotKey: string) => void;
-    title: string; // Nuevo prop para el título
-    videos?: { spotKey: string; classData: ClassData }[]; // Videos opcionales, si no se pasan, usa getFeaturedVideos
+    title: string;
+    videos?: { spotKey: string; classData: ClassData }[];
 }
 
 const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getFeaturedVideos() }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsPerView = 3; // Mantiene 3 elementos por vista
+    const itemsPerView = 3;
     const totalItems = videos.length;
 
     const handlePrev = () => {
@@ -25,8 +25,8 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getF
     }
 
     return (
-        <div className="relative w-full mx-auto mb-8">
-            <h2 className="text-xl font-bold text-white mb-4 text-center">{title}</h2>
+        <div className="relative w-full mx-auto mb-6">
+            <h2 className="text-lg font-bold text-white mb-3 text-center">{title}</h2>
             <div className="overflow-hidden">
                 <div
                     className="flex transition-transform duration-500 ease-in-out"
@@ -34,13 +34,13 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getF
                 >
                     {videos.map(({ spotKey, classData }, index) => (
                         <div
-                            key={classData.id} // Usar id único
-                            className="flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 px-1" // Reducido el tamaño
+                            key={classData.id}
+                            className="flex-shrink-0 w-2/5 sm:w-1/4 md:w-1/6 px-1" // Tamaño aún más reducido
                             style={{ flexBasis: `${100 / itemsPerView}%` }}
                         >
                             <button
                                 onClick={() => onSelectClass(classData, spotKey)}
-                                className="w-full bg-slate-800 rounded-lg overflow-hidden shadow-md border border-slate-700 hover:border-violet-500 transition-all duration-300 hover:shadow-violet-500/20"
+                                className="w-full bg-slate-800 rounded-lg overflow-hidden shadow-sm border border-slate-700 hover:border-violet-500 transition-all duration-300 hover:shadow-violet-500/20"
                                 aria-label={`Ver video: ${classData.title}`}
                             >
                                 <div className="aspect-video bg-slate-900">
@@ -62,9 +62,14 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getF
                                         />
                                     )}
                                 </div>
-                                <div className="p-2"> {/* Reducido el padding */}
-                                    <h3 className="text-sm font-semibold text-white truncate">{classData.title}</h3> {/* Tamaño de texto reducido */}
-                                    <p className="text-xs text-slate-400">{spotKey.split('-').join(' ').toUpperCase()}</p> {/* Tamaño de texto reducido */}
+                                <div className="p-1.5">
+                                    <h3 className="text-xs font-semibold text-white truncate">{classData.title}</h3>
+                                    <p className="text-[10px] text-slate-400">{spotKey.split('-').join(' ').toUpperCase()}</p>
+                                    {classData.uploadDate && (
+                                        <p className="text-[10px] text-slate-500 mt-0.5">
+                                            Subido: {classData.uploadDate}
+                                        </p>
+                                    )}
                                 </div>
                             </button>
                         </div>
@@ -80,7 +85,7 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getF
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4 text-white" // Tamaño reducido
+                            className="h-3 w-3 text-white" // Tamaño aún más reducido
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -95,7 +100,7 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getF
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4 text-white" // Tamaño reducido
+                            className="h-3 w-3 text-white" // Tamaño aún más reducido
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
