@@ -2,6 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
 import Carousel from '../components/Carousel';
 
+// URL de la imagen de portada para todos los videos (reemplaza con tu URL de Firebase Storage)
+const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
+
 // Helper function to format spot keys into readable names
 const getSpotName = (key: string): string => {
     return key
@@ -88,7 +91,6 @@ const DashboardPage: React.FC = () => {
                 <p className="text-lg text-slate-300 mt-2">Tu centro de control para crecer en el poker.</p>
             </header>
 
-            {/* Add Carousel Here */}
             <Carousel onSelectClass={handleSelectClass} />
 
             <div className="md:hidden mb-4 sticky top-[88px] z-40">
@@ -127,7 +129,7 @@ const DashboardPage: React.FC = () => {
                                         {selectedClass.videoUrl ? (
                                             <video
                                                 src={selectedClass.videoUrl}
-                                                poster={https://azpoker.netlify.app/logo.png} // Agregado el atributo poster
+                                                poster={VIDEO_POSTER_URL}
                                                 controls
                                                 className="w-full h-full"
                                                 title={selectedClass.title}
@@ -178,7 +180,9 @@ const DashboardPage: React.FC = () => {
                                                             <thead className="bg-slate-900/50">
                                                                 <tr>
                                                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Nombre del Filtro</th>
-                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Tracker</th>
+                                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300
+
+ uppercase tracking-wider">Tracker</th>
                                                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Fecha</th>
                                                                     <th scope="col" className="relative px-6 py-3">
                                                                         <span className="sr-only">Descargar</span>
@@ -305,8 +309,8 @@ const TableRow: React.FC<{ table: PreflopTable }> = ({ table }) => (
                 aria-label={`Abrir tabla ${table.name}`}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
                 </svg>
                 <span>Abrir</span>
             </a>
