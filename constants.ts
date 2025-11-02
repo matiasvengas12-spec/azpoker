@@ -94,7 +94,7 @@ export const courseContent: CourseContent = {
             tables: [
                 { name: "Tabla de Squeeze vs Limpers", uploadDate: "2024-07-16", link: "/tables/squeeze.pdf" }
             ]
-        }
+        },
     ],
     "Live Sessions Micros": [
         { 
