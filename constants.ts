@@ -111,14 +111,35 @@ export const courseContent: CourseContent = {
             title: "Stake NL10 Live", 
             uploadDate: "2025-08-25",
         },
+       { 
+            id: "LiveACR708",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F7825%20acr10.mkv?alt=media&token=4dde4800-696a-4ca5-bc9e-1b6f4a84c272", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Sesion NL10 ACR 7/8", 
+            uploadDate: "2025-08-07",
+        },
+        { 
+            id: "LiveACR908",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fmaxtabling%2010%20acr.mkv?alt=media&token=b70ad546-8770-4fe0-af6d-506440ed682d", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Sesion NL10 ACR MAX Multitabling", 
+            uploadDate: "2025-08-09",
+        },
     ],
     "Revisiones Alumnos": [
         {
             id: "hudpiero",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
-            title: "Revision Piero",
+            title: "Revision HUD Piero",
             uploadDate: "2025-09-21",
+        },
+        {
+            id: "lucas20",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F8825%20lucas%20revision%20stake%2020.mkv?alt=media&token=809b4de9-d24d-4c76-9949-56015da31d0a",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Revision Lucas NL20",
+            uploadDate: "2025-08-25",
         },
     ],
     "mindset": [
