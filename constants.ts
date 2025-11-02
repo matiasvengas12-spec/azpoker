@@ -359,6 +359,41 @@ export const courseContent: CourseContent = {
             tables: []
         },
     ],
+        "Claves GGPOKER": [
+       { 
+            id: "clavegg1",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F101%20ggpoker%201.mkv?alt=media&token=39138722-ba34-4eea-a56f-4611f3792b5b", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Claves para ganar en gg 1", 
+            uploadDate: "2025-10-01",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+       { 
+            id: "clavegg2",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fggpoker%20select.mkv?alt=media&token=0f57d61a-4fde-460c-9bc9-b3047e56ed2e", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Seleccion de mesas en GGPOKER", 
+            uploadDate: "2025-10-02",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+               { 
+            id: "clavegg3",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fggpoker%202.mkv?alt=media&token=f1750d21-95ab-4919-96aa-d30826718f0a", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Claves para ganar en gg 3", 
+            uploadDate: "2025-10-03",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+    ],
     "mindset": [
         { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", thumbnailUrl: "https://i.gyazo.com/0aa8ee3e7435c06ff696de094ec8fb00.png", title: "Mira esto para salir de micros", uploadDate: "2025-11-1", keyLines: [], hands: [] },
     ]
