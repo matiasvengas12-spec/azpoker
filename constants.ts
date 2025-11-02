@@ -132,7 +132,7 @@ export const courseContent: CourseContent = {
         {
             id: "hudpiero",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
-            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Piero",
             uploadDate: "2025-09-21",
             keyLines: [
