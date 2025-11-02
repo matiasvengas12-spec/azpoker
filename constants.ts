@@ -103,14 +103,6 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR", 
             uploadDate: "2025-08-21",
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de ROL desde BTN", uploadDate: "2024-07-21", tracker: "Poker Tracker", downloadLink: "/filters/btn-rol.pt4filt" }
-            ],
-            tables: [
-                { name: "Tabla de Open Raise desde BTN", uploadDate: "2024-07-20", link: "/tables/btn-or.pdf" }
-            ]
         },
         { 
             id: "LiveStake2908",
@@ -118,14 +110,6 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Stake NL10 Live", 
             uploadDate: "2025-08-25",
-            keyLines: [], 
-            hands: [],
-            filters: [
-                { name: "Filtro de C-Bet Flop en SRP", uploadDate: "2024-07-19", tracker: "H2N", downloadLink: "/filters/cbet-srp.h2nfilt" }
-            ],
-            tables: [
-                { name: "Guía de Texturas de Flop", uploadDate: "2024-07-18", link: "/tables/flop-textures.pdf" }
-            ]
         },
     ],
     "Revisiones Alumnos": [
