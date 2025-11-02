@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { getFeaturedVideos, ClassData } from '../constants';
+import { getFeaturedVideos, getLatestVideos, ClassData } from '../constants';
 
 interface CarouselProps {
     onSelectClass: (classData: ClassData, spotKey: string) => void;
+    title: string; // Nuevo prop para el título
+    videos?: { spotKey: string; classData: ClassData }[]; // Videos opcionales, si no se pasan, usa getFeaturedVideos
 }
 
-const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
+const Carousel: React.FC<CarouselProps> = ({ onSelectClass, title, videos = getFeaturedVideos() }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsPerView = 3;
-    const featuredVideos = getFeaturedVideos(); // Call the function
-    const totalItems = featuredVideos.length;
+    const itemsPerView = 3; // Mantiene 3 elementos por vista
+    const totalItems = videos.length;
 
     const handlePrev = () => {
         setCurrentIndex((prev) => (prev === 0 ? totalItems - itemsPerView : prev - 1));
@@ -19,27 +20,27 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
         setCurrentIndex((prev) => (prev + itemsPerView >= totalItems ? 0 : prev + 1));
     };
 
-    if (!featuredVideos.length) {
-        return <p className="text-center text-red-400">No hay videos destacados disponibles.</p>;
+    if (!videos.length) {
+        return <p className="text-center text-red-400">No hay videos disponibles para {title.toLowerCase()}.</p>;
     }
 
     return (
-        <div className="relative w-full mx-auto mb-12">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Videos Destacados</h2>
+        <div className="relative w-full mx-auto mb-8">
+            <h2 className="text-xl font-bold text-white mb-4 text-center">{title}</h2>
             <div className="overflow-hidden">
                 <div
                     className="flex transition-transform duration-500 ease-in-out"
                     style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
                 >
-                    {featuredVideos.map(({ spotKey, classData }, index) => (
+                    {videos.map(({ spotKey, classData }, index) => (
                         <div
-                            key={index}
-                            className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 px-2"
+                            key={classData.id} // Usar id único
+                            className="flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 px-1" // Reducido el tamaño
                             style={{ flexBasis: `${100 / itemsPerView}%` }}
                         >
                             <button
                                 onClick={() => onSelectClass(classData, spotKey)}
-                                className="w-full bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-slate-700 hover:border-violet-500 transition-all duration-300 hover:shadow-violet-500/20"
+                                className="w-full bg-slate-800 rounded-lg overflow-hidden shadow-md border border-slate-700 hover:border-violet-500 transition-all duration-300 hover:shadow-violet-500/20"
                                 aria-label={`Ver video: ${classData.title}`}
                             >
                                 <div className="aspect-video bg-slate-900">
@@ -61,9 +62,9 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                                         />
                                     )}
                                 </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold text-white truncate">{classData.title}</h3>
-                                    <p className="text-sm text-slate-400">{spotKey.split('-').join(' ').toUpperCase()}</p>
+                                <div className="p-2"> {/* Reducido el padding */}
+                                    <h3 className="text-sm font-semibold text-white truncate">{classData.title}</h3> {/* Tamaño de texto reducido */}
+                                    <p className="text-xs text-slate-400">{spotKey.split('-').join(' ').toUpperCase()}</p> {/* Tamaño de texto reducido */}
                                 </div>
                             </button>
                         </div>
@@ -74,12 +75,12 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                 <>
                     <button
                         onClick={handlePrev}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 p-2 rounded-full border border-slate-700 hover:bg-violet-600 transition-colors"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 p-1 rounded-full border border-slate-700 hover:bg-violet-600 transition-colors"
                         aria-label="Video anterior"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 text-white"
+                            className="h-4 w-4 text-white" // Tamaño reducido
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -89,12 +90,12 @@ const Carousel: React.FC<CarouselProps> = ({ onSelectClass }) => {
                     </button>
                     <button
                         onClick={handleNext}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 p-2 rounded-full border border-slate-700 hover:bg-violet-600 transition-colors"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 p-1 rounded-full border border-slate-700 hover:bg-violet-600 transition-colors"
                         aria-label="Video siguiente"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 text-white"
+                            className="h-4 w-4 text-white" // Tamaño reducido
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
