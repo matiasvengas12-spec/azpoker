@@ -248,7 +248,7 @@ export const courseContent: CourseContent = {
             id: "revmanospiero7",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-10-25%2021-10-38.mkv?alt=media&token=3d2ca0d6-3c91-4e40-b586-c56e10257962",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
-            title: "Revision Blind Game 3",
+            title: "3BP OOP",
             uploadDate: "2025-10-25",
             keyLines: [], 
             hands: [],
