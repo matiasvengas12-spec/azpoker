@@ -38,7 +38,7 @@ export const courseContent: CourseContent = {
     "juego-recreacionales": [
         {
             id: "1109112913",
-            title: "Selección de Mesas y Estrategia Deep",
+            title: "Max Value vs Recres",
             keyLines: [
                 { title: "Identificar al 'Fish'", content: "Busca jugadores con VPIP alto (>40%) y PFR bajo (<10%). Son tu principal fuente de ingresos." },
                 { title: "Aislar, no multijugador", content: "Intenta jugar botes heads-up contra recreacionales. Sube preflop para aislar." },
@@ -75,7 +75,7 @@ export const courseContent: CourseContent = {
         },
         { 
             id: "867351508", 
-            title: "Explotando Errores Comunes de Amateurs", 
+            title: "Como jugar vs donks de recres", 
             keyLines: [], 
             hands: [],
             filters: [
