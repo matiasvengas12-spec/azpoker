@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
                 <div className="text-2xl font-bold text-white tracking-wider">
                     <NavLink to="/" className="flex items-center gap-3">
                         <img src="/logo.png" alt="AZ Poker Logo" className="h-10 w-10" />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-fuchsia-500">AZ Poker</span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-fuchsia-500 md:hidden">AZ Poker</span>
                     </NavLink>
                 </div>
                 <div className="flex items-center space-x-6 text-lg">
