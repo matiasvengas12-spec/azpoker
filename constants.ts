@@ -62,7 +62,7 @@ export const courseContent: CourseContent = {
             id: "juego-recreacionales-1",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F9825%20revision%20recres.mkv?alt=media&token=3ed29495-96a6-4851-bbe3-a0e9760be7b9",
             title: "Max Value vs Recres",
-            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
+            thumbnailUrl: "https://i.gyazo.com/671057d984b1a0a01705f3a47ffd0173.png",
             uploadDate: "2025-09-21",
             keyLines: [
                 { title: "Identificar al 'Fish'", content: "Busca jugadores con VPIP alto (>40%) y PFR bajo (<10%). Son tu principal fuente de ingresos." },
@@ -83,7 +83,7 @@ export const courseContent: CourseContent = {
         { 
             id: "juego-donks",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
-            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
+            thumbnailUrl: "https://i.gyazo.com/671057d984b1a0a01705f3a47ffd0173.png",
             title: "Como jugar vs donks de recres", 
             uploadDate: "2025-09-21",
             keyLines: [], 
