@@ -24,6 +24,7 @@ export interface PreflopTable {
 export interface ClassData {
     id: string; // Asegúrate de que cada ClassData tenga un id único
     videoUrl: string; // Changed from 'id' to 'videoUrl' for Firebase Storage link    
+    thumbnailUrl?: string;
     title: string;
     uploadDate?: string; // Nuevo campo para ordenar por fecha
     keyLines: KeyLine[];
@@ -61,6 +62,7 @@ export const courseContent: CourseContent = {
             id: "juego-recreacionales-1",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F9825%20revision%20recres.mkv?alt=media&token=3ed29495-96a6-4851-bbe3-a0e9760be7b9",
             title: "Max Value vs Recres",
+            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
             uploadDate: "2025-09-21",
             keyLines: [
                 { title: "Identificar al 'Fish'", content: "Busca jugadores con VPIP alto (>40%) y PFR bajo (<10%). Son tu principal fuente de ingresos." },
@@ -81,6 +83,7 @@ export const courseContent: CourseContent = {
         { 
             id: "juego-donks",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
+            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
             title: "Como jugar vs donks de recres", 
             uploadDate: "2025-09-21",
             keyLines: [], 
@@ -97,6 +100,7 @@ export const courseContent: CourseContent = {
         { 
             id: "LiveACR2108",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
+            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
             title: "Sesion NL10 ACR", 
             uploadDate: "2025-08-21",
             keyLines: [], 
@@ -111,6 +115,7 @@ export const courseContent: CourseContent = {
         { 
             id: "LiveStake2908",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
+            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
             title: "Stake NL10 Live", 
             uploadDate: "2025-08-25",
             keyLines: [], 
@@ -127,6 +132,7 @@ export const courseContent: CourseContent = {
         {
             id: "hudpiero",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
+            thumbnailUrl: "https://azpoker.netlify.app/logo.png",
             title: "Revision Piero",
             uploadDate: "2025-09-21",
             keyLines: [
@@ -149,7 +155,7 @@ export const courseContent: CourseContent = {
         },
     ],
     "mindset": [
-        { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", title: "Mira esto para salir de micros", uploadDate: "2025-10-21", keyLines: [], hands: [] },
+        { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", thumbnailUrl: "https://azpoker.netlify.app/logo.png", title: "Mira esto para salir de micros", uploadDate: "2025-10-21", keyLines: [], hands: [] },
     ]
 };
 
