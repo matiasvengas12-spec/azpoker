@@ -47,8 +47,8 @@ export const getFeaturedVideos = (): { spotKey: string; classData: ClassData }[]
         classData: courseContent["mindset"][0],
     },
     {
-        spotKey: "Revision HUD",
-        classData: courseContent["Revision HUD"][0],
+        spotKey: "Revisiones Alumnos",
+        classData: courseContent["Revision Alumnos"][0],
     },
 ];
 
@@ -128,7 +128,7 @@ export const courseContent: CourseContent = {
             ]
         },
     ],
-    "Revisiones alumnos": [
+    "Revisiones Alumnos": [
         {
             id: "hudpiero",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
