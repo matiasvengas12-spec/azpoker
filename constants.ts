@@ -135,23 +135,6 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Piero",
             uploadDate: "2025-09-21",
-            keyLines: [
-                { title: "Rango de Defensa Amplio", content: "Desde la BB, defiende un rango muy amplio de manos contra un open de BTN, tanto con call como con 3-bet." },
-                { title: "Agresividad Postflop", content: "No seas pasivo postflop. Aprovecha para hacer check-raise en flops favorables a tu rango." }
-            ],
-            hands: [
-                { hand: "K7s", description: "Análisis de un call en la BB y juego postflop en un board seco." },
-                { hand: "A5o", description: "Cuándo hacer 3-bet de farol y cómo continuar en diferentes texturas de flop." },
-            ],
-            filters: [
-                { name: "Filtro 3-Bet vs BTN", uploadDate: "2024-07-15", tracker: "Poker Tracker", downloadLink: "/filters/3bet-vs-btn.pt4filt" },
-                { name: "Filtro Check-Raise Flop", uploadDate: "2024-07-12", tracker: "Holdem Manager", downloadLink: "/filters/check-raise-flop.hm3filt" },
-                { name: "Filtro General de Defensa", uploadDate: "2024-07-10", tracker: "H2N", downloadLink: "/filters/defensa-general.h2nfilt" }
-            ],
-            tables: [
-                { name: "Tabla de Defensa de BB vs BTN (Call)", uploadDate: "2024-07-14", link: "/tables/bb-def-call.pdf" },
-                { name: "Tabla de Defensa de BB vs BTN (3-Bet)", uploadDate: "2024-07-13", link: "/tables/bb-def-3bet.pdf" }
-            ]
         },
     ],
     "mindset": [
