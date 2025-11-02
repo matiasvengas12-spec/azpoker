@@ -36,50 +36,50 @@ const DashboardPage: React.FC = () => {
         }
     };
 
-    const syllabusNavigation = (
-        <nav className="space-y-2">
-            {spotKeys.map(spotKey => (
-                <div key={spotKey}>
-                    <button 
-                        onClick={() => toggleSpot(spotKey)}
-                        className="w-full text-left flex justify-between items-center px-2 py-2 text-lg font-semibold text-slate-200 hover:bg-slate-700 rounded-md transition-colors"
-                        aria-expanded={!!expandedSpots[spotKey]}
+const syllabusNavigation = (
+    <nav className="space-y-2">
+        {spotKeys.map(spotKey => (
+            <div key={spotKey}>
+                <button 
+                    onClick={() => toggleSpot(spotKey)}
+                    className="w-full text-left flex justify-between items-center px-2 py-2 text-lg font-semibold text-slate-200 hover:bg-slate-700 rounded-md transition-colors"
+                    aria-expanded={!!expandedSpots[spotKey]}
+                >
+                    <span>{getSpotName(spotKey)}</span>
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        className={`h-5 w-5 transition-transform duration-300 ${expandedSpots[spotKey] ? 'rotate-180' : 'rotate-0'}`} 
+                        viewBox="0 0 20 20" 
+                        fill="currentColor"
                     >
-                        <span>{getSpotName(spotKey)}</span>
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className={`h-5 w-5 transition-transform duration-300 ${expandedSpots[spotKey] ? 'rotate-180' : 'rotate-0'}`} 
-                            viewBox="0 0 20 20" 
-                            fill="currentColor"
-                        >
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                    </button>
-                    {expandedSpots[spotKey] && (
-                        <div className="pl-4 mt-2 space-y-1 border-l-2 border-slate-600">
-                            {courseContent[spotKey].map(classItem => (
-                                <a
-                                    key={classItem.id}
-                                    href="#"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleSelectClass(classItem, spotKey);
-                                    }}
-                                    className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
-                                        selectedClass?.id === classItem.id
-                                            ? 'bg-violet-600 text-white font-semibold'
-                                            : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                                    }`}
-                                >
-                                    {classItem.title}
-                                </a>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            ))}
-        </nav>
-    );
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                </button>
+                {expandedSpots[spotKey] && (
+                    <div className="pl-4 mt-2 space-y-1 border-l-2 border-slate-600">
+                        {courseContent[spotKey].map(classItem => (
+                            <a
+                                key={classItem.id}
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleSelectClass(classItem, spotKey);
+                                }}
+                                className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
+                                    selectedClass?.id === classItem.id
+                                        ? 'text-violet-400 font-semibold' // Changed bg-violet-600 to text-violet-400
+                                        : 'text-slate-300 hover:text-violet-400' // Removed hover:bg-slate-700
+                                }`}
+                            >
+                                {classItem.title}
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </div>
+        ))}
+    </nav>
+);
 
     return (
         <div className="container mx-auto px-6 pt-12">
