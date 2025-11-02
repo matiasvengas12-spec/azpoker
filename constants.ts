@@ -55,24 +55,6 @@ export const courseContent: CourseContent = {
                 { name: "Tabla de ROL vs Recreacionales", uploadDate: "2024-07-20", link: "/tables/rol-vs-rec.pdf" }
             ]
         },
-        {
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961",
-            title: "Análisis de Manos vs Jugadores Recreacionales",
-            keyLines: [
-                { title: "Piensa en su Rango", content: "El rango de un recreacional es mucho más amplio y menos lógico. No asumas que piensan como tú." },
-                { title: "No Sobreestimes el Fold Equity", content: "Los jugadores recreacionales tienden a pagar de más. Prioriza el valor sobre el farol." }
-            ],
-            hands: [
-                { hand: "KQo", description: "Decisión en el turn con top pair top kicker frente a una donk bet." },
-                { hand: "77", description: "Set-mining: Cuándo pagar preflop para buscar un trío y cómo jugarlo postflop." },
-            ],
-            filters: [
-                { name: "Filtro de Stats Explotables (Recs)", uploadDate: "2024-07-19", tracker: "Poker Tracker", downloadLink: "/filters/rec-stats.pt4filt" }
-            ],
-            tables: [
-                { name: "Tabla de Aislamiento por Posición", uploadDate: "2024-07-18", link: "/tables/iso-raise.pdf" }
-            ]
-        },
         { 
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Como jugar vs donks de recres", 
