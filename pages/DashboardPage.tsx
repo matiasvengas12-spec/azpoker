@@ -3,7 +3,7 @@ import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable, get
 import Carousel from '../components/Carousel';
 
 // URL de la imagen de portada para todos los videos (reemplaza con tu URL de Firebase Storage)
-const VIDEO_POSTER_URL = 'https://firebasestorage.googleapis.com/v0/b/your-project-id.appspot.com/o/images/poster.jpg?alt=media&token=your-token';
+const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 
 // Helper function to format spot keys into readable names
 const getSpotName = (key: string): string => {
