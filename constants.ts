@@ -118,54 +118,6 @@ export const courseContent: CourseContent = {
             ]
         },
     ],
-    "Live Sessions ACR": [
-       { 
-            id: "LiveACR708",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F7825%20acr10.mkv?alt=media&token=4dde4800-696a-4ca5-bc9e-1b6f4a84c272", 
-            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
-            title: "Sesion NL10 ACR 7/8", 
-            uploadDate: "2025-08-07",
-            keyLines: [], 
-            hands: [],
-            filters: [],
-            tables: []
-        },
-        { 
-            id: "LiveACR908",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fmaxtabling%2010%20acr.mkv?alt=media&token=b70ad546-8770-4fe0-af6d-506440ed682d", 
-            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
-            title: "Sesion NL10 ACR MAX Multitabling", 
-            uploadDate: "2025-11-01",
-            keyLines: [], 
-            hands: [],
-            filters: [],
-            tables: []
-        },
-    ],
-        "Stake BR Challenge": [
-       { 
-            id: "stakenl2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fchallenge%20stake%20nl10.mkv?alt=media&token=0d5d5721-a5a5-4e39-9b96-bcef4f129bc2", 
-            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
-            title: "BR challenge desde $50", 
-            uploadDate: "2025-08-22",
-            keyLines: [], 
-            hands: [],
-            filters: [],
-            tables: []
-        },
-        { 
-            id: "stakebr2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fchallenge%202%20228.mkv?alt=media&token=dc7e6893-2a4e-4111-acb8-87f7826a81d4", 
-            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
-            title: "BR challenge desde $50 (2)", 
-            uploadDate: "2025-08-23",
-            keyLines: [], 
-            hands: [],
-            filters: [],
-            tables: []
-        },
-    ],
     "Revisiones Piero": [
         {
             id: "hudpiero",
@@ -410,6 +362,54 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Claves para ganar en gg 3", 
             uploadDate: "2025-10-03",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+    ],
+        "Live Sessions ACR": [
+       { 
+            id: "LiveACR708",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F7825%20acr10.mkv?alt=media&token=4dde4800-696a-4ca5-bc9e-1b6f4a84c272", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Sesion NL10 ACR 7/8", 
+            uploadDate: "2025-08-07",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        { 
+            id: "LiveACR908",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fmaxtabling%2010%20acr.mkv?alt=media&token=b70ad546-8770-4fe0-af6d-506440ed682d", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Sesion NL10 ACR MAX Multitabling", 
+            uploadDate: "2025-11-01",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+    ],
+        "Stake BR Challenge": [
+       { 
+            id: "stakenl2",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fchallenge%20stake%20nl10.mkv?alt=media&token=0d5d5721-a5a5-4e39-9b96-bcef4f129bc2", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "BR challenge desde $50", 
+            uploadDate: "2025-08-22",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        { 
+            id: "stakebr2",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fchallenge%202%20228.mkv?alt=media&token=dc7e6893-2a4e-4111-acb8-87f7826a81d4", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "BR challenge desde $50 (2)", 
+            uploadDate: "2025-08-23",
             keyLines: [], 
             hands: [],
             filters: [],
