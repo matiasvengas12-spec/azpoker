@@ -22,7 +22,7 @@ export interface PreflopTable {
 }
 
 export interface ClassData {
-    id: string; // Vimeo video ID
+    videoUrl: string; // Changed from 'id' to 'videoUrl' for Firebase Storage link    
     title: string;
     keyLines: KeyLine[];
     hands: PokerHand[];
@@ -37,7 +37,7 @@ export interface CourseContent {
 export const courseContent: CourseContent = {
     "juego-recreacionales": [
         {
-            id: "1109112913",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F9825%20revision%20recres.mkv?alt=media&token=3ed29495-96a6-4851-bbe3-a0e9760be7b9",
             title: "Max Value vs Recres",
             keyLines: [
                 { title: "Identificar al 'Fish'", content: "Busca jugadores con VPIP alto (>40%) y PFR bajo (<10%). Son tu principal fuente de ingresos." },
@@ -56,7 +56,7 @@ export const courseContent: CourseContent = {
             ]
         },
         {
-            id: "917120030",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961",
             title: "Análisis de Manos vs Jugadores Recreacionales",
             keyLines: [
                 { title: "Piensa en su Rango", content: "El rango de un recreacional es mucho más amplio y menos lógico. No asumas que piensan como tú." },
@@ -74,7 +74,7 @@ export const courseContent: CourseContent = {
             ]
         },
         { 
-            id: "867351508", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Como jugar vs donks de recres", 
             keyLines: [], 
             hands: [],
@@ -88,7 +88,7 @@ export const courseContent: CourseContent = {
     ],
     "btn-vs-bb": [
         { 
-            id: "100000001", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Estrategia de Open Raise desde BTN", 
             keyLines: [], 
             hands: [],
@@ -100,7 +100,7 @@ export const courseContent: CourseContent = {
             ]
         },
         { 
-            id: "100000002", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Juego Postflop como Agresor", 
             keyLines: [], 
             hands: [],
@@ -114,7 +114,7 @@ export const courseContent: CourseContent = {
     ],
     "bb-vs-btn": [
         {
-            id: "885996089",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961",
             title: "Defensa de BB vs BTN Open",
             keyLines: [
                 { title: "Rango de Defensa Amplio", content: "Desde la BB, defiende un rango muy amplio de manos contra un open de BTN, tanto con call como con 3-bet." },
@@ -135,7 +135,7 @@ export const courseContent: CourseContent = {
             ]
         },
         { 
-            id: "76979871", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Estrategia de 3-Bet desde la Ciega Grande", 
             keyLines: [], 
             hands: [],
@@ -147,7 +147,7 @@ export const courseContent: CourseContent = {
             ]
         },
         { 
-            id: "92117122", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Juego Postflop en Guerra de Ciegas", 
             keyLines: [], 
             hands: [],
@@ -161,7 +161,7 @@ export const courseContent: CourseContent = {
     ],
     "bb-vs-sb": [
         { 
-            id: "200000001", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Defensa de BB vs SB Open/Limp", 
             keyLines: [], 
             hands: [],
@@ -175,7 +175,7 @@ export const courseContent: CourseContent = {
     ],
     "sb-vs-bb": [
         { 
-            id: "300000001", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Estrategia de Open Raise/Limp desde SB", 
             keyLines: [], 
             hands: [],
@@ -189,7 +189,7 @@ export const courseContent: CourseContent = {
     ],
     "ep-vs-bb": [
         { 
-            id: "400000001", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Defensa de BB vs Open de EP", 
             keyLines: [], 
             hands: [],
@@ -203,7 +203,7 @@ export const courseContent: CourseContent = {
     ],
     "3b-pot": [
          { 
-            id: "500000001", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Juego como Agresor en Botes 3-Beteados", 
             keyLines: [], 
             hands: [],
@@ -217,7 +217,7 @@ export const courseContent: CourseContent = {
     ],
     "call-3bp": [
          { 
-            id: "600000001", 
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
             title: "Juego como Caller en Botes 3-Beteados", 
             keyLines: [], 
             hands: [],
@@ -230,7 +230,7 @@ export const courseContent: CourseContent = {
         },
     ],
     "mindset": [
-        { id: "700000001", title: "Control del Tilt y Gestión Emocional", keyLines: [], hands: [] },
-        { id: "700000002", title: "Gestión de Bankroll", keyLines: [], hands: [] },
+        { videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", title: "Control del Tilt y Gestión Emocional", keyLines: [], hands: [] },
+        { videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", title: "Gestión de Bankroll", keyLines: [], hands: [] },
     ]
 };
