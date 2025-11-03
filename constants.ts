@@ -218,6 +218,17 @@ export const courseContent: CourseContent = {
             filters: [],
             tables: []
         },
+        {
+            id: "revmanospiero9",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-03%2000-35-58.mkv?alt=media&token=82b2affd-b588-4d0f-8998-56f1c4bebc02",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Revision Manos Marcadas 2/11",
+            uploadDate: "2025-11-2",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
     ],
         "Revisiones Lucas": [
             {
