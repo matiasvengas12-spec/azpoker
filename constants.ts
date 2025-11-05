@@ -343,6 +343,18 @@ export const courseContent: CourseContent = {
             filters: [],
             tables: []
         },
+        {
+            id: "tomnl1nov",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-05%2015-56-09.mkv?alt=media&token=0249f4ee-b312-4825-a104-03f8974b1233",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Analisis sesion Tom NL20 5/11",
+            uploadDate: "2025-11-05",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        
     ],
         "Claves GGPOKER": [
        { 
