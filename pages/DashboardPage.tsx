@@ -39,8 +39,9 @@ const DashboardPage: React.FC = () => {
   const latestVideos = useMemo(() => getLatestVideos(), []);
 
   /* ----------------------------- Filtros ----------------------------- */
-  const [selectedSpot, setSelectedSpot] = useState<string>('all');
+  const [selectedSpotDropdown, setSelectedSpotDropdown] = useState<string>('all');
   const [selectedDateRange, setSelectedDateRange] = useState<string>('all');
+  const [selectedSpots, setSelectedSpots] = useState<Set<string>>(new Set()); // Botones
 
   const dateRanges = [
     { value: 'all', label: 'Cualquier fecha' },
@@ -50,12 +51,29 @@ const DashboardPage: React.FC = () => {
     { value: '1y', label: 'Último año' },
   ];
 
+  /* ----------------------- Toggle spot button ------------------------ */
+  const toggleSpot = (spotKey: string) => {
+    setSelectedSpots(prev => {
+      const next = new Set(prev);
+      if (next.has(spotKey)) {
+        next.delete(spotKey);
+      } else {
+        next.add(spotKey);
+      }
+      return next;
+    });
+  };
+
   /* ----------------------- Filtrado de videos ------------------------ */
   const filteredVideos = useMemo(() => {
     let videos: Array<{ spotKey: string; classData: ClassData }> = [];
 
     Object.entries(courseContent).forEach(([spotKey, classes]) => {
-      if (selectedSpot !== 'all' && spotKey !== selectedSpot) return;
+      // Filtro por dropdown
+      if (selectedSpotDropdown !== 'all' && spotKey !== selectedSpotDropdown) return;
+
+      // Filtro por botones (si hay al menos uno seleccionado)
+      if (selectedSpots.size > 0 && !selectedSpots.has(spotKey)) return;
 
       classes.forEach(cls => {
         if (!cls.uploadDate) return;
@@ -85,10 +103,16 @@ const DashboardPage: React.FC = () => {
         new Date(b.classData.uploadDate!).getTime() -
         new Date(a.classData.uploadDate!).getTime()
     );
-  }, [selectedSpot, selectedDateRange]);
+  }, [selectedSpotDropdown, selectedDateRange, selectedSpots]);
 
-  /* ----------------------- ¿Hay resultados? ------------------------- */
   const hasResults = filteredVideos.length > 0;
+
+  /* ----------------------- Reset filters --------------------------- */
+  const resetFilters = () => {
+    setSelectedSpotDropdown('all');
+    setSelectedDateRange('all');
+    setSelectedSpots(new Set());
+  };
 
   return (
     <div className="container mx-auto px-6 pt-12">
@@ -105,61 +129,65 @@ const DashboardPage: React.FC = () => {
       </header>
 
       {/* ------------------------------------------------------------------ */}
-      {/*  Filtros (Dropdowns)                                               */}
+      {/*  Filtros: Dropdowns                                                */}
       {/* ------------------------------------------------------------------ */}
-      <div className="mb-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
-        {/* Filtro por Spot */}
+      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-center justify-center">
         <div className="w-full sm:w-auto">
-          <label htmlFor="spot-filter" className="sr-only">
-            Filtrar por spot
-          </label>
+          <label htmlFor="spot-filter" className="sr-only">Filtrar por spot</label>
           <select
             id="spot-filter"
-            value={selectedSpot}
-            onChange={e => setSelectedSpot(e.target.value)}
-            className="w-full sm:w-64 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+            value={selectedSpotDropdown}
+            onChange={e => setSelectedSpotDropdown(e.target.value)}
+            className="w-full sm:w-64 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
           >
             <option value="all">Todos los spots</option>
             {spotKeys.map(key => (
-              <option key={key} value={key}>
-                {getSpotName(key)}
-              </option>
+              <option key={key} value={key}>{getSpotName(key)}</option>
             ))}
           </select>
         </div>
 
-        {/* Filtro por Fecha */}
         <div className="w-full sm:w-auto">
-          <label htmlFor="date-filter" className="sr-only">
-            Filtrar por fecha
-          </label>
+          <label htmlFor="date-filter" className="sr-only">Filtrar por fecha</label>
           <select
             id="date-filter"
             value={selectedDateRange}
             onChange={e => setSelectedDateRange(e.target.value)}
-            className="w-full sm:w-64 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+            className="w-full sm:w-64 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
           >
             {dateRanges.map(range => (
-              <option key={range.value} value={range.value}>
-                {range.label}
-              </option>
+              <option key={range.value} value={range.value}>{range.label}</option>
             ))}
           </select>
         </div>
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/*  Últimos 3 videos (si no hay filtro activo)                        */}
+      {/*  Filtros: Botones de Spots (toggle)                                */}
       {/* ------------------------------------------------------------------ */}
-      {selectedSpot === 'all' && selectedDateRange === 'all' && latestVideos.length > 0 && (
+      <div className="mb-10 flex flex-wrap gap-2 justify-center">
+        {spotKeys.map(spotKey => (
+          <button
+            key={spotKey}
+            onClick={() => toggleSpot(spotKey)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+              selectedSpots.has(spotKey)
+                ? 'bg-violet-600 text-white border-violet-600 shadow-md shadow-violet-600/30'
+                : 'bg-slate-700 text-slate-300 border-slate-600 hover:bg-slate-600 hover:text-white'
+            }`}
+          >
+            {getSpotName(spotKey)}
+          </button>
+        ))}
+      </div>
+
+      {/* ------------------------------------------------------------------ */}
+      {/*  Últimos 3 videos (solo si no hay filtros activos)                 */}
+      {/* ------------------------------------------------------------------ */}
+      {selectedSpotDropdown === 'all' && selectedDateRange === 'all' && selectedSpots.size === 0 && latestVideos.length > 0 && (
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-violet-400 mb-6 flex items-center gap-2">
-            <svg
-              className="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-            >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11h-1V7h1v6zm-1-8a1 1 0 110 2 1 1 0 010-2z" />
             </svg>
             Últimos Videos Subidos
@@ -167,78 +195,46 @@ const DashboardPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {latestVideos.map(({ spotKey, classData }) => (
-              <VideoCard
-                key={classData.id}
-                classItem={classData}
-                spotKey={spotKey}
-              />
+              <VideoCard key={classData.id} classItem={classData} spotKey={spotKey} />
             ))}
           </div>
         </section>
       )}
 
       {/* ------------------------------------------------------------------ */}
-      {/*  Resultados filtrados o todos los spots                            */}
+      {/*  Resultados filtrados                                              */}
       {/* ------------------------------------------------------------------ */}
       <div className="space-y-16">
         {hasResults ? (
-          <>
-            {/* Si hay filtro activo, mostramos todos los videos filtrados */}
-            {(selectedSpot !== 'all' || selectedDateRange !== 'all') && (
-              <section>
-                <h2 className="text-xl font-semibold text-slate-300 mb-6">
-                  {filteredVideos.length} video{filteredVideos.length !== 1 ? 's' : ''} encontrado{filteredVideos.length !== 1 ? 's' : ''}
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {filteredVideos.map(({ spotKey, classData }) => (
-                    <VideoCard
-                      key={classData.id}
-                      classItem={classData}
-                      spotKey={spotKey}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
+          <section>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-slate-300">
+                {filteredVideos.length} video{filteredVideos.length !== 1 ? 's' : ''} encontrado{filteredVideos.length !== 1 ? 's' : ''}
+              </h2>
+              {(selectedSpotDropdown !== 'all' || selectedDateRange !== 'all' || selectedSpots.size > 0) && (
+                <button
+                  onClick={resetFilters}
+                  className="text-sm text-violet-400 hover:text-violet-300 underline"
+                >
+                  Limpiar filtros
+                </button>
+              )}
+            </div>
 
-            {/* Si no hay filtro, mostramos por spot */}
-            {selectedSpot === 'all' && selectedDateRange === 'all' && (
-              <>
-                {spotKeys.map(spotKey => {
-                  const classes = courseContent[spotKey];
-
-                  return (
-                    <section key={spotKey}>
-                      <h2 className="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2">
-                        {getSpotName(spotKey)}
-                      </h2>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {classes.map(classItem => (
-                          <VideoCard
-                            key={classItem.id}
-                            classItem={classItem}
-                            spotKey={spotKey}
-                          />
-                        ))}
-                      </div>
-                    </section>
-                  );
-                })}
-              </>
-            )}
-          </>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filteredVideos.map(({ spotKey, classData }) => (
+                <VideoCard key={classData.id} classItem={classData} spotKey={spotKey} />
+              ))}
+            </div>
+          </section>
         ) : (
           <div className="text-center py-16 bg-slate-800/50 rounded-lg border border-slate-700">
-            <p className="text-slate-400 text-lg">
+            <p className="text-slate-400 text-lg mb-4">
               No se encontraron videos con los filtros seleccionados.
             </p>
             <button
-              onClick={() => {
-                setSelectedSpot('all');
-                setSelectedDateRange('all');
-              }}
-              className="mt-4 px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors"
+              onClick={resetFilters}
+              className="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors"
             >
               Limpiar filtros
             </button>
