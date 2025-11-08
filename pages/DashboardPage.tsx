@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { courseContent, ClassData } from '../constants';
-import { Search, Clock, TrendingUp, X } from 'lucide-react';
+import { Search, Clock, TrendingUp, X, Star, Play, Calendar, Filter } from 'lucide-react';
 
 /* -------------------------------------------------------------------------- */
 /*  Helpers                                                                   */
@@ -27,7 +27,7 @@ const getLatestVideos = (): Array<{ spotKey: string; classData: ClassData }> => 
 };
 
 /* -------------------------------------------------------------------------- */
-/*  DashboardPage – YouTube Style                                             */
+/*  DashboardPage – YouTube Poker                                             */
 /* -------------------------------------------------------------------------- */
 const DashboardPage: React.FC = () => {
   const spotKeys = useMemo(() => Object.keys(courseContent), []);
@@ -36,8 +36,9 @@ const DashboardPage: React.FC = () => {
   const [selectedDateRange, setSelectedDateRange] = useState<string>('all');
   const [selectedSpots, setSelectedSpots] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<string>('home'); // 'home' o spotKey
+  const [activeTab, setActiveTab] = useState<string>('home');
   const [showSearch, setShowSearch] = useState(false);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,6 +65,15 @@ const DashboardPage: React.FC = () => {
     });
   };
 
+  const toggleFavorite = (id: string) => {
+    setFavorites(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
   const filteredVideos = useMemo(() => {
     let videos: Array<{ spotKey: string; classData: ClassData }> = [];
 
@@ -72,8 +82,6 @@ const DashboardPage: React.FC = () => {
 
       classes.forEach(cls => {
         if (!cls.uploadDate) return;
-
-        // Filtro por búsqueda
         if (searchQuery && !cls.title.toLowerCase().includes(searchQuery.toLowerCase())) return;
 
         const uploadDate = new Date(cls.uploadDate);
@@ -107,11 +115,17 @@ const DashboardPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* ------------------------------------------------------------------ */}
-      {/*  Header (YouTube Style)                                            */}
+      {/*  Header – YouTube Style                                            */}
       {/* ------------------------------------------------------------------ */}
       <header className="sticky top-0 z-50 bg-black border-b border-gray-800">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-white">PokerPro</h1>
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <Play className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-xl font-bold">Poker<span className="text-violet-400">Pro</span></h1>
+          </div>
 
           {/* Buscador */}
           <div className="flex-1 max-w-2xl mx-4">
@@ -119,10 +133,10 @@ const DashboardPage: React.FC = () => {
               <input
                 ref={searchInputRef}
                 type="text"
-                placeholder="Buscar videos..."
+                placeholder="Buscar clases, spots, manos..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-10 bg-gray-900 border border-gray-700 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500"
+                className="w-full px-4 py-2 pl-10 pr-10 bg-gray-900 border border-gray-700 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all"
               />
               <Search className="absolute left-3 top-2.5 w-5 h-5 text-gray-500" />
               {searchQuery && (
@@ -136,6 +150,7 @@ const DashboardPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Mobile Search */}
           <button
             onClick={() => setShowSearch(!showSearch)}
             className="md:hidden p-2"
@@ -146,20 +161,20 @@ const DashboardPage: React.FC = () => {
       </header>
 
       {/* ------------------------------------------------------------------ */}
-      {/*  Pestañas de Categorías (YouTube Tabs)                             */}
+      {/*  Pestañas – YouTube Tabs                                           */}
       {/* ------------------------------------------------------------------ */}
-      <div className="sticky top-14 z-40 bg-black border-b border-gray-800 overflow-x-auto">
+      <div className="sticky top-14 z-40 bg-black border-b border-gray-800 overflow-x-auto scrollbar-hide">
         <div className="container mx-auto px-4">
           <div className="flex gap-2 py-2">
             <button
               onClick={() => setActiveTab('home')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap flex items-center gap-1 ${
                 activeTab === 'home'
                   ? 'bg-violet-600 text-white'
                   : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
               }`}
             >
-              <TrendingUp className="w-4 h-4 inline mr-1" />
+              <TrendingUp className="w-4 h-4" />
               Inicio
             </button>
             {spotKeys.map(spotKey => (
@@ -180,13 +195,39 @@ const DashboardPage: React.FC = () => {
       </div>
 
       {/* ------------------------------------------------------------------ */}
+      {/*  Filtros (Fecha) – Solo visible si hay búsqueda o filtros          */}
+      {/* ------------------------------------------------------------------ */}
+      {hasActiveFilters && (
+        <div className="container mx-auto px-4 py-4 flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Filter className="w-5 h-5 text-gray-400" />
+            <select
+              value={selectedDateRange}
+              onChange={e => setSelectedDateRange(e.target.value)}
+              className="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm text-white focus:outline-none focus:border-violet-500"
+            >
+              {dateRanges.map(range => (
+                <option key={range.value} value={range.value}>{range.label}</option>
+              ))}
+            </select>
+          </div>
+          <button
+            onClick={resetFilters}
+            className="text-sm text-violet-400 hover:text-violet-300 underline"
+          >
+            Limpiar todo
+          </button>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------------------ */}
       {/*  Contenido Principal                                               */}
       {/* ------------------------------------------------------------------ */}
       <div className="container mx-auto px-4 py-8">
         {/* ----------------------- HOME (Últimos + Categorías) ----------------------- */}
         {activeTab === 'home' && !hasActiveFilters && (
           <>
-            {/* Últimos Videos (Carrusel estilo YouTube) */}
+            {/* Últimos Videos */}
             {latestVideos.length > 0 && (
               <section className="mb-12">
                 <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -195,7 +236,13 @@ const DashboardPage: React.FC = () => {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {latestVideos.map(({ spotKey, classData }) => (
-                    <VideoCard key={classData.id} classItem={classData} spotKey={spotKey} />
+                    <VideoCard
+                      key={classData.id}
+                      classItem={classData}
+                      spotKey={spotKey}
+                      isFavorite={favorites.has(classData.id)}
+                      onToggleFavorite={() => toggleFavorite(classData.id)}
+                    />
                   ))}
                 </div>
               </section>
@@ -208,20 +255,28 @@ const DashboardPage: React.FC = () => {
 
               return (
                 <section key={spotKey} className="mb-12">
-                  <h2 className="text-2xl font-bold mb-6">{getSpotName(spotKey)}</h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-bold">{getSpotName(spotKey)}</h2>
+                    {classes.length > 8 && (
+                      <Link
+                        to={`/class/${spotKey}`}
+                        className="text-sm text-violet-400 hover:text-violet-300 font-medium"
+                      >
+                        Ver todos ({classes.length})
+                      </Link>
+                    )}
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {classes.slice(0, 8).map(classItem => (
-                      <VideoCard key={classItem.id} classItem={classItem} spotKey={spotKey} />
+                      <VideoCard
+                        key={classItem.id}
+                        classItem={classItem}
+                        spotKey={spotKey}
+                        isFavorite={favorites.has(classItem.id)}
+                        onToggleFavorite={() => toggleFavorite(classItem.id)}
+                      />
                     ))}
                   </div>
-                  {classes.length > 8 && (
-                    <Link
-                      to={`/class/${spotKey}`}
-                      className="block text-center mt-6 text-violet-400 hover:text-violet-300 font-medium"
-                    >
-                      Ver todos ({classes.length})
-                    </Link>
-                  )}
                 </section>
               );
             })}
@@ -234,7 +289,13 @@ const DashboardPage: React.FC = () => {
             <h2 className="text-3xl font-bold mb-8">{getSpotName(activeTab)}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {courseContent[activeTab].map(classItem => (
-                <VideoCard key={classItem.id} classItem={classItem} spotKey={activeTab} />
+                <VideoCard
+                  key={classItem.id}
+                  classItem={classItem}
+                  spotKey={activeTab}
+                  isFavorite={favorites.has(classItem.id)}
+                  onToggleFavorite={() => toggleFavorite(classItem.id)}
+                />
               ))}
             </div>
           </section>
@@ -243,20 +304,18 @@ const DashboardPage: React.FC = () => {
         {/* ----------------------- CON FILTROS ----------------------- */}
         {hasActiveFilters && (
           <section>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-300">
-                {filteredVideos.length} resultado{filteredVideos.length !== 1 ? 's' : ''}
-              </h2>
-              <button
-                onClick={resetFilters}
-                className="text-sm text-violet-400 hover:text-violet-300 underline"
-              >
-                Limpiar filtros
-              </button>
-            </div>
+            <h2 className="text-xl font-semibold text-gray-300 mb-6">
+              {filteredVideos.length} resultado{filteredVideos.length !== 1 ? 's' : ''}
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredVideos.map(({ spotKey, classData }) => (
-                <VideoCard key={classData.id} classItem={classData} spotKey={spotKey} />
+                <VideoCard
+                  key={classData.id}
+                  classItem={classData}
+                  spotKey={spotKey}
+                  isFavorite={favorites.has(classData.id)}
+                  onToggleFavorite={() => toggleFavorite(classData.id)}
+                />
               ))}
             </div>
           </section>
@@ -267,65 +326,83 @@ const DashboardPage: React.FC = () => {
 };
 
 /* -------------------------------------------------------------------------- */
-/*  VideoCard – YouTube Style                                                 */
+/*  VideoCard – YouTube Poker Style                                           */
 /* -------------------------------------------------------------------------- */
 interface VideoCardProps {
   classItem: ClassData;
   spotKey: string;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ classItem, spotKey }) => {
+const VideoCard: React.FC<VideoCardProps> = ({ classItem, spotKey, isFavorite, onToggleFavorite }) => {
   const thumbnailUrl = classItem.thumbnailUrl ?? null;
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <Link
-      to={`/class/${spotKey}/${classItem.id}`}
-      className="group block"
-    >
-      <div className="relative aspect-video mb-3 overflow-hidden rounded-xl bg-gray-900">
-        {thumbnailUrl ? (
-          <img
-            src={thumbnailUrl}
-            alt={classItem.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        ) : (
-          <video
-            ref={videoRef}
-            src={classItem.videoUrl}
-            className="w-full h-full object-cover"
-            muted
-            loop
-            playsInline
-            onMouseEnter={e => e.currentTarget.play()}
-            onMouseLeave={e => {
-              e.currentTarget.pause();
-              e.currentTarget.currentTime = 0;
-            }}
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-          {classItem.uploadDate}
+    <div className="group">
+      <Link to={`/class/${spotKey}/${classItem.id}`} className="block">
+        <div className="relative aspect-video mb-3 overflow-hidden rounded-xl bg-gray-900">
+          {thumbnailUrl ? (
+            <img
+              src={thumbnailUrl}
+              alt={classItem.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              src={classItem.videoUrl}
+              className="w-full h-full object-cover"
+              muted
+              loop
+              playsInline
+              onMouseEnter={e => e.currentTarget.play()}
+              onMouseLeave={e => {
+                e.currentTarget.pause();
+                e.currentTarget.currentTime = 0;
+              }}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            {classItem.uploadDate}
+          </div>
         </div>
-      </div>
+      </Link>
 
       <div className="flex gap-3">
-        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full" />
+        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center">
+          <Play className="w-5 h-5 text-white ml-0.5" />
+        </div>
         <div className="flex-1">
-          <h3 className="font-medium text-white line-clamp-2 group-hover:text-violet-400 transition-colors">
-            {classItem.title}
-          </h3>
+          <Link to={`/class/${spotKey}/${classItem.id}`}>
+            <h3 className="font-medium text-white line-clamp-2 group-hover:text-violet-400 transition-colors">
+              {classItem.title}
+            </h3>
+          </Link>
           <p className="text-sm text-gray-400 mt-1">
             {getSpotName(spotKey)}
           </p>
-          <p className="text-xs text-gray-500 mt-0.5">
-            Subido el {classItem.uploadDate}
-          </p>
+          <div className="flex items-center justify-between mt-1">
+            <p className="text-xs text-gray-500">
+              {classItem.uploadDate}
+            </p>
+            <button
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                onToggleFavorite();
+              }}
+              className="text-yellow-500 hover:text-yellow-400 transition-colors"
+            >
+              <Star className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+            </button>
+          </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
