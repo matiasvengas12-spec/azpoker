@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
-import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap } from 'lucide-react';
 
 const getSpotName = (key: string): string =>
   key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -11,7 +11,25 @@ const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 // =============================================
 // REPRODUCTOR PERSONALIZADO (CON VELOCIDAD)
 // =============================================
-const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
+¡LISTO!
+Aquí tienes el CustomVideoPlayer ACTUALIZADO con:
+
+Botones de +10s / -10s en círculo
+"Normal" más claro y destacado (botón más grande y con ícono de velocidad)
+Diseño YouTube PRO
+
+
+CustomVideoPlayer – +10s / -10s en CÍRCULO + "Normal" DESTACADO
+tsx// AGREGA ESTOS IMPORTS EN LA CABECERA DE ClassDetailsPage.tsx
+import { 
+  Play, Pause, Volume2, VolumeX, Maximize, 
+  Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, 
+  ChevronDown, Star, Filter as FilterIcon, ArrowLeft,
+  SkipBack, SkipForward, Zap  // NUEVO: Zap para velocidad
+} from 'lucide-react';
+
+BLOQUE ACTUALIZADO (solo reemplaza CustomVideoPlayer)
+tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,7 +58,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     }
   };
 
-  // +10s / -10s
   const skip = (seconds: number) => {
     if (videoRef.current) {
       const newTime = Math.max(0, Math.min(videoRef.current.currentTime + seconds, duration));
@@ -49,7 +66,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     }
   };
 
-  // Doble clic = fullscreen
   const handleDoubleClick = () => {
     if (clickTimeout.current) {
       clearTimeout(clickTimeout.current);
@@ -77,7 +93,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     const handleFullscreen = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handleFullscreen);
 
-    // FUERZA A OCULTAR CONTROLES NATIVOS
     const hideNativeControls = setInterval(() => {
       if (video) {
         video.controls = false;
@@ -131,7 +146,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       className="relative aspect-video rounded-xl overflow-hidden bg-black group"
       onMouseMove={resetControlsTimeout}
       onMouseLeave={() => setShowControls(false)}
-      onClick={handleDoubleClick} // DOBLE CLIC
+      onClick={handleDoubleClick}
     >
       <video
         ref={videoRef}
@@ -151,10 +166,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             videoRef.current.removeAttribute('controls');
           }
         }}
-        style={{
-          pointerEvents: 'none',
-          userSelect: 'none',
-        } as React.CSSProperties}
+        style={{ pointerEvents: 'none', userSelect: 'none' } as React.CSSProperties}
       />
 
       {/* Botón Play Grande */}
@@ -199,16 +211,16 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
 
           <div className="flex items-center justify-between text-white">
             <div className="flex items-center gap-2">
-              {/* -10s */}
+              {/* -10s (CÍRCULO) */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   skip(-10);
                 }}
-                className="p-2 hover:bg-white/20 rounded-full transition"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
                 title="Retroceder 10s"
               >
-                <SkipBack className="w-7 h-7" />
+                <SkipBack className="w-5 h-5" />
               </button>
 
               {/* Play/Pause */}
@@ -222,16 +234,16 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                 {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
               </button>
 
-              {/* +10s */}
+              {/* +10s (CÍRCULO) */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   skip(10);
                 }}
-                className="p-2 hover:bg-white/20 rounded-full transition"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
                 title="Avanzar 10s"
               >
-                <SkipForward className="w-7 h-7" />
+                <SkipForward className="w-5 h-5" />
               </button>
 
               {/* Volumen */}
@@ -254,7 +266,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Velocidad */}
+              {/* VELOCIDAD – "Normal" DESTACADO */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -262,8 +274,13 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                   const nextIndex = (currentIndex + 1) % speeds.length;
                   setPlaybackRate(speeds[nextIndex]);
                 }}
-                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition ${
+                  playbackRate === 1
+                    ? 'bg-violet-600 text-white shadow-lg'
+                    : 'bg-white/10 hover:bg-white/20 text-gray-300'
+                }`}
               >
+                <Zap className={`w-4 h-4 ${playbackRate === 1 ? 'fill-white' : ''}`} />
                 {getSpeedLabel(playbackRate)}
               </button>
 
@@ -282,13 +299,30 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         </div>
       </div>
 
-      {/* CSS GLOBAL – MATA CONTROLES NATIVOS */}
-      <style jsx global>{`
-        video {
-          -webkit-appearance: none !important;
-          appearance: none !important;
+      {/* CSS SLIDER */}
+      <style jsx>{`
+        .slider::-webkit-slider-thumb {
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          background: #8b5cf6;
+          border-radius: 50%;
+          cursor: pointer;
+          box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
         }
+        .slider::-moz-range-thumb {
+          width: 16px;
+          height: 16px;
+          background: #8b5cf6;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
+        }
+      `}</style>
 
+      {/* CSS GLOBAL – SIN CONTROLES NATIVOS */}
+      <style jsx global>{`
+        video { -webkit-appearance: none !important; appearance: none !important; }
         video::-webkit-media-controls,
         video::-webkit-media-controls-panel,
         video::-webkit-media-controls-play-button,
@@ -316,33 +350,17 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           pointer-events: none !important;
           z-index: -9999 !important;
         }
-
         video:fullscreen,
         video:-webkit-full-screen,
-        video:-moz-full-screen {
-          background: black !important;
-        }
-
-        video:fullscreen *,
-        video:-webkit-full-screen * {
-          display: none !important;
-        }
-
+        video:-moz-full-screen { background: black !important; }
+        video:fullscreen *, video:-webkit-full-screen * { display: none !important; }
         video::-moz-media-controls-container,
         video::-moz-media-play-button,
         video::-moz-media-volume-slider-container,
         video::-moz-media-mute-button,
-        video::-moz-media-fullscreen-button {
-          display: none !important;
-        }
-
+        video::-moz-media-fullscreen-button { display: none !important; }
         @media (hover: none) and (pointer: coarse) {
-          video {
-            -webkit-touch-callout: none !important;
-            -webkit-user-select: none !important;
-            user-select: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-          }
+          video { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-tap-highlight-color: transparent !important; }
         }
       `}</style>
     </div>
