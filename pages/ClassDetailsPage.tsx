@@ -51,12 +51,19 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     video.addEventListener('play', () => setIsPlaying(true));
     video.addEventListener('pause', () => setIsPlaying(false));
 
-    const handleFullscreen = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
+    const handleFullscreen = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handleFullscreen);
 
+    // FUERZA A OCULTAR CONTROLES NATIVOS CADA 100ms (mientras carga)
+    const hideNativeControls = setInterval(() => {
+      if (video) {
+        video.controls = false;
+        video.removeAttribute('controls');
+      }
+    }, 100);
+
     return () => {
+      clearInterval(hideNativeControls);
       video.removeEventListener('timeupdate', updateTime);
       video.removeEventListener('loadedmetadata', updateDuration);
       document.removeEventListener('fullscreenchange', handleFullscreen);
@@ -101,25 +108,30 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       onMouseMove={resetControlsTimeout}
       onMouseLeave={() => setShowControls(false)}
     >
-      {/* VIDEO CON CONTROLES DESACTIVADOS AL 100% */}
+      {/* VIDEO CON TODOS LOS ATRIBUTOS ANTI-NATIVOS */}
       <video
         ref={videoRef}
         src={src}
         poster={poster}
         className="w-full h-full"
+        // ATRIBUTOS CLAVE
         controls={false}
+        controlsList="nodownload noremoteplayback noplaybackrate"
         disablePictureInPicture
-        controlsList="nodownload noremoteplayback"
-        muted={isMuted}
         playsInline
         webkit-playsinline="true"
         x-webkit-airplay="deny"
-        // ATRIBUTOS PARA MÓVIL
+        // BLOQUEAR INTERACCIONES NATIVAS
         onContextMenu={(e) => e.preventDefault()}
-        // CSS INJECTADO PARA OCULTAR TODO
+        onLoadedMetadata={() => {
+          if (videoRef.current) {
+            videoRef.current.controls = false;
+            videoRef.current.removeAttribute('controls');
+          }
+        }}
         style={{
-          objectFit: 'contain',
-          pointerEvents: 'none', // Evita interacciones nativas
+          pointerEvents: 'none',
+          userSelect: 'none',
         } as React.CSSProperties}
       />
 
@@ -144,9 +156,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         className={`absolute ${
           isFullscreen ? 'inset-0 flex flex-col justify-end p-8' : 'inset-x-0 bottom-0 p-4'
         } bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-300 z-20 pointer-events-none`}
-        style={{
-          opacity: showControls || !isPlaying ? 1 : 0,
-        }}
+        style={{ opacity: showControls || !isPlaying ? 1 : 0 }}
       >
         <div className="pointer-events-auto">
           <input
@@ -222,16 +232,18 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         </div>
       </div>
 
-      {/* CSS GLOBAL PARA MATAR CONTROLES NATIVOS */}
+      {/* CSS GLOBAL – ELIMINA TODO CONTROL NATIVO */}
       <style jsx global>{`
-        /* OCULTAR CONTROLES NATIVOS EN TODAS LAS INSTANCIAS */
         video {
           -webkit-appearance: none !important;
+          appearance: none !important;
         }
 
+        /* TODOS LOS PSEUDO-ELEMENTOS NATIVOS */
         video::-webkit-media-controls,
         video::-webkit-media-controls-panel,
         video::-webkit-media-controls-play-button,
+        video::-webkit-media-controls-start-playback-button,
         video::-webkit-media-controls-volume-slider-container,
         video::-webkit-media-controls-mute-button,
         video::-webkit-media-controls-timeline-container,
@@ -244,13 +256,17 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         video::-webkit-media-controls-fullscreen-button,
         video::-webkit-media-controls-rewind-button,
         video::-webkit-media-controls-return-to-realtime-button,
-        video::-webkit-media-controls-toggle-closed-captions-button {
+        video::-webkit-media-controls-toggle-closed-captions-button,
+        video::-webkit-media-text-track-container,
+        video::-webkit-media-text-track-display {
           display: none !important;
           opacity: 0 !important;
-          pointer-events: none !important;
+          visibility: hidden !important;
           width: 0 !important;
           height: 0 !important;
           overflow: hidden !important;
+          pointer-events: none !important;
+          z-index: -9999 !important;
         }
 
         /* Fullscreen */
@@ -260,8 +276,8 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           background: black !important;
         }
 
-        video:fullscreen::-webkit-media-controls,
-        video:-webkit-full-screen::-webkit-media-controls {
+        video:fullscreen *,
+        video:-webkit-full-screen * {
           display: none !important;
         }
 
@@ -274,17 +290,13 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           display: none !important;
         }
 
-        /* Evitar hover nativo */
-        video:hover {
-          cursor: pointer;
-        }
-
-        /* Móvil: evitar controles al tocar */
+        /* Móvil */
         @media (hover: none) and (pointer: coarse) {
           video {
             -webkit-touch-callout: none !important;
             -webkit-user-select: none !important;
             user-select: none !important;
+            -webkit-tap-highlight-color: transparent !important;
           }
         }
       `}</style>
