@@ -39,7 +39,6 @@ const DashboardPage: React.FC = () => {
   const latestVideos = useMemo(() => getLatestVideos(), []);
 
   /* ----------------------------- Filtros ----------------------------- */
-  const [selectedSpotDropdown, setSelectedSpotDropdown] = useState<string>('all');
   const [selectedDateRange, setSelectedDateRange] = useState<string>('all');
   const [selectedSpots, setSelectedSpots] = useState<Set<string>>(new Set());
 
@@ -65,7 +64,7 @@ const DashboardPage: React.FC = () => {
     let videos: Array<{ spotKey: string; classData: ClassData }> = [];
 
     Object.entries(courseContent).forEach(([spotKey, classes]) => {
-      if (selectedSpotDropdown !== 'all' && spotKey !== selectedSpotDropdown) return;
+      // Filtro por botones (multi-selección)
       if (selectedSpots.size > 0 && !selectedSpots.has(spotKey)) return;
 
       classes.forEach(cls => {
@@ -94,13 +93,11 @@ const DashboardPage: React.FC = () => {
         new Date(b.classData.uploadDate!).getTime() -
         new Date(a.classData.uploadDate!).getTime()
     );
-  }, [selectedSpotDropdown, selectedDateRange, selectedSpots]);
+  }, [selectedDateRange, selectedSpots]);
 
-  const hasActiveFilters =
-    selectedSpotDropdown !== 'all' || selectedDateRange !== 'all' || selectedSpots.size > 0;
+  const hasActiveFilters = selectedDateRange !== 'all' || selectedSpots.size > 0;
 
   const resetFilters = () => {
-    setSelectedSpotDropdown('all');
     setSelectedDateRange('all');
     setSelectedSpots(new Set());
   };
@@ -120,31 +117,16 @@ const DashboardPage: React.FC = () => {
       </header>
 
       {/* ------------------------------------------------------------------ */}
-      {/*  Filtros: Dropdowns                                                */}
+      {/*  Filtro: Fecha (Dropdown)                                          */}
       {/* ------------------------------------------------------------------ */}
-      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-center justify-center">
-        <div className="w-full sm:w-auto">
-          <label htmlFor="spot-filter" className="sr-only">Filtrar por spot</label>
-          <select
-            id="spot-filter"
-            value={selectedSpotDropdown}
-            onChange={e => setSelectedSpotDropdown(e.target.value)}
-            className="w-full sm:w-64 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
-          >
-            <option value="all">Todos los spots</option>
-            {spotKeys.map(key => (
-              <option key={key} value={key}>{getSpotName(key)}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="w-full sm:w-auto">
+      <div className="mb-6 flex justify-center">
+        <div className="w-full sm:w-auto max-w-xs">
           <label htmlFor="date-filter" className="sr-only">Filtrar por fecha</label>
           <select
             id="date-filter"
             value={selectedDateRange}
             onChange={e => setSelectedDateRange(e.target.value)}
-            className="w-full sm:w-64 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
           >
             {dateRanges.map(range => (
               <option key={range.value} value={range.value}>{range.label}</option>
