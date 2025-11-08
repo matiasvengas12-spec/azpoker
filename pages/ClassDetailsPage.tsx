@@ -7,6 +7,8 @@ const getSpotName = (key: string): string =>
   key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
 const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
+const [isPlaying, setIsPlaying] = useState(false);
+const videoRef = useRef<HTMLVideoElement>(null);
 
 const ClassDetailsPage: React.FC = () => {
   const { spotKey, classId } = useParams<{ spotKey: string; classId: string }>();
