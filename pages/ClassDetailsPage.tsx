@@ -8,7 +8,7 @@ const getSpotName = (key: string): string =>
 
 const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 
-=============================================
+// =============================================
 // REPRODUCTOR PERSONALIZADO (CON VELOCIDAD)
 // =============================================
 const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
