@@ -8,8 +8,8 @@ const getSpotName = (key: string): string =>
 
 const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 
-// =============================================
-// REPRODUCTOR PERSONALIZADO (YouTube Style)
+tsx// =============================================
+// REPRODUCTOR PERSONALIZADO (CON VELOCIDAD)
 // =============================================
 const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -19,6 +19,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [playbackRate, setPlaybackRate] = useState(1); // NUEVO
   const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number) => {
@@ -55,6 +56,13 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     };
   }, []);
 
+  // Aplicar velocidad
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = playbackRate;
+    }
+  }, [playbackRate]);
+
   const resetControlsTimeout = () => {
     if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
     setShowControls(true);
@@ -77,6 +85,10 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     }
   };
 
+  // Opciones de velocidad
+  const speeds = [0.5, 1, 1.5, 2];
+  const getSpeedLabel = (rate: number) => rate === 1 ? 'Normal' : `${rate}x`;
+
   return (
     <div
       className="relative aspect-video rounded-xl overflow-hidden bg-black group"
@@ -89,8 +101,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         poster={poster}
         className="w-full h-full"
         onClick={togglePlay}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
       />
 
       {/* Botón Play Grande */}
@@ -147,9 +157,25 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             </span>
           </div>
 
-          <button onClick={toggleFullscreen} className="p-2 hover:bg-white/20 rounded-full transition">
-            <Maximize className="w-7 h-7" />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* BOTÓN DE VELOCIDAD */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  const currentIndex = speeds.indexOf(playbackRate);
+                  const nextIndex = (currentIndex + 1) % speeds.length;
+                  setPlaybackRate(speeds[nextIndex]);
+                }}
+                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition"
+              >
+                {getSpeedLabel(playbackRate)}
+              </button>
+            </div>
+
+            <button onClick={toggleFullscreen} className="p-2 hover:bg-white/20 rounded-full transition">
+              <Maximize className="w-7 h-7" />
+            </button>
+          </div>
         </div>
       </div>
 
