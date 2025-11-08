@@ -17,6 +17,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1); // NUEVO: volumen 0-1
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [playbackRate, setPlaybackRate] = useState(1);
@@ -47,6 +48,28 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     }
   };
 
+  // VOLUMEN
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (videoRef.current) {
+      videoRef.current.volume = newVolume;
+      setIsMuted(newVolume === 0);
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      if (isMuted) {
+        videoRef.current.volume = volume || 0.5;
+        setIsMuted(false);
+      } else {
+        videoRef.current.volume = 0;
+        setIsMuted(true);
+      }
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -58,6 +81,10 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     video.addEventListener('loadedmetadata', updateDuration);
     video.addEventListener('play', () => setIsPlaying(true));
     video.addEventListener('pause', () => setIsPlaying(false));
+    video.addEventListener('volumechange', () => {
+      setVolume(video.volume);
+      setIsMuted(video.muted || video.volume === 0);
+    });
 
     const handleFullscreen = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handleFullscreen);
@@ -114,9 +141,8 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       className="relative aspect-video rounded-xl overflow-hidden bg-black group"
       onMouseMove={resetControlsTimeout}
       onMouseLeave={() => setShowControls(false)}
-      onDoubleClick={toggleFullscreen} // DOBLE CLIC = FULLSCREEN
     >
-      {/* VIDEO – CLIC SIMPLE = PLAY/PAUSE */}
+      {/* VIDEO – CLIC = PLAY/PAUSE, DOBLE CLIC = FULLSCREEN */}
       <video
         ref={videoRef}
         src={src}
@@ -133,6 +159,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           if (videoRef.current) {
             videoRef.current.controls = false;
             videoRef.current.removeAttribute('controls');
+            videoRef.current.volume = volume;
           }
         }}
         onClick={(e) => {
@@ -146,7 +173,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         style={{ pointerEvents: 'auto', userSelect: 'none' } as React.CSSProperties}
       />
 
-      {/* Botón Play Grande (solo si pausado) */}
+      {/* Botón Play Grande */}
       {!isPlaying && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm z-10">
           <button
@@ -187,10 +214,9 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             }}
           />
 
-          {/* Botones */}
           <div className="flex items-center justify-between text-white">
             <div className="flex items-center gap-2">
-              {/* -10s (CÍRCULO) */}
+              {/* -10s */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -213,7 +239,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                 {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
               </button>
 
-              {/* +10s (CÍRCULO) */}
+              {/* +10s */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -225,19 +251,34 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                 <SkipForward className="w-5 h-5" />
               </button>
 
-              {/* Volumen */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (videoRef.current) {
-                    videoRef.current.muted = !isMuted;
-                    setIsMuted(!isMuted);
-                  }
-                }}
-                className="p-2 hover:bg-white/20 rounded-full transition"
-              >
-                {isMuted ? <VolumeX className="w-7 h-7" /> : <Volume2 className="w-7 h-7" />}
-              </button>
+              {/* VOLUMEN CON SLIDER */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleMute();
+                  }}
+                  className="p-2 hover:bg-white/20 rounded-full transition"
+                >
+                  {isMuted || volume === 0 ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={isMuted ? 0 : volume}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    handleVolumeChange(e);
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-24 h-1 bg-gray-700 rounded-full appearance-none cursor-pointer volume-slider"
+                  style={{
+                    background: `linear-gradient(to right, #8b5cf6 ${((isMuted ? 0 : volume) * 100).toFixed(2)}%, #374151 ${((isMuted ? 0 : volume) * 100).toFixed(2)}%)`,
+                  }}
+                />
+              </div>
 
               <span className="text-sm font-medium">
                 {formatTime(currentTime)} / {formatTime(duration)}
@@ -245,7 +286,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             </div>
 
             <div className="flex items-center gap-2">
-              {/* VELOCIDAD – "Normal" DESTACADO */}
+              {/* VELOCIDAD */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -278,20 +319,22 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         </div>
       </div>
 
-      {/* CSS SLIDER */}
+      {/* CSS SLIDERS */}
       <style jsx>{`
-        .slider::-webkit-slider-thumb {
+        .slider::-webkit-slider-thumb,
+        .volume-slider::-webkit-slider-thumb {
           appearance: none;
-          width: 16px;
-          height: 16px;
+          width: 14px;
+          height: 14px;
           background: #8b5cf6;
           border-radius: 50%;
           cursor: pointer;
-          box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+          box-shadow: 0 0 6px rgba(139, 92, 246, 0.6);
         }
-        .slider::-moz-range-thumb {
-          width: 16px;
-          height: 16px;
+        .slider::-moz-range-thumb,
+        .volume-slider::-moz-range-thumb {
+          width: 14px;
+          height: 14px;
           background: #8b5cf6;
           border-radius: 50%;
           cursor: pointer;
@@ -303,41 +346,10 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       <style jsx global>{`
         video { -webkit-appearance: none !important; appearance: none !important; }
         video::-webkit-media-controls,
-        video::-webkit-media-controls-panel,
-        video::-webkit-media-controls-play-button,
-        video::-webkit-media-controls-volume-slider-container,
-        video::-webkit-media-controls-mute-button,
-        video::-webkit-media-controls-timeline-container,
-        video::-webkit-media-controls-current-time-display,
-        video::-webkit-media-controls-time-remaining-display,
-        video::-webkit-media-controls-timeline,
-        video::-webkit-media-controls-volume-slider,
-        video::-webkit-media-controls-seek-back-button,
-        video::-webkit-media-controls-seek-forward-button,
-        video::-webkit-media-controls-fullscreen-button,
-        video::-webkit-media-controls-rewind-button,
-        video::-webkit-media-controls-return-to-realtime-button,
-        video::-webkit-media-controls-toggle-closed-captions-button,
-        video::-webkit-media-text-track-container,
-        video::-webkit-media-text-track-display {
-          display: none !important;
-          opacity: 0 !important;
-          visibility: hidden !important;
-          width: 0 !important;
-          height: 0 !important;
-          overflow: hidden !important;
-          pointer-events: none !important;
-          z-index: -9999 !important;
-        }
-        video:fullscreen,
-        video:-webkit-full-screen,
-        video:-moz-full-screen { background: black !important; }
+        video::-webkit-media-controls-panel { display: none !important; opacity: 0 !important; visibility: hidden !important; width: 0 !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; z-index: -9999 !important; }
+        video:fullscreen, video:-webkit-full-screen, video:-moz-full-screen { background: black !important; }
         video:fullscreen *, video:-webkit-full-screen * { display: none !important; }
-        video::-moz-media-controls-container,
-        video::-moz-media-play-button,
-        video::-moz-media-volume-slider-container,
-        video::-moz-media-mute-button,
-        video::-moz-media-fullscreen-button { display: none !important; }
+        video::-moz-media-controls-container { display: none !important; }
         @media (hover: none) and (pointer: coarse) {
           video { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-tap-highlight-color: transparent !important; }
         }
