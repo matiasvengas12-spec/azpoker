@@ -415,7 +415,7 @@ export const courseContent: CourseContent = {
             tables: []
         },
     ],
-     "Live Sessions GGPOKER NL50 10bb/100": [
+     "Live Sessions GGPOKER NL50 a 10bb": [
                  {
             id: "gglive501",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Foutput.mkv?alt=media&token=07da0a8a-4e3a-4a8e-bc20-781aae49c5d9",
@@ -427,7 +427,7 @@ export const courseContent: CourseContent = {
             filters: [],
             tables: []
         },
-                 {
+        {
             id: "gglive502",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses50.mkv?alt=media&token=18d0ec74-eff4-4585-b054-da1ecab2d3e6",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
@@ -438,7 +438,7 @@ export const courseContent: CourseContent = {
             filters: [],
             tables: []
         },
-            {
+        {
             id: "gglive503",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2000-32-24.mkv?alt=media&token=a78fcd06-2c42-4c71-b986-2e819609174b",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
