@@ -28,48 +28,57 @@
   <body class="bg-slate-900">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
-    <style>
-      /* === CONTROLES DE VIDEO MÁS GRANDES (YouTube Style) === */
-      video::-webkit-media-controls-panel {
-        height: 60px !important;
-        padding-bottom: 8px !important;
-        background: rgba(0, 0, 0, 0.8) !important;
-      }
+    html<style>
+  /* === CONTROLES DE VIDEO GRANDES + ABAJO === */
+  video {
+    display: block;
+  }
 
-      video::-webkit-media-controls-play-button,
-      video::-webkit-media-controls-volume-slider-container,
-      video::-webkit-media-controls-mute-button,
-      video::-webkit-media-controls-fullscreen-button {
-        width: 48px !important;
-        height: 48px !important;
-        background-size: 28px !important;
-      }
+  video::-webkit-media-controls-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    bottom: 0 !important;
+    top: auto !important;
+    height: 60px !important;
+    padding-bottom: 8px !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent) !important;
+  }
 
-      video::-webkit-media-controls-timeline {
-        height: 8px !important;
-        margin: 0 12px !important;
-      }
+  video::-webkit-media-controls-play-button,
+  video::-webkit-media-controls-volume-slider-container,
+  video::-webkit-media-controls-mute-button,
+  video::-webkit-media-controls-fullscreen-button {
+    width: 48px !important;
+    height: 48px !important;
+    background-size: 28px !important;
+  }
 
-      video::-webkit-media-controls-current-time-display,
-      video::-webkit-media-controls-time-remaining-display {
-        font-size: 14px !important;
-        font-weight: 600 !important;
-        color: white !important;
-      }
+  video::-webkit-media-controls-timeline {
+    height: 8px !important;
+    margin: 0 12px !important;
+  }
 
-      /* Firefox */
-      video::-moz-media-controls-play-button,
-      video::-moz-media-controls-volume-slider-container,
-      video::-moz-media-controls-mute-button,
-      video::-moz-media-controls-fullscreen-button {
-        width: 48px !important;
-        height: 48px !important;
-      }
+  video::-webkit-media-controls-current-time-display,
+  video::-webkit-media-controls-time-remaining-display {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: white !important;
+  }
 
-      /* Ocultar controles si no está reproduciendo (opcional) */
-      video:not([controls]) {
-        cursor: pointer;
-      }
-    </style>
+  /* Firefox */
+  video::-moz-media-controls-play-button,
+  video::-moz-media-controls-volume-slider-container,
+  video::-moz-media-controls-mute-button,
+  video::-moz-media-controls-fullscreen-button {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  video::-moz-media-controls-container {
+    bottom: 0 !important;
+    top: auto !important;
+  }
+</style>
   </body>
 </html>
