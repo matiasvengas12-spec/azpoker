@@ -202,9 +202,6 @@ const ProfilePage: React.FC = () => {
                 {new Date(stats.nextReview).toLocaleDateString('es-ES')}
               </p>
             </div>
-            <Button href="#" variant="primary" className="w-full mt-4">
-              Agendar 1on1 con Zeta
-            </Button>
           </div>
         </div>
       </div>
