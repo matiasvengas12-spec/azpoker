@@ -1,21 +1,190 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
-import { Play, Download, ExternalLink, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft } from 'lucide-react';
 
 const getSpotName = (key: string): string =>
   key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
 const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 
+// =============================================
+// REPRODUCTOR PERSONALIZADO (YouTube Style)
+// =============================================
+const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const togglePlay = () => {
+    if (videoRef.current?.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current?.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const updateTime = () => setCurrentTime(video.currentTime);
+    const updateDuration = () => setDuration(video.duration);
+
+    video.addEventListener('timeupdate', updateTime);
+    video.addEventListener('loadedmetadata', updateDuration);
+    video.addEventListener('play', () => setIsPlaying(true));
+    video.addEventListener('pause', () => setIsPlaying(false));
+
+    return () => {
+      video.removeEventListener('timeupdate', updateTime);
+      video.removeEventListener('loadedmetadata', updateDuration);
+    };
+  }, []);
+
+  const resetControlsTimeout = () => {
+    if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
+    setShowControls(true);
+    controlsTimeout.current = setTimeout(() => setShowControls(false), 3000);
+  };
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      videoRef.current?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const time = parseFloat(e.target.value);
+    if (videoRef.current) {
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  };
+
+  return (
+    <div
+      className="relative aspect-video rounded-xl overflow-hidden bg-black group"
+      onMouseMove={resetControlsTimeout}
+      onMouseLeave={() => setShowControls(false)}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        className="w-full h-full"
+        onClick={togglePlay}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
+
+      {/* Botón Play Grande */}
+      {!isPlaying && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm">
+          <button
+            onClick={togglePlay}
+            className="w-32 h-32 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110"
+            aria-label="Reproducir"
+          >
+            <Play className="w-16 h-16 text-black ml-2" fill="currentColor" />
+          </button>
+        </div>
+      )}
+
+      {/* Controles Personalizados */}
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 transition-opacity duration-300 ${
+          showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <input
+          type="range"
+          min="0"
+          max={duration || 0}
+          value={currentTime}
+          onChange={handleSeek}
+          className="w-full h-2 bg-gray-700 rounded-full appearance-none cursor-pointer slider"
+          style={{
+            background: `linear-gradient(to right, #8b5cf6 ${(currentTime / duration) * 100}%, #374151 ${(currentTime / duration) * 100}%)`,
+          }}
+        />
+
+        <div className="flex items-center justify-between mt-3 text-white">
+          <div className="flex items-center gap-3">
+            <button onClick={togglePlay} className="p-2 hover:bg-white/20 rounded-full transition">
+              {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
+            </button>
+
+            <button
+              onClick={() => {
+                if (videoRef.current) {
+                  videoRef.current.muted = !isMuted;
+                  setIsMuted(!isMuted);
+                }
+              }}
+              className="p-2 hover:bg-white/20 rounded-full transition"
+            >
+              {isMuted || volume === 0 ? <VolumeX className="w-7 h-7" /> : <Volume2 className="w-7 h-7" />}
+            </button>
+
+            <span className="text-sm font-medium">
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </span>
+          </div>
+
+          <button onClick={toggleFullscreen} className="p-2 hover:bg-white/20 rounded-full transition">
+            <Maximize className="w-7 h-7" />
+          </button>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .slider::-webkit-slider-thumb {
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          background: #8b5cf6;
+          border-radius: 50%;
+          cursor: pointer;
+          box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+        }
+        .slider::-moz-range-thumb {
+          width: 16px;
+          height: 16px;
+          background: #8b5cf6;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+// =============================================
+// CLASS DETAILS PAGE
+// =============================================
 const ClassDetailsPage: React.FC = () => {
   const { spotKey, classId } = useParams<{ spotKey: string; classId: string }>();
   const [expandedSpots, setExpandedSpots] = useState<Record<string, boolean>>({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const spotKeys = useMemo(() => Object.keys(courseContent), []);
 
@@ -47,7 +216,7 @@ const ClassDetailsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* ----------------------- BARRA SUPERIOR FIJA ----------------------- */}
+      {/* BARRA SUPERIOR FIJA */}
       <header className="sticky top-0 z-50 bg-black border-b border-gray-800">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link
@@ -57,7 +226,6 @@ const ClassDetailsPage: React.FC = () => {
             <ArrowLeft className="w-5 h-5" />
             <span className="text-sm font-medium">Volver al Dashboard</span>
           </Link>
-
           <div className="flex items-center gap-2">
             <span className="text-gray-400 text-sm">Categoría:</span>
             <span className="font-semibold text-white">{getSpotName(spotKey)}</span>
@@ -67,49 +235,10 @@ const ClassDetailsPage: React.FC = () => {
 
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          {/* ----------------------- VIDEO + INFO ----------------------- */}
+          {/* VIDEO + INFO */}
           <div className="xl:col-span-2 space-y-6">
-            {/* Video Player */}
-          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-900 shadow-2xl group">
-            <video
-              ref={videoRef}
-              src={selectedClass.videoUrl}
-              poster={VIDEO_POSTER_URL}
-              controls={isPlaying}
-              controlsList="nodownload"
-              className="w-full h-full"
-              title={selectedClass.title}
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-              onEnded={() => setIsPlaying(false)}
-              // ESTILOS PERSONALIZADOS PARA CONTROLES GRANDES
-              style={{
-                '--video-controls-height': '60px', // Altura de la barra
-                '--video-button-size': '48px',     // Tamaño de botones
-                '--video-seek-height': '8px',      // Barra de progreso
-              } as React.CSSProperties}
-            />
-          
-            {/* Botón Play Grande (solo si no está reproduciendo) */}
-            {!isPlaying && (
-              <div
-                className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm"
-                onClick={() => videoRef.current?.play()}
-              >
-                <button
-                  className="w-32 h-32 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110"
-                  aria-label="Reproducir video"
-                >
-                  <Play className="w-16 h-16 text-black ml-2" fill="currentColor" />
-                </button>
-              </div>
-            )}
-          
-            {/* Overlay sutil en hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-          </div>
+            <CustomVideoPlayer src={selectedClass.videoUrl} poster={VIDEO_POSTER_URL} />
 
-            {/* Title + Actions */}
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
                 {selectedClass.title}
@@ -121,7 +250,6 @@ const ClassDetailsPage: React.FC = () => {
                 </span>
               </div>
 
-              {/* Actions */}
               <div className="flex items-center gap-3 mt-4">
                 <button
                   onClick={() => setLiked(!liked)}
@@ -143,11 +271,12 @@ const ClassDetailsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Description */}
             <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
               <div
                 className={`transition-all duration-300 ${showDescription ? '' : 'line-clamp-3'}`}
-                dangerouslySetInnerHTML={{ __html: selectedClass.keyLines.map(k => `<strong>${k.title}:</strong> ${k.content}`).join('<br/><br/>') || 'Sin descripción.' }}
+                dangerouslySetInnerHTML={{
+                  __html: selectedClass.keyLines.map(k => `<strong>${k.title}:</strong> ${k.content}`).join('<br/><br/>') || 'Sin descripción.'
+                }}
               />
               <button
                 onClick={() => setShowDescription(!showDescription)}
@@ -158,7 +287,6 @@ const ClassDetailsPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Key Lines */}
             {selectedClass.keyLines.length > 0 && (
               <section>
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
@@ -176,11 +304,10 @@ const ClassDetailsPage: React.FC = () => {
               </section>
             )}
 
-            {/* Hands */}
             {selectedClass.hands.length > 0 && (
               <section>
                 <h3 className="text-xl font-bold text-white mb-4">Manos de Ejemplo</h3>
-                <div class10 className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {selectedClass.hands.map((hand, i) => (
                     <div key={i} className="bg-gray-900 p-4 rounded-lg border border-gray-800 hover:border-violet-600 transition-all flex gap-3">
                       <div className="bg-gradient-to-br from-violet-600 to-purple-700 w-16 h-12 rounded flex items-center justify-center font-mono text-xl font-bold text-white">
@@ -193,7 +320,6 @@ const ClassDetailsPage: React.FC = () => {
               </section>
             )}
 
-            {/* Extra Material */}
             {(selectedClass.filters?.length ?? 0) > 0 || (selectedClass.tables?.length ?? 0) > 0 ? (
               <section>
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
@@ -257,9 +383,8 @@ const ClassDetailsPage: React.FC = () => {
             ) : null}
           </div>
 
-          {/* ----------------------- SIDEBAR FIJO ----------------------- */}
+          {/* SIDEBAR FIJO */}
           <div className="xl:col-span-1">
-            {/* Mobile Menu */}
             <div className="xl:hidden mb-4">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -275,14 +400,12 @@ const ClassDetailsPage: React.FC = () => {
               )}
             </div>
 
-            {/* Desktop Sidebar (FIJO) */}
             <div className="hidden xl:block sticky top-20 space-y-6">
               <div className="bg-gray-900 rounded-lg p-4 border border-gray-800 max-h-96 overflow-y-auto">
                 <h3 className="text-lg font-bold text-white mb-3">Temario</h3>
                 {syllabusNavigation(spotKeys, expandedSpots, toggleSpot, selectedClass, spotKey)}
               </div>
 
-              {/* Videos Relacionados */}
               {relatedVideos.length > 0 && (
                 <div className="bg-gray-900 rounded-lg p-4 border border-gray-800">
                   <h3 className="text-lg font-bold text-white mb-3">Videos Relacionados</h3>
