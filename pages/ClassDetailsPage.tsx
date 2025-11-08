@@ -16,10 +16,9 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(true);
-  const [playbackRate, setPlaybackRate] = useState(1); // NUEVO
+  const [playbackRate, setPlaybackRate] = useState(1);
   const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number) => {
@@ -56,7 +55,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     };
   }, []);
 
-  // Aplicar velocidad
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = playbackRate;
@@ -85,7 +83,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     }
   };
 
-  // Opciones de velocidad
   const speeds = [0.5, 1, 1.5, 2];
   const getSpeedLabel = (rate: number) => rate === 1 ? 'Normal' : `${rate}x`;
 
@@ -101,6 +98,8 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         poster={poster}
         className="w-full h-full"
         onClick={togglePlay}
+        controls={false}  // DESACTIVADO
+        muted={isMuted}
       />
 
       {/* Botón Play Grande */}
@@ -116,25 +115,27 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         </div>
       )}
 
-      {/* Controles Personalizados */}
+      {/* CONTROLES PERSONALIZADOS (ABAJO) */}
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 transition-opacity duration-300 ${
+        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 transition-opacity duration-300 ${
           showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
         }`}
       >
+        {/* Barra de progreso */}
         <input
           type="range"
           min="0"
           max={duration || 0}
           value={currentTime}
           onChange={handleSeek}
-          className="w-full h-2 bg-gray-700 rounded-full appearance-none cursor-pointer slider"
+          className="w-full h-2 bg-gray-700 rounded-full appearance-none cursor-pointer slider mb-3"
           style={{
             background: `linear-gradient(to right, #8b5cf6 ${(currentTime / duration) * 100}%, #374151 ${(currentTime / duration) * 100}%)`,
           }}
         />
 
-        <div className="flex items-center justify-between mt-3 text-white">
+        {/* Botones */}
+        <div className="flex items-center justify-between text-white">
           <div className="flex items-center gap-3">
             <button onClick={togglePlay} className="p-2 hover:bg-white/20 rounded-full transition">
               {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
@@ -149,7 +150,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
               }}
               className="p-2 hover:bg-white/20 rounded-full transition"
             >
-              {isMuted || volume === 0 ? <VolumeX className="w-7 h-7" /> : <Volume2 className="w-7 h-7" />}
+              {isMuted ? <VolumeX className="w-7 h-7" /> : <Volume2 className="w-7 h-7" />}
             </button>
 
             <span className="text-sm font-medium">
@@ -158,19 +159,17 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           </div>
 
           <div className="flex items-center gap-2">
-            {/* BOTÓN DE VELOCIDAD */}
-            <div className="relative">
-              <button
-                onClick={() => {
-                  const currentIndex = speeds.indexOf(playbackRate);
-                  const nextIndex = (currentIndex + 1) % speeds.length;
-                  setPlaybackRate(speeds[nextIndex]);
-                }}
-                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition"
-              >
-                {getSpeedLabel(playbackRate)}
-              </button>
-            </div>
+            {/* VELOCIDAD */}
+            <button
+              onClick={() => {
+                const currentIndex = speeds.indexOf(playbackRate);
+                const nextIndex = (currentIndex + 1) % speeds.length;
+                setPlaybackRate(speeds[nextIndex]);
+              }}
+              className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition"
+            >
+              {getSpeedLabel(playbackRate)}
+            </button>
 
             <button onClick={toggleFullscreen} className="p-2 hover:bg-white/20 rounded-full transition">
               <Maximize className="w-7 h-7" />
