@@ -158,7 +158,7 @@ const ProfilePage: React.FC = () => {
               className="w-28 h-28 rounded-full mb-3 border-4 border-violet-500 object-cover"
             />
             <h4 className="text-lg font-semibold text-white">Zeta</h4>
-            <p className="text-sm text-slate-400">Fundador & Head Coach</p>
+            <p className="text-sm text-slate-400">Head Coach</p>
             <div className="mt-3 flex items-center gap-1 text-green-400 text-sm">
               <CheckCircle className="w-4 h-4" />
               <span>Streak: {stats.streak} días</span>
