@@ -418,8 +418,8 @@ export const courseContent: CourseContent = {
      "Live Sessions GGPOKER NL50 10bb/100": [
                  {
             id: "gglive501",
-            videoUrl: "output",
-            thumbnailUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Foutput.mkv?alt=media&token=07da0a8a-4e3a-4a8e-bc20-781aae49c5d9",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Foutput.mkv?alt=media&token=07da0a8a-4e3a-4a8e-bc20-781aae49c5d9",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 1",
             uploadDate: "2025-02-15",
             keyLines: [], 
@@ -430,7 +430,7 @@ export const courseContent: CourseContent = {
                  {
             id: "gglive502",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses50.mkv?alt=media&token=18d0ec74-eff4-4585-b054-da1ecab2d3e6",
-            thumbnailUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses50.mkv?alt=media&token=18d0ec74-eff4-4585-b054-da1ecab2d3e6",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 2",
             uploadDate: "2025-02-15",
             keyLines: [], 
