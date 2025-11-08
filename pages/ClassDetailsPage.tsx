@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
+import { Play, Download, ExternalLink, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon } from 'lucide-react';
 
 // Helper
 const getSpotName = (key: string): string =>
@@ -12,16 +13,17 @@ const ClassDetailsPage: React.FC = () => {
   const { spotKey, classId } = useParams<{ spotKey: string; classId: string }>();
   const [expandedSpots, setExpandedSpots] = useState<Record<string, boolean>>({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const spotKeys = useMemo(() => Object.keys(courseContent), []);
 
-  // Validar spotKey y classId
   const selectedClass: ClassData | null = useMemo(() => {
     if (!spotKey || !classId || !courseContent[spotKey]) return null;
     return courseContent[spotKey].find(cls => cls.id === classId) || null;
   }, [spotKey, classId]);
 
-  // Auto-expandir spot actual
   useEffect(() => {
     if (spotKey) {
       setExpandedSpots(prev => ({ ...prev, [spotKey]: true }));
@@ -32,147 +34,103 @@ const ClassDetailsPage: React.FC = () => {
     setExpandedSpots(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const syllabusNavigation = (
-    <nav className="space-y-2">
-      {spotKeys.map(key => (
-        <div key={key}>
-          <button
-            onClick={() => toggleSpot(key)}
-            className="w-full text-left flex justify-between items-center px-2 py-2 text-lg font-semibold text-slate-200 hover:bg-slate-700 rounded-md transition-colors"
-            aria-expanded={!!expandedSpots[key]}
-          >
-            <span>{getSpotName(key)}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-5 w-5 transition-transform duration-300 ${expandedSpots[key] ? 'rotate-180' : ''}`}
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          {expandedSpots[key] && (
-            <div className="pl-4 mt-2 space-y-1 border-l-2 border-slate-600">
-              {courseContent[key].map(classItem => (
-                <Link
-                  key={classItem.id}
-                  to={`/class/${key}/${classItem.id}`}
-                  className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
-                    selectedClass?.id === classItem.id
-                      ? 'text-violet-400 font-semibold'
-                      : 'text-slate-300 hover:text-violet-400'
-                  }`}
-                  onClick={() => window.innerWidth < 768 && setIsMobileMenuOpen(false)}
-                >
-                  {classItem.title}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-    </nav>
-  );
+  // Videos relacionados (mismo spot, excluyendo actual)
+  const relatedVideos = useMemo(() => {
+    if (!spotKey || !selectedClass) return [];
+    return courseContent[spotKey]
+      .filter(cls => cls.id !== classId)
+      .slice(0, 8);
+  }, [spotKey, classId, selectedClass]);
 
-  // Redirección si no existe
   if (!spotKey || !classId || !selectedClass) {
     return <Navigate to="/dashboard" replace />;
   }
 
   return (
-    <div className="container mx-auto px-6 pt-12">
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
-      <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-white">{selectedClass.title}</h1>
-        <p className="text-slate-400 text-sm mt-1">
-          {getSpotName(spotKey)} • {selectedClass.uploadDate || 'Sin fecha'}
-        </p>
-      </div>
-    
-      <Link
-        to="/dashboard"
-        className="inline-flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition-colors"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Todos los videos
-      </Link>
-    </div>
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          {/* ----------------------- VIDEO + INFO ----------------------- */}
+          <div className="xl:col-span-2 space-y-6">
+            {/* Video Player */}
+            <div className="aspect-video rounded-xl overflow-hidden bg-gray-900 shadow-2xl">
+              <video
+                ref={videoRef}
+                src={selectedClass.videoUrl}
+                poster={VIDEO_POSTER_URL}
+                controls
+                className="w-full h-full"
+                title={selectedClass.title}
+              />
+            </div>
 
-      {/* Mobile Menu */}
-      <div className="md:hidden mb-4 sticky top-[88px] z-40">
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="w-full flex items-center justify-between p-3 bg-slate-800 rounded-lg border border-slate-700 text-left"
-          aria-expanded={isMobileMenuOpen}
-        >
-          <span className="font-semibold text-white truncate pr-2">
-            Temario: {selectedClass.title}
-          </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-white flex-shrink-0"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={isMobileMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-            />
-          </svg>
-        </button>
-        {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 w-full mt-2 p-4 rounded-lg border border-slate-700 bg-slate-900">
-            {syllabusNavigation}
-          </div>
-        )}
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar */}
-        <aside className="hidden md:block w-full md:w-1/4 lg:w-1/5 p-4 rounded-lg border border-slate-700 self-start md:sticky md:top-24">
-          <h2 className="text-xl font-bold text-white mb-4 pl-2">Temario</h2>
-          {syllabusNavigation}
-        </aside>
-
-        {/* Main Content */}
-        <main className="w-full md:w-3/4 lg:w-4/5">
-          <div className="space-y-12">
-            {/* Video */}
+            {/* Title + Actions */}
             <div>
-              <h2 className="text-3xl font-bold text-white mb-6">{selectedClass.title}</h2>
-              <div className="max-w-4xl mx-auto">
-                <div className="aspect-video rounded-lg overflow-hidden shadow-2xl shadow-violet-900/30 border border-slate-700">
-                  {selectedClass.videoUrl ? (
-                    <video
-                      src={selectedClass.videoUrl}
-                      poster={VIDEO_POSTER_URL}
-                      controls
-                      className="w-full h-full"
-                      title={selectedClass.title}
-                    />
-                  ) : (
-                    <p className="text-red-400 text-center py-10">Error: No se encontró la URL del video.</p>
-                  )}
-                </div>
+              <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                {selectedClass.title}
+              </h1>
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  {selectedClass.uploadDate || 'Sin fecha'}
+                </span>
+                <span>•</span>
+                <span className="text-violet-400">{getSpotName(spotKey)}</span>
               </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-3 mt-4">
+                <button
+                  onClick={() => setLiked(!liked)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                    liked ? 'bg-violet-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                  }`}
+                >
+                  <ThumbsUp className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
+                  Me gusta
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-gray-300 rounded-full hover:bg-gray-700 transition-all">
+                  <MessageSquare className="w-5 h-5" />
+                  Comentar
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-gray-300 rounded-full hover:bg-gray-700 transition-all">
+                  <Share2 className="w-5 h-5" />
+                  Compartir
+                </button>
+                <button className="ml-auto p-2 bg-gray-800 rounded-full hover:bg-gray-700">
+                  <MoreVertical className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
+              <div
+                className={`transition-all duration-300 ${showDescription ? '' : 'line-clamp-3'}`}
+                dangerouslySetInnerHTML={{ __html: selectedClass.keyLines.map(k => `<strong>${k.title}:</strong> ${k.content}`).join('<br/><br/>') || 'Sin descripción.' }}
+              />
+              <button
+                onClick={() => setShowDescription(!showDescription)}
+                className="mt-2 text-sm text-violet-400 hover:text-violet-300 flex items-center gap-1"
+              >
+                {showDescription ? 'Mostrar menos' : 'Mostrar más'}
+                <ChevronDown className={`w-4 h-4 transition-transform ${showDescription ? 'rotate-180' : ''}`} />
+              </button>
             </div>
 
             {/* Key Lines */}
             {selectedClass.keyLines.length > 0 && (
               <section>
-                <h3 className="text-2xl font-bold text-white mb-6 border-b-2 border-violet-500 pb-2">Líneas Clave</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Star className="w-6 h-6 text-yellow-500" />
+                  Líneas Clave
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {selectedClass.keyLines.map((line, i) => (
-                    <KeyLineCard key={i} line={line} />
+                    <div key={i} className="bg-gray-900 p-4 rounded-lg border border-gray-800 hover:border-violet-600 transition-all">
+                      <h4 className="font-semibold text-violet-400">{line.title}</h4>
+                      <p className="text-gray-300 mt-1 text-sm">{line.content}</p>
+                    </div>
                   ))}
                 </div>
               </section>
@@ -181,10 +139,15 @@ const ClassDetailsPage: React.FC = () => {
             {/* Hands */}
             {selectedClass.hands.length > 0 && (
               <section>
-                <h3 className="text-2xl font-bold text-white mb-6 border-b-2 border-violet-500 pb-2">Manos de Ejemplo</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h3 className="text-xl font-bold text-white mb-4">Manos de Ejemplo</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {selectedClass.hands.map((hand, i) => (
-                    <HandCard key={i} hand={hand} />
+                    <div key={i} className="bg-gray-900 p-4 rounded-lg border border-gray-800 hover:border-violet-600 transition-all flex gap-3">
+                      <div className="bg-gradient-to-br from-violet-600 to-purple-700 w-16 h-12 rounded flex items-center justify-center font-mono text-xl font-bold text-white">
+                        {hand.hand}
+                      </div>
+                      <p className="text-gray-300 text-sm">{hand.description}</p>
+                    </div>
                   ))}
                 </div>
               </section>
@@ -193,57 +156,59 @@ const ClassDetailsPage: React.FC = () => {
             {/* Extra Material */}
             {(selectedClass.filters?.length ?? 0) > 0 || (selectedClass.tables?.length ?? 0) > 0 ? (
               <section>
-                <h3 className="text-2xl font-bold text-white mb-6 border-b-2 border-violet-500 pb-2">Material Extra</h3>
-                <div className="space-y-10">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <FilterIcon className="w-6 h-6 text-violet-400" />
+                  Material Extra
+                </h3>
+                <div className="space-y-6">
                   {selectedClass.filters && selectedClass.filters.length > 0 && (
                     <div>
-                      <h4 className="text-xl font-semibold text-slate-200 mb-4">Filtros</h4>
-                      <p className="text-slate-300 mb-6">
-                        Filtros de "{getSpotName(spotKey)}". Acá podes encontrar filtros útiles.
-                      </p>
-                      <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
-                        <div className="overflow-x-auto">
-                          <table className="min-w-full">
-                            <thead className="bg-slate-900/50">
-                              <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Nombre</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Tracker</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Fecha</th>
-                                <th className="relative px-6 py-3"><span className="sr-only">Descargar</span></th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-700">
-                              {selectedClass.filters.map((f, i) => (
-                                <FilterRow key={i} filter={f} />
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
+                      <h4 className="text-lg font-semibold text-gray-200 mb-3">Filtros</h4>
+                      <div className="space-y-2">
+                        {selectedClass.filters.map((f, i) => (
+                          <div key={i} className="flex items-center justify-between bg-gray-900 p-3 rounded-lg border border-gray-800">
+                            <div className="flex items-center gap-3">
+                              <span className={`px-2 py-1 text-xs rounded-full border ${
+                                f.tracker === 'Poker Tracker' ? 'border-red-700 text-red-400' :
+                                f.tracker === 'Holdem Manager' ? 'border-blue-700 text-blue-400' :
+                                'border-green-700 text-green-400'
+                              }`}>
+                                {f.tracker}
+                              </span>
+                              <span className="text-sm text-gray-300">{f.name}</span>
+                            </div>
+                            <a
+                              href={f.downloadLink}
+                              download
+                              className="flex items-center gap-1 text-violet-400 hover:text-violet-300 text-sm"
+                            >
+                              <Download className="w-4 h-4" />
+                              Descargar
+                            </a>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
 
                   {selectedClass.tables && selectedClass.tables.length > 0 && (
                     <div>
-                      <h4 className="text-xl font-semibold text-slate-200 mb-4">Tablas Preflop</h4>
-                      <p className="text-slate-300 mb-6">Tablas preflop de referencia.</p>
-                      <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
-                        <div className="overflow-x-auto">
-                          <table className="min-w-full">
-                            <thead className="bg-slate-900/50">
-                              <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Nombre</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Fecha</th>
-                                <th className="relative px-6 py-3"><span className="sr-only">Abrir</span></th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-700">
-                              {selectedClass.tables.map((t, i) => (
-                                <TableRow key={i} table={t} />
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
+                      <h4 className="text-lg font-semibold text-gray-200 mb-3">Tablas Preflop</h4>
+                      <div className="space-y-2">
+                        {selectedClass.tables.map((t, i) => (
+                          <div key={i} className="flex items-center justify-between bg-gray-900 p-3 rounded-lg border border-gray-800">
+                            <span className="text-sm text-gray-300">{t.name}</span>
+                            <a
+                              href={t.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1 text-violet-400 hover:text-violet-300 text-sm"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              Abrir
+                            </a>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -251,70 +216,107 @@ const ClassDetailsPage: React.FC = () => {
               </section>
             ) : null}
           </div>
-        </main>
+
+          {/* ----------------------- SIDEBAR (RELATED) ----------------------- */}
+          <div className="xl:col-span-1">
+            <div className="md:hidden mb-4">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="w-full flex items-center justify-between p-3 bg-gray-900 rounded-lg border border-gray-800"
+              >
+                <span className="font-semibold">Temario</span>
+                <ChevronDown className={`w-5 h-5 transition-transform ${isMobileMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isMobileMenuOpen && (
+                <div className="mt-2 p-4 bg-gray-900 rounded-lg border border-gray-800">
+                  {syllabusNavigation(spotKeys, expandedSpots, toggleSpot, selectedClass, spotKey)}
+                </div>
+              )}
+            </div>
+
+            <div className="hidden xl:block sticky top-20">
+              <h3 className="text-lg font-bold text-white mb-4">Temario</h3>
+              <div className="bg-gray-900 rounded-lg p-4 border border-gray-800 max-h-96 overflow-y-auto">
+                {syllabusNavigation(spotKeys, expandedSpots, toggleSpot, selectedClass, spotKey)}
+              </div>
+            </div>
+
+            {/* Related Videos */}
+            {relatedVideos.length > 0 && (
+              <section className="mt-8">
+                <h3 className="text-lg font-bold text-white mb-4">Videos Relacionados</h3>
+                <div className="space-y-3">
+                  {relatedVideos.map(classItem => (
+                    <Link
+                      key={classItem.id}
+                      to={`/class/${spotKey}/${classItem.id}`}
+                      className="flex gap-3 group hover:bg-gray-900 p-2 rounded-lg transition-all"
+                    >
+                      <div className="w-32 h-20 bg-gray-800 rounded overflow-hidden flex-shrink-0">
+                        {classItem.thumbnailUrl ? (
+                          <img src={classItem.thumbnailUrl} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <Play className="w-8 h-8 text-gray-500" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium text-white line-clamp-2 group-hover:text-violet-400">
+                          {classItem.title}
+                        </h4>
+                        <p className="text-xs text-gray-400 mt-1">{classItem.uploadDate}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-// Componentes auxiliares (movidos desde DashboardPage)
-const KeyLineCard: React.FC<{ line: KeyLine }> = ({ line }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 transition-all hover:border-violet-500 hover:shadow-lg hover:shadow-violet-500/10 flex flex-col">
-    <h4 className="font-bold text-lg text-violet-400 mb-2">{line.title}</h4>
-    <p className="text-slate-300 text-base leading-relaxed">{line.content}</p>
-  </div>
-);
-
-const HandCard: React.FC<{ hand: PokerHand }> = ({ hand }) => (
-  <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 transition-all hover:border-violet-500 hover:shadow-lg hover:shadow-violet-500/10">
-    <div className="flex items-center gap-4 mb-3">
-      <div className="flex-shrink-0 bg-slate-900/70 w-16 h-10 flex items-center justify-center rounded-md border border-slate-600">
-        <span className="font-mono text-xl text-white font-bold tracking-wider">{hand.hand}</span>
+// Syllabus como función para reutilizar
+const syllabusNavigation = (
+  spotKeys: string[],
+  expandedSpots: Record<string, boolean>,
+  toggleSpot: (key: string) => void,
+  selectedClass: ClassData | null,
+  currentSpotKey: string
+) => (
+  <nav className="space-y-1">
+    {spotKeys.map(key => (
+      <div key={key}>
+        <button
+          onClick={() => toggleSpot(key)}
+          className="w-full text-left flex justify-between items-center px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 rounded-md transition-colors"
+        >
+          <span>{getSpotName(key)}</span>
+          <ChevronDown className={`w-4 h-4 transition-transform ${expandedSpots[key] ? 'rotate-180' : ''}`} />
+        </button>
+        {expandedSpots[key] && (
+          <div className="pl-4 mt-1 space-y-1 border-l border-gray-700">
+            {courseContent[key].map(classItem => (
+              <Link
+                key={classItem.id}
+                to={`/class/${key}/${classItem.id}`}
+                className={`block px-3 py-1.5 rounded text-xs transition-colors ${
+                  selectedClass?.id === classItem.id
+                    ? 'text-violet-400 font-semibold bg-violet-900/30'
+                    : 'text-gray-400 hover:text-violet-400'
+                }`}
+              >
+                {classItem.title}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
-      <h4 className="font-semibold text-lg text-slate-200">Mano de Ejemplo</h4>
-    </div>
-    <p className="text-slate-300 text-base leading-relaxed">{hand.description}</p>
-  </div>
-);
-
-const FilterRow: React.FC<{ filter: Filter }> = ({ filter }) => (
-  <tr className="hover:bg-slate-800 transition-colors">
-    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{filter.name}</td>
-    <td className="px-6 py-4 whitespace-nowrap">
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-        filter.tracker === 'Poker Tracker' ? 'bg-red-900/50 text-red-300 border border-red-700/50' :
-        filter.tracker === 'Holdem Manager' ? 'bg-blue-900/50 text-blue-300 border border-blue-700/50' :
-        'bg-green-900/50 text-green-300 border border-green-700/50'
-      }`}>
-        {filter.tracker}
-      </span>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{filter.uploadDate}</td>
-    <td className="px-6 py-4 whitespace-nowrap text-right">
-      <a href={filter.downloadLink} download className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300">
-        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-        </svg>
-        <span>Descargar</span>
-      </a>
-    </td>
-  </tr>
-);
-
-const TableRow: React.FC<{ table: PreflopTable }> = ({ table }) => (
-  <tr className="hover:bg-slate-800 transition-colors">
-    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{table.name}</td>
-    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{table.uploadDate}</td>
-    <td className="px-6 py-4 whitespace-nowrap text-right">
-      <a href={table.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300">
-        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-        </svg>
-        <span>Abrir</span>
-      </a>
-    </td>
-  </tr>
+    ))}
+  </nav>
 );
 
 export default ClassDetailsPage;
