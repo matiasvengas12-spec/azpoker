@@ -68,15 +68,35 @@ const ClassDetailsPage: React.FC = () => {
           {/* ----------------------- VIDEO + INFO ----------------------- */}
           <div className="xl:col-span-2 space-y-6">
             {/* Video Player */}
-            <div className="aspect-video rounded-xl overflow-hidden bg-gray-900 shadow-2xl">
-              <video
-                src={selectedClass.videoUrl}
-                poster={VIDEO_POSTER_URL}
-                controls
-                className="w-full h-full"
-                title={selectedClass.title}
-              />
-            </div>
+          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-900 shadow-2xl group">
+            <video
+              ref={videoRef}
+              src={selectedClass.videoUrl}
+              poster={VIDEO_POSTER_URL}
+              controls={isPlaying}
+              className="w-full h-full"
+              title={selectedClass.title}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => setIsPlaying(false)}
+            />
+          
+            {!isPlaying && (
+              <div
+                className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer"
+                onClick={() => videoRef.current?.play()}
+              >
+                <button
+                  className="w-24 h-24 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110"
+                  aria-label="Reproducir video"
+                >
+                  <Play className="w-12 h-12 text-black ml-1" fill="currentColor" />
+                </button>
+              </div>
+            )}
+          
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+          </div>
 
             {/* Title + Actions */}
             <div>
