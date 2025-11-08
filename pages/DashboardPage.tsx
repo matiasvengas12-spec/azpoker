@@ -27,7 +27,7 @@ const getLatestVideos = (): Array<{ spotKey: string; classData: ClassData }> => 
 };
 
 /* -------------------------------------------------------------------------- */
-/*  DashboardPage – YouTube Poker                                             */
+/*  DashboardPage – YouTube Poker (sin logo)                                  */
 /* -------------------------------------------------------------------------- */
 const DashboardPage: React.FC = () => {
   const spotKeys = useMemo(() => Object.keys(courseContent), []);
@@ -115,17 +115,12 @@ const DashboardPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* ------------------------------------------------------------------ */}
-      {/*  Header – YouTube Style                                            */}
+      {/*  Header – Solo buscador (logo está en header externo)              */}
       {/* ------------------------------------------------------------------ */}
       <header className="sticky top-0 z-50 bg-black border-b border-gray-800">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Play className="w-6 h-6 text-white" />
-            </div>
-            <h1 className="text-xl font-bold">Poker<span className="text-violet-400">Pro</span></h1>
-          </div>
+        <div className="container mx-auto px-4 py-3 flex items-center justify-center md:justify-between">
+          {/* Espacio vacío donde iría el logo (tu header externo lo maneja) */}
+          <div className="hidden md:block w-10 h-10" />
 
           {/* Buscador */}
           <div className="flex-1 max-w-2xl mx-4">
@@ -195,10 +190,10 @@ const DashboardPage: React.FC = () => {
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/*  Filtros (Fecha) – Solo visible si hay búsqueda o filtros          */}
+      {/*  Filtros (Fecha) – Solo si hay búsqueda o filtros                  */}
       {/* ------------------------------------------------------------------ */}
       {hasActiveFilters && (
-        <div className="container mx-auto px-4 py-4 flex items-center gap-4 flex-wrap">
+        <div className="container mx-auto px-4 py-4 flex items-center gap-4 flex-wrap justify-center md:justify-start">
           <div className="flex items-center gap-2">
             <Filter className="w-5 h-5 text-gray-400" />
             <select
@@ -326,7 +321,7 @@ const DashboardPage: React.FC = () => {
 };
 
 /* -------------------------------------------------------------------------- */
-/*  VideoCard – YouTube Poker Style                                           */
+/*  VideoCard – YouTube Style                                                 */
 /* -------------------------------------------------------------------------- */
 interface VideoCardProps {
   classItem: ClassData;
