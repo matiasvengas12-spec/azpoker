@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
-import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward } from 'lucide-react';
 
 const getSpotName = (key: string): string =>
   key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -11,25 +11,7 @@ const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 // =============================================
 // REPRODUCTOR PERSONALIZADO (CON VELOCIDAD)
 // =============================================
-¡LISTO!
-Aquí tienes el CustomVideoPlayer ACTUALIZADO con:
-
-Botones de +10s / -10s en círculo
-"Normal" más claro y destacado (botón más grande y con ícono de velocidad)
-Diseño YouTube PRO
-
-
-CustomVideoPlayer – +10s / -10s en CÍRCULO + "Normal" DESTACADO
-tsx// AGREGA ESTOS IMPORTS EN LA CABECERA DE ClassDetailsPage.tsx
-import { 
-  Play, Pause, Volume2, VolumeX, Maximize, 
-  Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, 
-  ChevronDown, Star, Filter as FilterIcon, ArrowLeft,
-  SkipBack, SkipForward, Zap  // NUEVO: Zap para velocidad
-} from 'lucide-react';
-
-BLOQUE ACTUALIZADO (solo reemplaza CustomVideoPlayer)
-tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
+const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,7 +22,6 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
   const [playbackRate, setPlaybackRate] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
-  const clickTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -63,18 +44,6 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
       const newTime = Math.max(0, Math.min(videoRef.current.currentTime + seconds, duration));
       videoRef.current.currentTime = newTime;
       setCurrentTime(newTime);
-    }
-  };
-
-  const handleDoubleClick = () => {
-    if (clickTimeout.current) {
-      clearTimeout(clickTimeout.current);
-      clickTimeout.current = null;
-      toggleFullscreen();
-    } else {
-      clickTimeout.current = setTimeout(() => {
-        clickTimeout.current = null;
-      }, 300);
     }
   };
 
@@ -105,7 +74,6 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
       video.removeEventListener('timeupdate', updateTime);
       video.removeEventListener('loadedmetadata', updateDuration);
       document.removeEventListener('fullscreenchange', handleFullscreen);
-      if (clickTimeout.current) clearTimeout(clickTimeout.current);
     };
   }, [duration]);
 
@@ -146,8 +114,9 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
       className="relative aspect-video rounded-xl overflow-hidden bg-black group"
       onMouseMove={resetControlsTimeout}
       onMouseLeave={() => setShowControls(false)}
-      onClick={handleDoubleClick}
+      onDoubleClick={toggleFullscreen} // DOBLE CLIC = FULLSCREEN
     >
+      {/* VIDEO – CLIC SIMPLE = PLAY/PAUSE */}
       <video
         ref={videoRef}
         src={src}
@@ -166,10 +135,14 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
             videoRef.current.removeAttribute('controls');
           }
         }}
-        style={{ pointerEvents: 'none', userSelect: 'none' } as React.CSSProperties}
+        onClick={(e) => {
+          e.stopPropagation();
+          togglePlay();
+        }}
+        style={{ pointerEvents: 'auto', userSelect: 'none' } as React.CSSProperties}
       />
 
-      {/* Botón Play Grande */}
+      {/* Botón Play Grande (solo si pausado) */}
       {!isPlaying && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm z-10">
           <button
@@ -193,6 +166,7 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
         style={{ opacity: showControls || !isPlaying ? 1 : 0 }}
       >
         <div className="pointer-events-auto">
+          {/* Barra de progreso */}
           <input
             type="range"
             min="0"
@@ -209,6 +183,7 @@ tsxconst CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src,
             }}
           />
 
+          {/* Botones */}
           <div className="flex items-center justify-between text-white">
             <div className="flex items-center gap-2">
               {/* -10s (CÍRCULO) */}
