@@ -417,6 +417,17 @@ export const courseContent: CourseContent = {
     ],
         "Live Sessions ACR": [
        { 
+            id: "LiveACR608",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Facr%2068.mkv?alt=media&token=7eceee43-83be-4dc9-aead-adee14d2d97b", 
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "Sesion NL10 ACR 6/8", 
+            uploadDate: "2025-08-06",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+               { 
             id: "LiveACR708",
             videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F7825%20acr10.mkv?alt=media&token=4dde4800-696a-4ca5-bc9e-1b6f4a84c272", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
