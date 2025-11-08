@@ -236,7 +236,7 @@ const ProfilePage: React.FC = () => {
       {/* FOOTER MOTIVACIONAL */}
       <div className="mt-12 text-center">
         <p className="text-lg text-slate-400 italic">
-          "El 1% diario te lleva al top 1% del mundo." – <span className="text-violet-400">Zeta</span>
+          "El 1% diario te lleva al top 1% del mundo."
         </p>
       </div>
     </div>
