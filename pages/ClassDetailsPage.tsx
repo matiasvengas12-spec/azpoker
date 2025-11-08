@@ -175,13 +175,13 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
 
       {/* Botón Play Grande */}
       {!isPlaying && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm z-10">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-10 pointer-events-none">
           <button
             onClick={(e) => {
               e.stopPropagation();
               togglePlay();
             }}
-            className="w-32 h-32 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110"
+            className="w-32 h-32 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110 pointer-events-auto"
             aria-label="Reproducir"
           >
             <Play className="w-16 h-16 text-black ml-2" fill="currentColor" />
