@@ -23,7 +23,7 @@ const getLatestVideos = (): Array<{ spotKey: string; classData: ClassData }> => 
 
   return all
     .sort((a, b) => new Date(b.classData.uploadDate!).getTime() - new Date(a.classData.uploadDate!).getTime())
-    .slice(0, 12);
+    .slice(0, 4);
 };
 
 /* -------------------------------------------------------------------------- */
