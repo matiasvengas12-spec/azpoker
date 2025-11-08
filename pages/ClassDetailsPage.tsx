@@ -22,6 +22,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
   const [playbackRate, setPlaybackRate] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -36,6 +37,28 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     } else {
       videoRef.current?.pause();
       setIsPlaying(false);
+    }
+  };
+
+  // +10s / -10s
+  const skip = (seconds: number) => {
+    if (videoRef.current) {
+      const newTime = Math.max(0, Math.min(videoRef.current.currentTime + seconds, duration));
+      videoRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  // Doble clic = fullscreen
+  const handleDoubleClick = () => {
+    if (clickTimeout.current) {
+      clearTimeout(clickTimeout.current);
+      clickTimeout.current = null;
+      toggleFullscreen();
+    } else {
+      clickTimeout.current = setTimeout(() => {
+        clickTimeout.current = null;
+      }, 300);
     }
   };
 
@@ -54,7 +77,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     const handleFullscreen = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handleFullscreen);
 
-    // FUERZA A OCULTAR CONTROLES NATIVOS CADA 100ms (mientras carga)
+    // FUERZA A OCULTAR CONTROLES NATIVOS
     const hideNativeControls = setInterval(() => {
       if (video) {
         video.controls = false;
@@ -67,8 +90,9 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       video.removeEventListener('timeupdate', updateTime);
       video.removeEventListener('loadedmetadata', updateDuration);
       document.removeEventListener('fullscreenchange', handleFullscreen);
+      if (clickTimeout.current) clearTimeout(clickTimeout.current);
     };
-  }, []);
+  }, [duration]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -107,21 +131,19 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       className="relative aspect-video rounded-xl overflow-hidden bg-black group"
       onMouseMove={resetControlsTimeout}
       onMouseLeave={() => setShowControls(false)}
+      onClick={handleDoubleClick} // DOBLE CLIC
     >
-      {/* VIDEO CON TODOS LOS ATRIBUTOS ANTI-NATIVOS */}
       <video
         ref={videoRef}
         src={src}
         poster={poster}
         className="w-full h-full"
-        // ATRIBUTOS CLAVE
         controls={false}
         controlsList="nodownload noremoteplayback noplaybackrate"
         disablePictureInPicture
         playsInline
         webkit-playsinline="true"
         x-webkit-airplay="deny"
-        // BLOQUEAR INTERACCIONES NATIVAS
         onContextMenu={(e) => e.preventDefault()}
         onLoadedMetadata={() => {
           if (videoRef.current) {
@@ -176,7 +198,20 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           />
 
           <div className="flex items-center justify-between text-white">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              {/* -10s */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  skip(-10);
+                }}
+                className="p-2 hover:bg-white/20 rounded-full transition"
+                title="Retroceder 10s"
+              >
+                <SkipBack className="w-7 h-7" />
+              </button>
+
+              {/* Play/Pause */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -187,6 +222,19 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                 {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
               </button>
 
+              {/* +10s */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  skip(10);
+                }}
+                className="p-2 hover:bg-white/20 rounded-full transition"
+                title="Avanzar 10s"
+              >
+                <SkipForward className="w-7 h-7" />
+              </button>
+
+              {/* Volumen */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -206,6 +254,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             </div>
 
             <div className="flex items-center gap-2">
+              {/* Velocidad */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -218,6 +267,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                 {getSpeedLabel(playbackRate)}
               </button>
 
+              {/* Fullscreen */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -232,18 +282,16 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         </div>
       </div>
 
-      {/* CSS GLOBAL – ELIMINA TODO CONTROL NATIVO */}
+      {/* CSS GLOBAL – MATA CONTROLES NATIVOS */}
       <style jsx global>{`
         video {
           -webkit-appearance: none !important;
           appearance: none !important;
         }
 
-        /* TODOS LOS PSEUDO-ELEMENTOS NATIVOS */
         video::-webkit-media-controls,
         video::-webkit-media-controls-panel,
         video::-webkit-media-controls-play-button,
-        video::-webkit-media-controls-start-playback-button,
         video::-webkit-media-controls-volume-slider-container,
         video::-webkit-media-controls-mute-button,
         video::-webkit-media-controls-timeline-container,
@@ -269,7 +317,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           z-index: -9999 !important;
         }
 
-        /* Fullscreen */
         video:fullscreen,
         video:-webkit-full-screen,
         video:-moz-full-screen {
@@ -281,7 +328,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           display: none !important;
         }
 
-        /* Firefox */
         video::-moz-media-controls-container,
         video::-moz-media-play-button,
         video::-moz-media-volume-slider-container,
@@ -290,7 +336,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           display: none !important;
         }
 
-        /* Móvil */
         @media (hover: none) and (pointer: coarse) {
           video {
             -webkit-touch-callout: none !important;
