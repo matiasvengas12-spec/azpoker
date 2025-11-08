@@ -139,6 +139,10 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           e.stopPropagation();
           togglePlay();
         }}
+        onDoubleClick={(e) => {
+          e.stopPropagation();
+          toggleFullscreen();
+        }}
         style={{ pointerEvents: 'auto', userSelect: 'none' } as React.CSSProperties}
       />
 
