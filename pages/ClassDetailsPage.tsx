@@ -13,12 +13,14 @@ const VIDEO_POSTER_URL = 'https://azpoker.netlify.app/logo.png';
 // =============================================
 const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, poster }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number) => {
@@ -49,9 +51,16 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
     video.addEventListener('play', () => setIsPlaying(true));
     video.addEventListener('pause', () => setIsPlaying(false));
 
+    // Detectar fullscreen
+    const handleFullscreen = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreen);
+
     return () => {
       video.removeEventListener('timeupdate', updateTime);
       video.removeEventListener('loadedmetadata', updateDuration);
+      document.removeEventListener('fullscreenchange', handleFullscreen);
     };
   }, []);
 
@@ -69,7 +78,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      videoRef.current?.requestFullscreen();
+      containerRef.current?.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
@@ -88,25 +97,35 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
 
   return (
     <div
+      ref={containerRef}
       className="relative aspect-video rounded-xl overflow-hidden bg-black group"
       onMouseMove={resetControlsTimeout}
       onMouseLeave={() => setShowControls(false)}
+      onClick={togglePlay}
     >
       <video
         ref={videoRef}
         src={src}
         poster={poster}
         className="w-full h-full"
-        onClick={togglePlay}
-        controls={false}  // DESACTIVADO
+        controls={false}
         muted={isMuted}
+        playsInline
+        webkit-playsinline="true"
+        // OCULTAR CONTROLES NATIVOS EN FULLSCREEN
+        style={{
+          objectFit: 'contain',
+        } as React.CSSProperties}
       />
 
       {/* Botón Play Grande */}
       {!isPlaying && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer backdrop-blur-sm z-10">
           <button
-            onClick={togglePlay}
+            onClick={(e) => {
+              e.stopPropagation();
+              togglePlay();
+            }}
             className="w-32 h-32 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110"
             aria-label="Reproducir"
           >
@@ -115,69 +134,92 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         </div>
       )}
 
-      {/* CONTROLES PERSONALIZADOS (ABAJO) */}
+      {/* CONTROLES PERSONALIZADOS (SIEMPRE VISIBLES EN FULLSCREEN) */}
       <div
-        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 transition-opacity duration-300 ${
-          showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute ${
+          isFullscreen ? 'inset-0 flex flex-col justify-end p-8' : 'inset-x-0 bottom-0 p-4'
+        } bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-300 z-20 pointer-events-none`}
+        style={{
+          opacity: showControls || !isPlaying ? 1 : 0,
+        }}
       >
-        {/* Barra de progreso */}
-        <input
-          type="range"
-          min="0"
-          max={duration || 0}
-          value={currentTime}
-          onChange={handleSeek}
-          className="w-full h-2 bg-gray-700 rounded-full appearance-none cursor-pointer slider mb-3"
-          style={{
-            background: `linear-gradient(to right, #8b5cf6 ${(currentTime / duration) * 100}%, #374151 ${(currentTime / duration) * 100}%)`,
-          }}
-        />
+        <div className="pointer-events-auto">
+          {/* Barra de progreso */}
+          <input
+            type="range"
+            min="0"
+            max={duration || 0}
+            value={currentTime}
+            onChange={(e) => {
+              e.stopPropagation();
+              handleSeek(e);
+            }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full h-2 bg-gray-700 rounded-full appearance-none cursor-pointer slider mb-3"
+            style={{
+              background: `linear-gradient(to right, #8b5cf6 ${(currentTime / duration) * 100}%, #374151 ${(currentTime / duration) * 100}%)`,
+            }}
+          />
 
-        {/* Botones */}
-        <div className="flex items-center justify-between text-white">
-          <div className="flex items-center gap-3">
-            <button onClick={togglePlay} className="p-2 hover:bg-white/20 rounded-full transition">
-              {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
-            </button>
+          {/* Botones */}
+          <div className="flex items-center justify-between text-white">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  togglePlay();
+                }}
+                className="p-2 hover:bg-white/20 rounded-full transition"
+              >
+                {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
+              </button>
 
-            <button
-              onClick={() => {
-                if (videoRef.current) {
-                  videoRef.current.muted = !isMuted;
-                  setIsMuted(!isMuted);
-                }
-              }}
-              className="p-2 hover:bg-white/20 rounded-full transition"
-            >
-              {isMuted ? <VolumeX className="w-7 h-7" /> : <Volume2 className="w-7 h-7" />}
-            </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (videoRef.current) {
+                    videoRef.current.muted = !isMuted;
+                    setIsMuted(!isMuted);
+                  }
+                }}
+                className="p-2 hover:bg-white/20 rounded-full transition"
+              >
+                {isMuted ? <VolumeX className="w-7 h-7" /> : <Volume2 className="w-7 h-7" />}
+              </button>
 
-            <span className="text-sm font-medium">
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </span>
-          </div>
+              <span className="text-sm font-medium">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </span>
+            </div>
 
-          <div className="flex items-center gap-2">
-            {/* VELOCIDAD */}
-            <button
-              onClick={() => {
-                const currentIndex = speeds.indexOf(playbackRate);
-                const nextIndex = (currentIndex + 1) % speeds.length;
-                setPlaybackRate(speeds[nextIndex]);
-              }}
-              className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition"
-            >
-              {getSpeedLabel(playbackRate)}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const currentIndex = speeds.indexOf(playbackRate);
+                  const nextIndex = (currentIndex + 1) % speeds.length;
+                  setPlaybackRate(speeds[nextIndex]);
+                }}
+                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition"
+              >
+                {getSpeedLabel(playbackRate)}
+              </button>
 
-            <button onClick={toggleFullscreen} className="p-2 hover:bg-white/20 rounded-full transition">
-              <Maximize className="w-7 h-7" />
-            </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFullscreen();
+                }}
+                className="p-2 hover:bg-white/20 rounded-full transition"
+              >
+                <Maximize className="w-7 h-7" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* CSS para slider */}
       <style jsx>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
@@ -195,6 +237,13 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
           border-radius: 50%;
           cursor: pointer;
           border: none;
+        }
+
+        /* OCULTAR CONTROLES NATIVOS EN FULLSCREEN */
+        video:fullscreen::-webkit-media-controls,
+        video:-webkit-full-screen::-webkit-media-controls,
+        video:-moz-full-screen::-moz-media-controls {
+          display: none !important;
         }
       `}</style>
     </div>
