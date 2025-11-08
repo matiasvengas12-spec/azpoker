@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
+import ClassDetailsPage from './pages/ClassDetailsPage'; // NUEVO
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -17,6 +17,7 @@ const App: React.FC = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/class/:spotKey/:classId" element={<ClassDetailsPage />} /> {/* NUEVA RUTA */}
           </Routes>
         </main>
         <Footer />
