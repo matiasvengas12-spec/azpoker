@@ -415,6 +415,96 @@ export const courseContent: CourseContent = {
             tables: []
         },
     ],
+     "Live Sessions GGPOKER NL50 10bb/100": [
+                 {
+            id: "gglive501",
+            videoUrl: "output",
+            thumbnailUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Foutput.mkv?alt=media&token=07da0a8a-4e3a-4a8e-bc20-781aae49c5d9",
+            title: "GGPOKER LIVE NL50 SH 1",
+            uploadDate: "2025-02-15",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+                 {
+            id: "gglive502",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses50.mkv?alt=media&token=18d0ec74-eff4-4585-b054-da1ecab2d3e6",
+            thumbnailUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses50.mkv?alt=media&token=18d0ec74-eff4-4585-b054-da1ecab2d3e6",
+            title: "GGPOKER LIVE NL50 SH 2",
+            uploadDate: "2025-02-15",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+            {
+            id: "gglive503",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2000-32-24.mkv?alt=media&token=a78fcd06-2c42-4c71-b986-2e819609174b",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "GGPOKER LIVE NL50 SH 3",
+            uploadDate: "2025-02-13",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
+            id: "gglive504",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F50%20live%20132.mp4?alt=media&token=ab461aff-1407-4323-ba81-50121c68861b",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "GGPOKER LIVE NL50 SH 4",
+            uploadDate: "2025-02-13",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
+            id: "gglive505",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses502.mp4?alt=media&token=4ef5a395-f6b0-4273-b113-ad996669e25f",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "GGPOKER LIVE NL50 SH 5",
+            uploadDate: "2025-02-13",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
+            id: "gglive506",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2021-30-46.mkv?alt=media&token=a8b4af78-484a-46d3-80b5-0603e63a30ea",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "GGPOKER LIVE NL50 SH 6",
+            uploadDate: "2025-02-13",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
+            id: "gglive507",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2023-21-58.mkv?alt=media&token=3923dad1-1487-4c13-a25a-fa1dc86ee8ff",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "GGPOKER LIVE NL50 SH 7",
+            uploadDate: "2025-02-13",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+        {
+            id: "gglive508",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-15%2009-16-12.mkv?alt=media&token=5f6219ef-f038-42ee-ac1a-68c919ed0133",
+            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
+            title: "GGPOKER LIVE NL50 SH 8",
+            uploadDate: "2025-02-15",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+    ],
         "Live Sessions ACR": [
        { 
             id: "LiveACR608",
