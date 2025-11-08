@@ -118,6 +118,19 @@ export const courseContent: CourseContent = {
             ]
         },
     ],
+    "Videos Fundamentales": [
+            {
+            id: "preflopfunda",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-10-10%2021-43-29.mkv?alt=media&token=7230a5ad-b80f-4421-a623-cde030c86939",
+            thumbnailUrl: "https://i.gyazo.com/2dc0d0b8fe90cca89bb9d7babea82d2d.png",
+            title: "Fundamentos Preflop",
+            uploadDate: "2025-11-08",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: []
+        },
+    ],
     "Revisiones Piero": [
         {
             id: "hudpiero",
