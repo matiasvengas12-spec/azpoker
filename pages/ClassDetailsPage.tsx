@@ -581,7 +581,7 @@ const ClassDetailsPage: React.FC = () => {
             {/* NUEVA SECCIÓN: Videos disponibles aleatorios */}
             {randomVideos.length > 0 && (
               <section className="mt-12">
-                <h3 className="text-xl font-bold text-white mb-4">Ver videos disponibles</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Ver más contenido disponible</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {randomVideos.map(({ spotKey, classData }) => (
                     <Link
