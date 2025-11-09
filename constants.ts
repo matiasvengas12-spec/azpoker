@@ -244,7 +244,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero10",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-06%2021-06-13.mkv?alt=media&token=51d5dc1b-895e-4fd7-949a-49e0a8c5c57c",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-08%2022-10-25.mkv?alt=media&token=bcad394b-06bd-488f-8a19-b0b041346153",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Probe Opp 6/11",
             uploadDate: "2025-11-6",
