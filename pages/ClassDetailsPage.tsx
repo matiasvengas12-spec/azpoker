@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
-import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap, Calendar } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap, Download, ExternalLink, Calendar } from 'lucide-react';
 
 const getSpotName = (key: string): string =>
   key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -361,15 +361,21 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
       .slice(0, 8);
   }, [spotKey, classId, selectedClass]);
 
+  // NUEVO: Videos aleatorios de todo el contenido (excluyendo el actual)
   const allVideos = useMemo(() => {
-    return Object.entries(courseContent).flatMap(([spotKey, classes]) => 
-      classes.map(classData => ({ spotKey, classData }))
+    return Object.entries(courseContent).flatMap(([sKey, classes]) =>
+      classes.map(classData => ({ spotKey: sKey, classData }))
     );
   }, []);
 
   const randomVideos = useMemo(() => {
     const filtered = allVideos.filter(v => v.classData.id !== classId);
-    return filtered.sort(() => Math.random() - 0.5).slice(0, 9);
+    // Barajar el array
+    for (let i = filtered.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    }
+    return filtered.slice(0, 9);
   }, [allVideos, classId]);
 
   if (!spotKey || !classId || !selectedClass) {
@@ -543,6 +549,46 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
                 </div>
               </section>
             ) : null}
+
+            {/* NUEVA SECCIÓN: Videos disponibles aleatorios */}
+            {randomVideos.length > 0 && (
+              <section className="mt-12">
+                <h3 className="text-xl font-bold text-white mb-4">Ver videos disponibles</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {randomVideos.map(({ spotKey, classData }) => (
+                    <Link
+                      key={classData.id}
+                      to={`/class/${spotKey}/${classData.id}`}
+                      className="flex gap-3 group hover:bg-gray-800 p-3 rounded-lg transition-all bg-gray-900 border border-gray-800"
+                    >
+                      <div className="w-20 h-12 bg-gray-800 rounded overflow-hidden flex-shrink-0 relative">
+                        {classData.thumbnailUrl ? (
+                          <img
+                            src={classData.thumbnailUrl}
+                            alt={classData.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-500 to-purple-600">
+                            <Play className="w-5 h-5 text-white ml-0.5" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-medium text-white line-clamp-2 group-hover:text-violet-400">
+                          {classData.title}
+                        </h4>
+                        <p className="text-xs text-gray-400 mt-1">{getSpotName(spotKey)}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          <Calendar className="w-3 h-3 inline mr-1" />
+                          {classData.uploadDate}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           {/* SIDEBAR FIJO */}
@@ -601,22 +647,6 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
             </div>
           </div>
         </div>
-
-        {/* Nueva sección: Ver videos disponibles (9 videos al azar) */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-white mb-6">Ver videos disponibles</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {randomVideos.map(({ spotKey: videoSpotKey, classData }) => (
-              <VideoCard
-                key={classData.id}
-                classItem={classData}
-                spotKey={videoSpotKey}
-                isFavorite={false}
-                onToggleFavorite={() => {}}
-              />
-            ))}
-          </div>
-        </section>
       </div>
     </div>
   );
@@ -661,84 +691,5 @@ const syllabusNavigation = (
     ))}
   </nav>
 );
-
-// Componente VideoCard (copiado de DashboardPage para reutilizar)
-interface VideoCardProps {
-  classItem: ClassData;
-  spotKey: string;
-  isFavorite: boolean;
-  onToggleFavorite: () => void;
-}
-
-const VideoCard: React.FC<VideoCardProps> = ({ classItem, spotKey, isFavorite, onToggleFavorite }) => {
-  const thumbnailUrl = classItem.thumbnailUrl ?? null;
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  return (
-    <div className="group">
-      <Link to={`/class/${spotKey}/${classItem.id}`} className="block">
-        <div className="relative aspect-video mb-3 overflow-hidden rounded-xl bg-gray-900">
-          {thumbnailUrl ? (
-            <img
-              src={thumbnailUrl}
-              alt={classItem.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              src={classItem.videoUrl}
-              className="w-full h-full object-cover"
-              muted
-              loop
-              playsInline
-              onMouseEnter={e => e.currentTarget.play()}
-              onMouseLeave={e => {
-                e.currentTarget.pause();
-                e.currentTarget.currentTime = 0;
-              }}
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
-            {classItem.uploadDate}
-          </div>
-        </div>
-      </Link>
-
-      <div className="flex gap-3">
-        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center">
-          <Play className="w-5 h-5 text-white ml-0.5" />
-        </div>
-        <div className="flex-1">
-          <Link to={`/class/${spotKey}/${classItem.id}`}>
-            <h3 className="font-medium text-white line-clamp-2 group-hover:text-violet-400 transition-colors">
-              {classItem.title}
-            </h3>
-          </Link>
-          <p className="text-sm text-gray-400 mt-1">
-            {getSpotName(spotKey)}
-          </p>
-          <div className="flex items-center justify-between mt-1">
-            <p className="text-xs text-gray-500">
-              {classItem.uploadDate}
-            </p>
-            <button
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                onToggleFavorite();
-              }}
-              className="text-yellow-500 hover:text-yellow-400 transition-colors"
-            >
-              <Star className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export default ClassDetailsPage;
