@@ -351,8 +351,36 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         video:fullscreen *, video:-webkit-full-screen * { display: none !important; }
         video::-moz-media-controls-container { display: none !important; }
         @media (hover: none) and (pointer: coarse) {
-          video { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-tap-highlig...(truncated 1090 characters)...ev, [key]: !prev[key] }));
-  };
+          video { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-tap-highlight-color: transparent !important; }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+const ClassDetailsPage: React.FC = () => {
+  const { spotKey, classId } = useParams<{ spotKey: string; classId: string }>();
+  const [expandedSpots, setExpandedSpots] = useState<Record<string, boolean>>({});
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+
+  const spotKeys = useMemo(() => Object.keys(courseContent), []);
+  const selectedClass = useMemo(() => {
+    if (!spotKey || !courseContent[spotKey]) return null;
+    return courseContent[spotKey].find(cls => cls.id === classId) || null;
+  }, [spotKey, classId]);
+
+  const toggleSpot = useCallback((key: string) => {
+    setExpandedSpots(prev => ({ ...prev, [key]: !prev[key] }));
+  }, []);
+
+  // Expandir spot actual en mobile y desktop
+  useEffect(() => {
+    if (spotKey) {
+      setExpandedSpots(prev => ({ ...prev, [spotKey]: true }));
+    }
+  }, [spotKey]);
 
   const relatedVideos = useMemo(() => {
     if (!spotKey || !selectedClass) return [];
