@@ -103,7 +103,7 @@ export const courseContent: CourseContent = {
             tables: [
                 { name: "Tabla de ROL vs Recreacionales", uploadDate: "2024-07-21", link: "/tables/rol-vs-rec.pdf" }
             ],
-            duration: "19:17"
+            duration: "19:36"
         },
         { 
             id: "juego-donks",
@@ -119,7 +119,7 @@ export const courseContent: CourseContent = {
             tables: [
                 { name: "Tabla de Squeeze vs Limpers", uploadDate: "2024-07-16", link: "/tables/squeeze.pdf" }
             ],
-            duration: "19:17"
+            duration: "06:01"
         },
     ],
     "Videos Fundamentales": [
@@ -133,7 +133,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "25:12"
         },
     ],
     "Revisiones Piero": [
@@ -147,7 +147,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "90:52"
         },
         {
             id: "revmanospiero",
@@ -159,7 +159,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "54:51"
         },
         {
             id: "revmanospiero2",
@@ -171,7 +171,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "113:19"
         },
                 {
             id: "revmanospiero3",
@@ -183,7 +183,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "08:18"
         },
         {
             id: "revmanospiero4",
@@ -195,7 +195,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "17:50"
         },
         {
             id: "revmanospiero5",
@@ -207,7 +207,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "86:00"
         },
         {
             id: "revmanospiero6",
@@ -219,7 +219,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "87:43"
         },
         {
             id: "revmanospiero7",
@@ -231,7 +231,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "117:41"
         },
         {
             id: "revmanospiero8",
@@ -243,7 +243,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "125:41"
         },
         {
             id: "revmanospiero9",
@@ -255,7 +255,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "130:17"
         },
         {
             id: "revmanospiero10",
@@ -267,11 +267,11 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "136:30"
         },
          {
             id: "revmanospiero11",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-06%2021-06-13.mkv?alt=media&token=51d5dc1b-895e-4fd7-949a-49e0a8c5c57c",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-08%2022-10-25.mkv?alt=media&token=bcad394b-06bd-488f-8a19-b0b041346153",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "OOP fuera de ciegas 8/11",
             uploadDate: "2025-11-8",
@@ -279,7 +279,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "136:30"
         },
     ],
         "Revisiones Lucas": [
@@ -293,7 +293,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "30:16"
         },
     ],
     "Revisiones Tom": [
@@ -307,7 +307,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "32:12"
         },
         {
             id: "tomnl22",
@@ -319,7 +319,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "16:54"
         },
         {
             id: "tomnl23",
@@ -331,7 +331,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "13:04"
         },
          {
             id: "tomflopz",
@@ -343,7 +343,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "24:49"
         },
         {
             id: "tomsepnl2",
@@ -355,7 +355,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "22:36"
         },
         {
             id: "tomnl10oc",
@@ -367,7 +367,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "15:57"
         },
         {
             id: "tomnl102o44c",
@@ -379,11 +379,11 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "18:25"
         },
         {
             id: "tomnl102oc2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%202102.mkv?alt=media&token=892d4322-b869-4fa5-9516-ca23195c0139",
+            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%202102.mkv?alt=media&token=fb25682d-943e-4e6f-8746-5848cfc8f0e5",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL10 3/10",
             uploadDate: "2025-10-03",
@@ -403,7 +403,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "33:38"
         },
         {
             id: "tomnl1nov2",
@@ -415,7 +415,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "48:42"
         },
         
     ],
@@ -430,7 +430,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "17:10"
         },
        { 
             id: "clavegg2",
@@ -442,7 +442,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "09:57"
         },
                { 
             id: "clavegg3",
@@ -454,7 +454,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "38:37"
         },
     ],
      "Live Sessions GGPOKER NL50 a 10bb": [
@@ -468,7 +468,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "58:31"
         },
         {
             id: "gglive502",
@@ -480,7 +480,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "58:31"
         },
         {
             id: "gglive503",
@@ -492,7 +492,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "38:32"
         },
         {
             id: "gglive504",
@@ -504,7 +504,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "55:49"
         },
         {
             id: "gglive505",
@@ -516,7 +516,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "19:40"
         },
         {
             id: "gglive506",
@@ -528,7 +528,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "17:42"
         },
         {
             id: "gglive507",
@@ -540,7 +540,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "30:42"
         },
         {
             id: "gglive508",
@@ -552,7 +552,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "59:45"
         },
     ],
         "Live Sessions ACR": [
@@ -566,7 +566,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "17:49"
         },
                { 
             id: "LiveACR708",
@@ -578,7 +578,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "30:41"
         },
         { 
             id: "LiveACR908",
@@ -590,7 +590,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "31:43"
         },
     ],
         "Stake BR Challenge": [
@@ -604,7 +604,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "177:49"
         },
         { 
             id: "stakebr2",
@@ -616,12 +616,12 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "19:17"
+            duration: "121:02"
         },
     ],
     "mindset": [
         { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", thumbnailUrl: "https://i.gyazo.com/0aa8ee3e7435c06ff696de094ec8fb00.png", title: "Mira esto para salir de micros", uploadDate: "2025-11-1", keyLines: [], hands: [],
-            duration: "19:17" },
+            duration: "15:25" },
     ]
 };
 
