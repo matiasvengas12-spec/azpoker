@@ -262,7 +262,7 @@ const DashboardPage: React.FC = () => {
                     )}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {classes.slice(0, 8).map(classItem => (
+                    {classes.slice(0, 16).map(classItem => (
                       <VideoCard
                         key={classItem.id}
                         classItem={classItem}
