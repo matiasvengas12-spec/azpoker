@@ -262,7 +262,7 @@ const DashboardPage: React.FC = () => {
                     )}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {classes.slice(0, 16).map(classItem => (
+                    {classes.slice(0, 8).map(classItem => (
                       <VideoCard
                         key={classItem.id}
                         classItem={classItem}
@@ -334,6 +334,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ classItem, spotKey, isFavorite, o
   const thumbnailUrl = classItem.thumbnailUrl ?? null;
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Formatear duración si existe
+  const formatDuration = (duration: string | undefined): string => {
+    if (!duration) return '';
+    // Asumiendo formato MM:SS o HH:MM:SS
+    return duration;
+  };
+
   return (
     <div className="group">
       <Link to={`/class/${spotKey}/${classItem.id}`} className="block">
@@ -364,6 +371,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ classItem, spotKey, isFavorite, o
             <Calendar className="w-3 h-3" />
             {classItem.uploadDate}
           </div>
+          {/* NUEVA: Duración en la esquina inferior izquierda */}
+          {classItem.duration && (
+            <div className="absolute bottom-2 left-2 bg-black/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              {formatDuration(classItem.duration)}
+            </div>
+          )}
         </div>
       </Link>
 
