@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
 import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap, Download, ExternalLink, Calendar } from 'lucide-react';
