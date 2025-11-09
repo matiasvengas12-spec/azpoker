@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { courseContent, ClassData, KeyLine, PokerHand, Filter, PreflopTable } from '../constants';
-import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Clock, ThumbsUp, MessageSquare, Share2, MoreVertical, ChevronDown, Star, Filter as FilterIcon, ArrowLeft, SkipBack, SkipForward, Zap, Calendar } from 'lucide-react';
 
 const getSpotName = (key: string): string =>
   key.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -351,38 +351,7 @@ const CustomVideoPlayer: React.FC<{ src: string; poster?: string }> = ({ src, po
         video:fullscreen *, video:-webkit-full-screen * { display: none !important; }
         video::-moz-media-controls-container { display: none !important; }
         @media (hover: none) and (pointer: coarse) {
-          video { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-tap-highlight-color: transparent !important; }
-        }
-      `}</style>
-    </div>
-  );
-};
-
-// =============================================
-// CLASS DETAILS PAGE
-// =============================================
-const ClassDetailsPage: React.FC = () => {
-  const { spotKey, classId } = useParams<{ spotKey: string; classId: string }>();
-  const [expandedSpots, setExpandedSpots] = useState<Record<string, boolean>>({});
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showDescription, setShowDescription] = useState(false);
-  const [liked, setLiked] = useState(false);
-
-  const spotKeys = useMemo(() => Object.keys(courseContent), []);
-
-  const selectedClass: ClassData | null = useMemo(() => {
-    if (!spotKey || !classId || !courseContent[spotKey]) return null;
-    return courseContent[spotKey].find(cls => cls.id === classId) || null;
-  }, [spotKey, classId]);
-
-  useEffect(() => {
-    if (spotKey) {
-      setExpandedSpots(prev => ({ ...prev, [spotKey]: true }));
-    }
-  }, [spotKey]);
-
-  const toggleSpot = (key: string) => {
-    setExpandedSpots(prev => ({ ...prev, [key]: !prev[key] }));
+          video { -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; -webkit-tap-highlig...(truncated 1090 characters)...ev, [key]: !prev[key] }));
   };
 
   const relatedVideos = useMemo(() => {
@@ -391,6 +360,17 @@ const ClassDetailsPage: React.FC = () => {
       .filter(cls => cls.id !== classId)
       .slice(0, 8);
   }, [spotKey, classId, selectedClass]);
+
+  const allVideos = useMemo(() => {
+    return Object.entries(courseContent).flatMap(([spotKey, classes]) => 
+      classes.map(classData => ({ spotKey, classData }))
+    );
+  }, []);
+
+  const randomVideos = useMemo(() => {
+    const filtered = allVideos.filter(v => v.classData.id !== classId);
+    return filtered.sort(() => Math.random() - 0.5).slice(0, 9);
+  }, [allVideos, classId]);
 
   if (!spotKey || !classId || !selectedClass) {
     return <Navigate to="/dashboard" replace />;
@@ -621,6 +601,22 @@ const ClassDetailsPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Nueva sección: Ver videos disponibles (9 videos al azar) */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold text-white mb-6">Ver videos disponibles</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {randomVideos.map(({ spotKey: videoSpotKey, classData }) => (
+              <VideoCard
+                key={classData.id}
+                classItem={classData}
+                spotKey={videoSpotKey}
+                isFavorite={false}
+                onToggleFavorite={() => {}}
+              />
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
@@ -665,5 +661,84 @@ const syllabusNavigation = (
     ))}
   </nav>
 );
+
+// Componente VideoCard (copiado de DashboardPage para reutilizar)
+interface VideoCardProps {
+  classItem: ClassData;
+  spotKey: string;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+}
+
+const VideoCard: React.FC<VideoCardProps> = ({ classItem, spotKey, isFavorite, onToggleFavorite }) => {
+  const thumbnailUrl = classItem.thumbnailUrl ?? null;
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  return (
+    <div className="group">
+      <Link to={`/class/${spotKey}/${classItem.id}`} className="block">
+        <div className="relative aspect-video mb-3 overflow-hidden rounded-xl bg-gray-900">
+          {thumbnailUrl ? (
+            <img
+              src={thumbnailUrl}
+              alt={classItem.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              src={classItem.videoUrl}
+              className="w-full h-full object-cover"
+              muted
+              loop
+              playsInline
+              onMouseEnter={e => e.currentTarget.play()}
+              onMouseLeave={e => {
+                e.currentTarget.pause();
+                e.currentTarget.currentTime = 0;
+              }}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            {classItem.uploadDate}
+          </div>
+        </div>
+      </Link>
+
+      <div className="flex gap-3">
+        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center">
+          <Play className="w-5 h-5 text-white ml-0.5" />
+        </div>
+        <div className="flex-1">
+          <Link to={`/class/${spotKey}/${classItem.id}`}>
+            <h3 className="font-medium text-white line-clamp-2 group-hover:text-violet-400 transition-colors">
+              {classItem.title}
+            </h3>
+          </Link>
+          <p className="text-sm text-gray-400 mt-1">
+            {getSpotName(spotKey)}
+          </p>
+          <div className="flex items-center justify-between mt-1">
+            <p className="text-xs text-gray-500">
+              {classItem.uploadDate}
+            </p>
+            <button
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                onToggleFavorite();
+              }}
+              className="text-yellow-500 hover:text-yellow-400 transition-colors"
+            >
+              <Star className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default ClassDetailsPage;
