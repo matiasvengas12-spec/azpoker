@@ -279,7 +279,7 @@ export const courseContent: CourseContent = {
             hands: [],
             filters: [],
             tables: [],
-            duration: "136:30"
+            duration: "121:23"
         },
     ],
         "Revisiones Lucas": [
