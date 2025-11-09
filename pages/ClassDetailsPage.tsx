@@ -578,10 +578,26 @@ const ClassDetailsPage: React.FC = () => {
               </section>
             ) : null}
 
+            {/* MOBILE TEMARIO - MOVED HERE FOR MOBILE PRIORITY */}
+            <div className="xl:hidden mb-6">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="w-full flex items-center justify-between p-3 bg-gray-900 rounded-lg border border-gray-800"
+              >
+                <span className="font-semibold">Temario</span>
+                <ChevronDown className={`w-5 h-5 transition-transform ${isMobileMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isMobileMenuOpen && (
+                <div className="mt-2 p-4 bg-gray-900 rounded-lg border border-gray-800">
+                  {syllabusNavigation(spotKeys, expandedSpots, toggleSpot, selectedClass, spotKey)}
+                </div>
+              )}
+            </div>
+
             {/* NUEVA SECCIÓN: Videos disponibles aleatorios */}
             {randomVideos.length > 0 && (
               <section className="mt-12">
-                <h3 className="text-xl font-bold text-white mb-4">Ver más contenido disponible</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Ver más videos disponibles</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {randomVideos.map(({ spotKey, classData }) => (
                     <Link
@@ -619,23 +635,8 @@ const ClassDetailsPage: React.FC = () => {
             )}
           </div>
 
-          {/* SIDEBAR FIJO */}
+          {/* SIDEBAR FIJO - NOW ONLY DESKTOP */}
           <div className="xl:col-span-1">
-            <div className="xl:hidden mb-4">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="w-full flex items-center justify-between p-3 bg-gray-900 rounded-lg border border-gray-800"
-              >
-                <span className="font-semibold">Temario</span>
-                <ChevronDown className={`w-5 h-5 transition-transform ${isMobileMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isMobileMenuOpen && (
-                <div className="mt-2 p-4 bg-gray-900 rounded-lg border border-gray-800">
-                  {syllabusNavigation(spotKeys, expandedSpots, toggleSpot, selectedClass, spotKey)}
-                </div>
-              )}
-            </div>
-
             <div className="hidden xl:block sticky top-20 space-y-6">
               <div className="bg-gray-900 rounded-lg p-4 border border-gray-800 max-h-96 overflow-y-auto">
                 <h3 className="text-lg font-bold text-white mb-3">Temario</h3>
