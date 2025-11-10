@@ -61,7 +61,7 @@ export const courseContent: CourseContent = {
     "Juego vs Recres": [
         {
             id: "juego-recreacionales-1",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F9825%20revision%20recres.mkv?alt=media&token=3ed29495-96a6-4851-bbe3-a0e9760be7b9",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/12f8348b9556ca78999ca143d56e475d/manifest/video.m3u8",
             title: "Max Value vs Recres",
             thumbnailUrl: "https://i.gyazo.com/671057d984b1a0a01705f3a47ffd0173.png",
             uploadDate: "2025-09-21",
@@ -84,7 +84,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "juego-recreacionales-3",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fmaxvalue%20fish%20218.mkv?alt=media&token=1cdc174f-0509-4978-add0-feeca74ec10a",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/c47f1e8ce12896d2f142bc2d40c8b3fc/manifest/video.m3u8",
             title: "Max Value vs Recres 2",
             thumbnailUrl: "https://i.gyazo.com/671057d984b1a0a01705f3a47ffd0173.png",
             uploadDate: "2025-08-21",
@@ -107,7 +107,7 @@ export const courseContent: CourseContent = {
         },
         { 
             id: "juego-donks",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fvs%20donks%20recres.mkv?alt=media&token=062abc1e-88cf-42ce-a36e-a030f7231961", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/d17ed8db6bdb3cfa3060ce59472d5ad3/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/671057d984b1a0a01705f3a47ffd0173.png",
             title: "Como jugar vs donks de recres", 
             uploadDate: "2025-09-21",
@@ -125,7 +125,7 @@ export const courseContent: CourseContent = {
     "Videos Fundamentales": [
             {
             id: "preflopfunda",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-10-10%2021-43-29.mkv?alt=media&token=7230a5ad-b80f-4421-a623-cde030c86939",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/0b1fb1894225fe0ab3eca74cc00f00cd/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/2dc0d0b8fe90cca89bb9d7babea82d2d.png",
             title: "Fundamentos Preflop",
             uploadDate: "2025-11-08",
@@ -139,7 +139,7 @@ export const courseContent: CourseContent = {
     "Revisiones Piero": [
         {
             id: "hudpiero",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fhud%20piero.mkv?alt=media&token=e8b57f15-2711-48e7-9964-d10d7ce5ac24",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/6e6c53679f2eabca84714c40c8ad79cb/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision HUD Piero",
             uploadDate: "2025-09-21",
@@ -151,7 +151,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FRevision%20manos%20parte%201.mkv?alt=media&token=b0c46d50-a309-4d7a-97dd-ebbe022293ad",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/ba397426ae81297b622a09eda73b7a93/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Manos Piero 12/8",
             uploadDate: "2025-08-12",
@@ -187,7 +187,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero4",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Frev%20piero%20119%202.mkv?alt=media&token=46c793af-9b2f-4e44-af8d-3372afb122fb",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/bbe3b2ba36fa3f380df31b78cb86f89d/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Manos 11/9 p2",
             uploadDate: "2025-09-11",
@@ -199,7 +199,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero5",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F1110%20ciegas%20piero.mkv?alt=media&token=a1fe127f-27f8-49d1-ab90-f96278a24385",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/4ee712b3f06154fa18aa1d026d3196b9/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Blind Game",
             uploadDate: "2025-10-11",
@@ -211,7 +211,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero6",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F1810ciegas%20pie.mkv?alt=media&token=f2d68dd2-4475-4918-ab10-905aa03c2462",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/e9709e57f8424d54d23002f628b79842/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Blind Game 2",
             uploadDate: "2025-10-18",
@@ -223,7 +223,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero7",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-10-25%2021-10-38.mkv?alt=media&token=3d2ca0d6-3c91-4e40-b586-c56e10257962",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/f38688fedbb89fdca5b366562592b005/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "3BP OOP",
             uploadDate: "2025-10-25",
@@ -235,7 +235,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero8",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-10-30%2022-18-57.mkv?alt=media&token=f4160304-2ca1-4915-bd1b-392775bf4391",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/e707c622904db9df2137084d5842f8ed/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Probe Opp",
             uploadDate: "2025-10-30",
@@ -247,7 +247,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero9",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-03%2000-35-58.mkv?alt=media&token=82b2affd-b588-4d0f-8998-56f1c4bebc02",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/6dfc96b9d7b5b46835935bb00e793d77/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Manos Marcadas 2/11",
             uploadDate: "2025-11-2",
@@ -259,7 +259,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero10",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-06%2021-06-13.mkv?alt=media&token=51d5dc1b-895e-4fd7-949a-49e0a8c5c57c",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/90b2b47ce99f422f917156697e9e2b6d/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Probe Opp 6/11",
             uploadDate: "2025-11-6",
@@ -271,7 +271,7 @@ export const courseContent: CourseContent = {
         },
          {
             id: "revmanospiero11",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-08%2022-10-25.mkv?alt=media&token=bcad394b-06bd-488f-8a19-b0b041346153",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/bd6e775d90e95dc0d78e868a9d1d3928/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "OOP fuera de ciegas 8/11",
             uploadDate: "2025-11-8",
@@ -285,7 +285,7 @@ export const courseContent: CourseContent = {
         "Revisiones Lucas": [
             {
             id: "lucas20",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F8825%20lucas%20revision%20stake%2020.mkv?alt=media&token=809b4de9-d24d-4c76-9949-56015da31d0a",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/dfe77536c9604c1d83be66c6f2410b9b/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Lucas NL20",
             uploadDate: "2025-08-25",
@@ -299,7 +299,7 @@ export const courseContent: CourseContent = {
     "Revisiones Tom": [
         {
             id: "tomnl2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F820%20tom%20nl2.mkv?alt=media&token=544fbd5c-46cc-4956-ae84-06586512523d",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/1979d66a85b56a2c7ece8c0d103f62a8/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Tom NL2 20/8",
             uploadDate: "2025-08-20",
@@ -311,7 +311,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl22",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F13825%20tom%20nl2.mkv?alt=media&token=9ef8a79f-5f13-485b-98c6-392250bbcca1",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/9ff2e43a82e09576286ccdadbe3cfa65/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Tom NL2 13/8",
             uploadDate: "2025-08-13",
@@ -323,7 +323,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl23",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F13825%20tom%20nl2%202.mkv?alt=media&token=3043fe7e-f9e1-404e-9ecf-e9649f0b7ae0",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/af16540df28cefb532d56c172cc1836e/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Tom NL2 13/8 pt2",
             uploadDate: "2025-08-14",
@@ -335,7 +335,7 @@ export const courseContent: CourseContent = {
         },
          {
             id: "tomflopz",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FAnalisis%20mano%20flopzilla%20168.mkv?alt=media&token=4b421fe5-c2eb-414b-866d-d6bf925c4df7",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/374536b33efe614a6531b7c395a5d61e/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis mano flopzilla",
             uploadDate: "2025-08-16",
@@ -347,7 +347,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomsepnl2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl2%20129.mkv?alt=media&token=16acc28b-3375-4ab2-b769-ba20b61a4e99",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/0b909ae818565455070b197baba28de3/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL2",
             uploadDate: "2025-09-12",
@@ -359,7 +359,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl10oc",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Frev%20tom%20nl10%20oct.mkv?alt=media&token=e5c01ce6-7dce-4ed7-9ca0-464305287fdd",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/24363d9393f96d30dd06ce5ee2e672c2/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL10 1/10",
             uploadDate: "2025-10-01",
@@ -371,7 +371,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl102o44c",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%20210.mkv?alt=media&token=c98aa154-a6ef-41a3-9b28-a5b0119fb7d7",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/6a43ce808b7e0a8c37d943c513befe73/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL10 2/10",
             uploadDate: "2025-10-02",
@@ -383,7 +383,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl102oc2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%202102.mkv?alt=media&token=fb25682d-943e-4e6f-8746-5848cfc8f0e5",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/03b44d312b919b87ee45ab9c1cdee51c/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL10 3/10",
             uploadDate: "2025-10-03",
@@ -395,7 +395,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl1nov",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Ftom%20nl10%20nov.mkv?alt=media&token=054ea848-1e2d-49b9-8118-b7229f7113a6",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/28c878fe40dc04d387ea6300a807741b/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL10 1/11",
             uploadDate: "2025-11-01",
@@ -407,7 +407,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "tomnl1nov2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-11-05%2015-56-09.mkv?alt=media&token=0249f4ee-b312-4825-a104-03f8974b1233",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/39584d12b6002c630d1930157c7fe190/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Analisis sesion Tom NL20 5/11",
             uploadDate: "2025-11-05",
@@ -422,7 +422,7 @@ export const courseContent: CourseContent = {
         "Claves GGPOKER": [
        { 
             id: "clavegg1",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F101%20ggpoker%201.mkv?alt=media&token=39138722-ba34-4eea-a56f-4611f3792b5b", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/c74e76e5e4543d7b8da14756754a3359/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Claves para ganar en gg 1", 
             uploadDate: "2025-10-01",
@@ -434,7 +434,7 @@ export const courseContent: CourseContent = {
         },
        { 
             id: "clavegg2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fggpoker%20select.mkv?alt=media&token=0f57d61a-4fde-460c-9bc9-b3047e56ed2e", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/1a7602e1397bea1e41f81d187a06e7fa/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Seleccion de mesas en GGPOKER", 
             uploadDate: "2025-10-02",
@@ -446,7 +446,7 @@ export const courseContent: CourseContent = {
         },
                { 
             id: "clavegg3",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fggpoker%202.mkv?alt=media&token=f1750d21-95ab-4919-96aa-d30826718f0a", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/9beacb6b89c10ba5c8aa6da532f31eca/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Claves para ganar en gg 3", 
             uploadDate: "2025-10-03",
@@ -460,7 +460,7 @@ export const courseContent: CourseContent = {
      "Live Sessions GGPOKER NL50 a 10bb": [
                  {
             id: "gglive501",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Foutput.mkv?alt=media&token=07da0a8a-4e3a-4a8e-bc20-781aae49c5d9",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/0ef60d968cae3300b36e51031c59c723/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 1",
             uploadDate: "2025-02-15",
@@ -471,20 +471,8 @@ export const courseContent: CourseContent = {
             duration: "58:31"
         },
         {
-            id: "gglive502",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses50.mkv?alt=media&token=18d0ec74-eff4-4585-b054-da1ecab2d3e6",
-            thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
-            title: "GGPOKER LIVE NL50 SH 2",
-            uploadDate: "2025-02-15",
-            keyLines: [], 
-            hands: [],
-            filters: [],
-            tables: [],
-            duration: "58:31"
-        },
-        {
             id: "gglive503",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2000-32-24.mkv?alt=media&token=a78fcd06-2c42-4c71-b986-2e819609174b",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/08685e096a5fe68f3e67c5ca6051972c/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 3",
             uploadDate: "2025-02-13",
@@ -496,7 +484,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "gglive504",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F50%20live%20132.mp4?alt=media&token=ab461aff-1407-4323-ba81-50121c68861b",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/6e268257124d1715face8c8bba54e525/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 4",
             uploadDate: "2025-02-13",
@@ -508,7 +496,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "gglive505",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fses502.mp4?alt=media&token=4ef5a395-f6b0-4273-b113-ad996669e25f",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/e890e10abdc84ab76afc322a8318d324/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 5",
             uploadDate: "2025-02-13",
@@ -520,7 +508,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "gglive506",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2021-30-46.mkv?alt=media&token=a8b4af78-484a-46d3-80b5-0603e63a30ea",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/a95764426b5b0bfdcb9a4163c737e52a/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 6",
             uploadDate: "2025-02-13",
@@ -532,7 +520,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "gglive507",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-13%2023-21-58.mkv?alt=media&token=3923dad1-1487-4c13-a25a-fa1dc86ee8ff",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/e9c6f3d940fcc50166c1fbdda9b98dfe/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 7",
             uploadDate: "2025-02-13",
@@ -544,7 +532,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "gglive508",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F2025-02-15%2009-16-12.mkv?alt=media&token=5f6219ef-f038-42ee-ac1a-68c919ed0133",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/9b1507901af04b777fec8d7c070ad970/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "GGPOKER LIVE NL50 SH 8",
             uploadDate: "2025-02-15",
@@ -558,7 +546,7 @@ export const courseContent: CourseContent = {
         "Live Sessions ACR": [
        { 
             id: "LiveACR608",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Facr%2068.mkv?alt=media&token=7eceee43-83be-4dc9-aead-adee14d2d97b", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/21c13f5f7ef643fb5b738e676a1100d4/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR 6/8", 
             uploadDate: "2025-08-06",
@@ -570,7 +558,7 @@ export const courseContent: CourseContent = {
         },
                { 
             id: "LiveACR708",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2F7825%20acr10.mkv?alt=media&token=4dde4800-696a-4ca5-bc9e-1b6f4a84c272", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/e9e019c530d2d7e5ad42d64ad59ed9d7/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR 7/8", 
             uploadDate: "2025-08-07",
@@ -582,7 +570,7 @@ export const courseContent: CourseContent = {
         },
         { 
             id: "LiveACR908",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fmaxtabling%2010%20acr.mkv?alt=media&token=b70ad546-8770-4fe0-af6d-506440ed682d", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/15df3d6bfc0673a123b70474a119700c/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "Sesion NL10 ACR MAX Multitabling", 
             uploadDate: "2025-11-01",
@@ -596,7 +584,7 @@ export const courseContent: CourseContent = {
         "Stake BR Challenge": [
        { 
             id: "stakenl2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fchallenge%20stake%20nl10.mkv?alt=media&token=0d5d5721-a5a5-4e39-9b96-bcef4f129bc2", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/5fd55c79959d40e16c355c09e018fa37/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "BR challenge desde $50", 
             uploadDate: "2025-08-22",
@@ -608,7 +596,7 @@ export const courseContent: CourseContent = {
         },
         { 
             id: "stakebr2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2Fchallenge%202%20228.mkv?alt=media&token=dc7e6893-2a4e-4111-acb8-87f7826a81d4", 
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/55ff126e7982ce1297ba70076b7ad64d/manifest/video.m3u8", 
             thumbnailUrl: "https://i.gyazo.com/3bd9509dab598dcf407d4c4ed0c796a3.png",
             title: "BR challenge desde $50 (2)", 
             uploadDate: "2025-08-23",
@@ -620,7 +608,7 @@ export const courseContent: CourseContent = {
         },
     ],
     "mindset": [
-        { id: "microexit", videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FSalir%20de%20micros.mkv?alt=media&token=5bbd8123-57eb-4854-b809-11604ea83976", thumbnailUrl: "https://i.gyazo.com/0aa8ee3e7435c06ff696de094ec8fb00.png", title: "Mira esto para salir de micros", uploadDate: "2025-11-1", keyLines: [], hands: [],
+        { id: "microexit", videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/0f9a2870b63dad410fd0821600cc2b61/manifest/video.m3u8", thumbnailUrl: "https://i.gyazo.com/0aa8ee3e7435c06ff696de094ec8fb00.png", title: "Mira esto para salir de micros", uploadDate: "2025-11-1", keyLines: [], hands: [],
             duration: "15:25" },
     ]
 };
