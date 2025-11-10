@@ -163,7 +163,7 @@ export const courseContent: CourseContent = {
         },
         {
             id: "revmanospiero2",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FRevision%20piero%20238%20mesas%20ante%20gg.mkv?alt=media&token=5f32f4e9-1028-44c0-b9ca-52e6dbfec984",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/39066eb06a4f854ea201515974360c8f/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Manos Deep Ante",
             uploadDate: "2025-08-23",
