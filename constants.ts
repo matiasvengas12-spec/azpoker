@@ -175,7 +175,7 @@ export const courseContent: CourseContent = {
         },
                 {
             id: "revmanospiero3",
-            videoUrl: "https://firebasestorage.googleapis.com/v0/b/asdfsadfsdfadfsa.firebasestorage.app/o/Recreacionales%2FRevision%20manos%20piero%20119.mkv?alt=media&token=036e90fc-b021-4aca-b940-4e5de2c54d06",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/dcac89f4ed1d1f005c917064d6b39ae6/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
             title: "Revision Manos 11/9",
             uploadDate: "2025-09-11",
