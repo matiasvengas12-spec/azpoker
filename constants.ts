@@ -282,7 +282,7 @@ export const courseContent: CourseContent = {
             duration: "121:23"
         },
     ],
-        "Revisiones Lucas": [
+        "Revisiones": [
             {
             id: "lucas20",
             videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/dfe77536c9604c1d83be66c6f2410b9b/manifest/video.m3u8",
@@ -294,6 +294,18 @@ export const courseContent: CourseContent = {
             filters: [],
             tables: [],
             duration: "30:16"
+        },
+        {
+            id: "ranshi1",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/da0a4c490cc030ab2e9203021f3b3fab/manifest/video.m3u8",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Revision Ranshi NL10 GG",
+            uploadDate: "2025-01-01",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: [],
+            duration: "35:37"
         },
     ],
     "Revisiones Tom": [
