@@ -429,6 +429,18 @@ export const courseContent: CourseContent = {
             tables: [],
             duration: "48:42"
         },
+                {
+            id: "tomnl1nov11",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/98cdb39e4c03e2cfda23f31a5e9613ae/manifest/video.m3u8",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Analisis sesion Tom NL10 11/11",
+            uploadDate: "2025-11-11",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: [],
+            duration: "20:09"
+        },
         
     ],
         "Claves GGPOKER": [
