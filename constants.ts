@@ -296,10 +296,10 @@ export const courseContent: CourseContent = {
             duration: "30:16"
         },
         {
-            id: "ranshi1",
+            id: "ranji1",
             videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/da0a4c490cc030ab2e9203021f3b3fab/manifest/video.m3u8",
             thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
-            title: "Revision Ranshi NL10 GG",
+            title: "Revision Ranji NL10 GG",
             uploadDate: "2025-01-01",
             keyLines: [], 
             hands: [],
