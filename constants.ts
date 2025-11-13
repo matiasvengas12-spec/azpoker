@@ -281,6 +281,18 @@ export const courseContent: CourseContent = {
             tables: [],
             duration: "121:23"
         },
+                 {
+            id: "revmanospiero12",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/22ce69e5feb3f5a0bf2085e39662a32d/manifest/video.m3u8",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "Revision manos NL25 13/11",
+            uploadDate: "2025-11-13",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: [],
+            duration: "130:06"
+        },
     ],
         "Revisiones": [
             {
