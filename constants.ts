@@ -293,6 +293,18 @@ export const courseContent: CourseContent = {
             tables: [],
             duration: "130:06"
         },
+        {
+            id: "revmanospiero13",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/0554853b2998393cf45970a0f0b477c1/manifest/video.m3u8",
+            thumbnailUrl: "https://i.gyazo.com/1258cc93dd067fdafdb3b9cb4529c86f.png",
+            title: "MWP IP NL25 15/11",
+            uploadDate: "2025-11-15",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: [],
+            duration: "120:00"
+        },
     ],
         "Revisiones": [
             {
