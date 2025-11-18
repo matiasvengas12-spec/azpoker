@@ -153,7 +153,7 @@ export const courseContent: CourseContent = {
             thumbnailUrl: "https://i.gyazo.com/2dc0d0b8fe90cca89bb9d7babea82d2d.png",
             title: "Fundamentos Multiway 2",
             uploadDate: "2025-11-18",
-            keyLines: [], 
+            keyLines: [{ title: "Error audio'", content: "No anda audio hasta el minuto 2" }], 
             hands: [],
             filters: [],
             tables: [],
