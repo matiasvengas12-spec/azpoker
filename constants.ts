@@ -135,6 +135,18 @@ export const courseContent: CourseContent = {
             tables: [],
             duration: "25:12"
         },
+                    {
+            id: "multiwaypots",
+            videoUrl: "https://customer-wlquyk7u6e3ndwhe.cloudflarestream.com/0554853b2998393cf45970a0f0b477c1/manifest/video.m3u8",
+            thumbnailUrl: "https://i.gyazo.com/2dc0d0b8fe90cca89bb9d7babea82d2d.png",
+            title: "Fundamentos Multiway 1",
+            uploadDate: "2025-11-18",
+            keyLines: [], 
+            hands: [],
+            filters: [],
+            tables: [],
+            duration: "60:09"
+        },
     ],
     "Revisiones Piero": [
         {
